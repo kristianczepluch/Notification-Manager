@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.notificationmanager.fragments.ManipulatedNotificationsFragment
 import com.example.notificationmanager.fragments.NotificationOverview
 import com.example.notificationmanager.fragments.NotificationRules
+import com.example.notificationmanager.utils.Utils
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         // Setup the toolbar
         mainToolbar = findViewById(R.id.main_toolbar)
         setSupportActionBar(mainToolbar)
+
 
         // Setup the viewPager
         viewPager = findViewById(R.id.main_viewpager)
