@@ -10,7 +10,7 @@ import android.content.res.Resources
 
 class NotificationManagerApplication : Application() {
 
-    companion object{
+    companion object {
 
         @JvmStatic
         lateinit var appContext: Context
@@ -21,7 +21,7 @@ class NotificationManagerApplication : Application() {
             get() = appContext.resources
 
         @JvmStatic
-        fun getStaticStringRessource(res: Int): String{
+        fun getStaticStringRessource(res: Int): String {
             return appContext.resources.getString(res)
         }
     }

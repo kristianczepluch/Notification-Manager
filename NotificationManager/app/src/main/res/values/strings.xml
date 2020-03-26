@@ -10,4 +10,10 @@
     <string name="tab_name_1">Rules</string>
     <string name="tab_name_2">Snoozed</string>
 
+    <!-- Image Descriptions -->
+    <string name="app_image_notification">Image of App</string>
+    <string name="app_title_defualt">Applications Name</string>
+    <string name="app_notifications_received">Received today: </string>
+    <string name="app_notifications_average">Average per week: </string>
+
 </resources>
