@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         mainToolbar = findViewById(R.id.main_toolbar)
         setSupportActionBar(mainToolbar)
 
-
         // Setup the viewPager
         viewPager = findViewById(R.id.main_viewpager)
         viewPager.adapter = SimpleViewPagerAdapter(supportFragmentManager, lifecycle)
@@ -40,7 +39,6 @@ class MainActivity : AppCompatActivity() {
                 2 -> tab.text = getString(R.string.tab_name_2)
             }
         }.attach()
-
     }
 }
 

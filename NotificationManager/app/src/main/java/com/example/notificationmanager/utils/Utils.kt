@@ -24,7 +24,7 @@ object Utils {
         val apkInfoList = pm.queryIntentActivities(intent, 0)
         val finalListList: ArrayList<String> = ArrayList()
         apkInfoList.forEach {
-            finalListList.add(it.resolvePackageName)
+            finalListList.add(it.activityInfo.applicationInfo.packageName)
         }
         return finalListList
     }
