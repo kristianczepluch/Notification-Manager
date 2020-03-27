@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notificationmanager.R
 import com.example.notificationmanager.utils.Utils
+import com.example.notificationmanager.utils.Utils.getStaticStringRessource
+import com.example.notificationmanager.utils.Utils.getStaticStringRessourceWithInt
 import kotlinx.android.synthetic.main.notification_overview_item.view.*
 
 class Notification_overview_adapter(val data: List<Notification_entry>) :
@@ -26,8 +28,8 @@ class Notification_overview_adapter(val data: List<Notification_entry>) :
         val currentItem = data[position]
 
         holder.title.text = Utils.getAppNameFromPackageName(currentItem.packageName)
-        holder.average.append(" " +  currentItem.average.toString())
-        holder.today.append(" " + currentItem.today.toString())
+        holder.average.text = getStaticStringRessourceWithInt(R.string.app_notifications_received_adapter,currentItem.average)
+        holder.today.text = getStaticStringRessourceWithInt(R.string.app_notifications_received_adapter,currentItem.today)
         holder.img.setImageDrawable(Utils.getAppIconFromPackageName(currentItem.packageName))
 
     }

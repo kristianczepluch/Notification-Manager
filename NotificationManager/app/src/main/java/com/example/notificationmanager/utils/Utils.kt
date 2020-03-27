@@ -36,6 +36,12 @@ object Utils {
     }
 
     @JvmStatic
+    fun getStaticStringRessource(ressourceID: Int) = NotificationManagerApplication.appContext.getString(ressourceID)
+
+    @JvmStatic
+    fun getStaticStringRessourceWithInt(ressourceID: Int, intToAdd: Int) = NotificationManagerApplication.appContext.getString(ressourceID, intToAdd)
+
+    @JvmStatic
     fun getAllInstalledApps(): List<String> {
         val pm = NotificationManagerApplication.appContext.packageManager
         val intent = Intent(Intent.ACTION_MAIN, null).addCategory(Intent.CATEGORY_LAUNCHER)

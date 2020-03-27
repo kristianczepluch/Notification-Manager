@@ -16,4 +16,7 @@
     <string name="app_notifications_received">Received today: </string>
     <string name="app_notifications_average">Average per week: </string>
 
+    <string name="app_notifications_average_adapter">Average per week: %1$d</string>
+    <string name="app_notifications_received_adapter">Received today %1$d</string>
+
 </resources>
