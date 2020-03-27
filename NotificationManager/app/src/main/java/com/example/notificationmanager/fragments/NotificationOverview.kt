@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.notificationmanager.R
 import com.example.notificationmanager.adapter.Notification_entry
 import com.example.notificationmanager.adapter.Notification_overview_adapter
+import com.example.notificationmanager.utils.Utils
 
 class NotificationOverview : Fragment() {
 
@@ -31,14 +32,16 @@ class NotificationOverview : Fragment() {
         // Setup the recyclerview for the notification overview
         recyclerView = view.findViewById(R.id.notifications_overview_recyclerView)
 
-        val exampleEntry1 = Notification_entry("WhatsApp", 1,1,1)
-        val exampleEntry2 = Notification_entry("Facebook", 1,1,1)
-        val exampleEntry3 = Notification_entry("Twitter", 1,1,1)
+        val dataList: ArrayList<Notification_entry> = ArrayList()
+        Utils.getAllInstalledApps().forEach{
+            dataList.add(Notification_entry(it,10,10))
+        }
 
-
-        recyclerViewAdapter = Notification_overview_adapter(listOf(exampleEntry1,exampleEntry2,exampleEntry3))
+        recyclerViewAdapter = Notification_overview_adapter(dataList)
 
         recyclerView.adapter = recyclerViewAdapter
+
+        recyclerView.hasFixedSize()
 
         recyclerView.layoutManager = LinearLayoutManager(context)
 

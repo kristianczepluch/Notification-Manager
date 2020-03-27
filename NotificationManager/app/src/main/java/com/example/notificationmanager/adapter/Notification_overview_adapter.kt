@@ -2,7 +2,6 @@ package com.example.notificationmanager.adapter
 
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notificationmanager.R
@@ -26,12 +25,10 @@ class Notification_overview_adapter(val data: List<Notification_entry>) :
 
         val currentItem = data[position]
 
-
-
-        holder.title.text = currentItem.title
+        holder.title.text = Utils.getAppNameFromPackageName(currentItem.packageName)
         holder.average.append(" " +  currentItem.average.toString())
         holder.today.append(" " + currentItem.today.toString())
-        holder.img.setImageDrawable(Utils.getAppIconFromPackageName("com.whatsapp"))
+        holder.img.setImageDrawable(Utils.getAppIconFromPackageName(currentItem.packageName))
 
     }
 
