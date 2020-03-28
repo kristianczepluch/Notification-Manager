@@ -1,4 +1,4 @@
-package com.example.notificationmanager
+package com.example.notificationmanager.services
 
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification

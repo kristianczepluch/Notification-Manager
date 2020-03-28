@@ -2,7 +2,8 @@ package com.example.notificationmanager.utils
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import java.lang.Exception
+import java.util.*
+import kotlin.collections.ArrayList
 
 object Utils {
 
@@ -52,4 +53,16 @@ object Utils {
         }
         return finalListList
     }
+
+    @JvmStatic
+    fun getTodayDate() = setZeroTime(Calendar.getInstance())
+
+    @JvmStatic
+    fun setZeroTime(calender: Calendar) =
+        calender.apply {
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }
 }
