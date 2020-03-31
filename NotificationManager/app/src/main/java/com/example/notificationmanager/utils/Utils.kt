@@ -65,4 +65,7 @@ object Utils {
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
         }
+
+    @JvmStatic
+    fun getCurrentTime(): Long = System.currentTimeMillis()
 }

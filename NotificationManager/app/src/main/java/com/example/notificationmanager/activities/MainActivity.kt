@@ -1,4 +1,4 @@
-package com.example.notificationmanager
+package com.example.notificationmanager.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.example.notificationmanager.R
 import com.example.notificationmanager.fragments.ManipulatedNotificationsFragment
 import com.example.notificationmanager.fragments.NotificationOverview
 import com.example.notificationmanager.fragments.NotificationRules
@@ -30,7 +31,12 @@ class MainActivity : AppCompatActivity() {
 
         // Setup the viewPager
         viewPager = findViewById(R.id.main_viewpager)
-        viewPager.adapter = SimpleViewPagerAdapter(supportFragmentManager, lifecycle)
+        viewPager.adapter =
+            SimpleViewPagerAdapter(
+                supportFragmentManager,
+                lifecycle
+            )
+
         myTabLayout = findViewById(R.id.main_tablayout)
         TabLayoutMediator(myTabLayout, viewPager){ tab, position ->
             when(position){
@@ -39,6 +45,7 @@ class MainActivity : AppCompatActivity() {
                 2 -> tab.text = getString(R.string.tab_name_2)
             }
         }.attach()
+
     }
 }
 

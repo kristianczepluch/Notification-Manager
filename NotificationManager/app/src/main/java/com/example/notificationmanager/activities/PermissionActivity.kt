@@ -1,4 +1,4 @@
-package com.example.notificationmanager
+package com.example.notificationmanager.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.provider.Settings
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationManagerCompat.getEnabledListenerPackages
+import com.example.notificationmanager.R
 
 class PermissionActivity : AppCompatActivity() {
 
@@ -37,5 +38,5 @@ class PermissionActivity : AppCompatActivity() {
         }
     }
 
-    private fun permissionsGranted() = getEnabledListenerPackages(this).contains(packageName)
+    private fun permissionsGranted() = getEnabledListenerPackages(applicationContext).contains(application.packageName)
 }

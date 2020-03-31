@@ -1,28 +1,28 @@
 package com.example.notificationmanager.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.example.notificationmanager.R
-import com.example.notificationmanager.adapter.Notification_entry
+import com.example.notificationmanager.ViewModels.MainActivityViewModel
 import com.example.notificationmanager.adapter.Notification_overview_adapter
-import com.example.notificationmanager.utils.Utils
+import com.example.notificationmanager.data.NotificationListItem
 
 class NotificationOverview : Fragment() {
 
     lateinit var recyclerView: RecyclerView
     lateinit var recyclerViewAdapter : Notification_overview_adapter
+    lateinit var model: MainActivityViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        model = ViewModelProviders.of(activity!!).get(MainActivityViewModel::class.java)
         return inflater.inflate(R.layout.fragment_notification_overview, container, false)
     }
 
@@ -31,20 +31,13 @@ class NotificationOverview : Fragment() {
 
         // Setup the recyclerview for the notification overview
         recyclerView = view.findViewById(R.id.notifications_overview_recyclerView)
-
-        val dataList: ArrayList<Notification_entry> = ArrayList()
-        Utils.getAllInstalledApps().forEach{
-            dataList.add(Notification_entry(it,10,10))
-        }
-
-        recyclerViewAdapter = Notification_overview_adapter(dataList)
-
+        recyclerViewAdapter = Notification_overview_adapter(ArrayList<NotificationListItem>())
         recyclerView.adapter = recyclerViewAdapter
-
-        recyclerView.hasFixedSize()
-
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-
+        val myData: LiveData<List<NotificationListItem>> = model.getNotificationOverview()
+        myData.observe(this,Observer { newList ->
+            recyclerViewAdapter.setData(newList)
+        })
     }
 }
