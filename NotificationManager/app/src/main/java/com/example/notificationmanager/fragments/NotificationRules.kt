@@ -1,21 +1,23 @@
 package com.example.notificationmanager.fragments
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
 import com.example.notificationmanager.R
+import com.example.notificationmanager.activities.RuleWizardActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
-class NotificationRules : Fragment() {
+class NotificationRules : Fragment(R.layout.fragment_notification_rules) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notification_rules, container, false)
+   lateinit var fab: FloatingActionButton
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        fab = view.findViewById(R.id.rules_floating_action_button)
+        fab.setOnClickListener{
+            startActivity(Intent(context, RuleWizardActivity::class.java))
+        }
     }
 }
