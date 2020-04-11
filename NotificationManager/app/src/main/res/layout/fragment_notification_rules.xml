@@ -23,7 +23,9 @@
         android:background="@color/colorPrimary"
         android:backgroundTint="@color/colorPrimary"
         android:clickable="true"
-        android:src="@drawable/ic_add_white_24dp"
+        app:borderWidth="0dp"
+        android:src="@drawable/ic_add_alert_24px"
+        android:tint="@color/white"
         app:fabSize="normal" />
 
 </FrameLayout>

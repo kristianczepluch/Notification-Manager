@@ -22,4 +22,25 @@
     <string name="permission_request_text">In order for this application to work properly we need permissions to access your notifications</string>
     <string name="go_to_settings">Go to settings</string>
 
+    <!-- Rule Wizard Titles-->
+    <string name="rule_wizard_select_apps_title">Select one or more apps</string>
+    <string name="rule_wizard_select_rule_title">Select the type of rule</string>
+
+    <!-- Rule Wizard Rule Descriptions-->
+    <string-array name="rule_descriptions">
+        <item>Keep notifications away for some time. Notifications will be saved and re-sent afterwards.</item>
+        <item>I don\'t want to receive notifications at specific times on specific days. Notifications will be saved and re-sent afterwards. </item>
+        <item>Only allow me a few notifications. Notifications beyond the limit will be deleted! </item>
+        <item>I don\'t want to receive notifications from this app anymore. Notifications will be deleted!</item>
+    </string-array>
+
+    <!-- Rule Wizard Rule Names-->
+    <string-array name="rule_names">
+        <item>Take a break</item>
+        <item>Forbit at time</item>
+        <item>Number of Notifications</item>
+        <item>Suppress Notifications</item>
+    </string-array>
+
+
 </resources>

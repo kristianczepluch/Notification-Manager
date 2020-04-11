@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         // Setup the viewPager
         viewPager = findViewById(R.id.main_viewpager)
         viewPager.adapter =
-            SimpleViewPagerAdapter(
+            MainViewPagerAdapter(
                 supportFragmentManager,
                 lifecycle
             )
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-class SimpleViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager, lifecycle){
+class MainViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager, lifecycle){
 
     private val fragement_list = listOf(NotificationOverview(), NotificationRules(), ManipulatedNotificationsFragment())
 
