@@ -9,6 +9,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.notificationmanager.R
 import com.example.notificationmanager.fragments.ruleCreation.SelectApplicationsFragment
+import com.example.notificationmanager.fragments.ruleCreation.SelectBreakTimeFragment
 import com.example.notificationmanager.fragments.ruleCreation.SelectRuleTypeFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -38,7 +39,7 @@ class RuleWizardActivity : AppCompatActivity() {
 
     class RuleCreationViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager, lifecycle){
 
-        private val fragement_list = listOf(SelectApplicationsFragment(), SelectRuleTypeFragment())
+        private val fragement_list = listOf(SelectApplicationsFragment(), SelectRuleTypeFragment(),SelectBreakTimeFragment())
 
         override fun getItemCount() = fragement_list.size
 

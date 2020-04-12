@@ -25,6 +25,7 @@
     <!-- Rule Wizard Titles-->
     <string name="rule_wizard_select_apps_title">Select one or more apps</string>
     <string name="rule_wizard_select_rule_title">Select the type of rule</string>
+    <string name="rule_wizard_select_breaktime_title">For how long?</string>
 
     <!-- Rule Wizard Rule Descriptions-->
     <string-array name="rule_descriptions">
