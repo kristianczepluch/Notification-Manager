@@ -22,10 +22,21 @@
     <string name="permission_request_text">In order for this application to work properly we need permissions to access your notifications</string>
     <string name="go_to_settings">Go to settings</string>
 
+    <!-- Rule Wizard Section -->
+
+    <string name="week">week</string>
+    <string name="day">day</string>
+    <string name="hour">hour</string>
+    <string name="per">per</string>
+
+
+
     <!-- Rule Wizard Titles-->
     <string name="rule_wizard_select_apps_title">Select one or more apps</string>
     <string name="rule_wizard_select_rule_title">Select the type of rule</string>
     <string name="rule_wizard_select_breaktime_title">For how long?</string>
+    <string name="rule_wizard_select_number_title">How many are allowed?</string>
+
 
     <!-- Rule Wizard Rule Descriptions-->
     <string-array name="rule_descriptions">

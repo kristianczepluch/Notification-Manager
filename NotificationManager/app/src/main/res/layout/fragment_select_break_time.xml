@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:text="@string/rule_wizard_select_breaktime_title"
         android:textAlignment="center"
-        android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
