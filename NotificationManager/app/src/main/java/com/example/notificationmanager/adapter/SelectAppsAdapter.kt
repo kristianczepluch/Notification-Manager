@@ -20,7 +20,7 @@ class SelectAppsAdapter (var data: List<String>) : RecyclerView.Adapter<SelectAp
 
         val currentItem = data[position]
 
-        holder.checkbox.setOnCheckedChangeListener(){ compoundButton: CompoundButton, b: Boolean ->
+        holder.checkbox.setOnCheckedChangeListener(){ _: CompoundButton, _: Boolean ->
             Toast.makeText(NotificationManagerApplication.appContext, "Clicked: " + currentItem, Toast.LENGTH_SHORT).show()
         }
 

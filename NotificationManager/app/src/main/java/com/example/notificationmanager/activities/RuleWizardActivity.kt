@@ -8,10 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.notificationmanager.R
-import com.example.notificationmanager.fragments.ruleCreation.SelectAllowedNumberFragment
-import com.example.notificationmanager.fragments.ruleCreation.SelectApplicationsFragment
-import com.example.notificationmanager.fragments.ruleCreation.SelectBreakTimeFragment
-import com.example.notificationmanager.fragments.ruleCreation.SelectRuleTypeFragment
+import com.example.notificationmanager.fragments.ruleCreation.*
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -33,14 +30,14 @@ class RuleWizardActivity : AppCompatActivity() {
             )
 
         myTabLayout = findViewById(R.id.tablayout_rulecreation)
-        TabLayoutMediator(myTabLayout, viewPager){ tab, position ->
+        TabLayoutMediator(myTabLayout, viewPager){ _, _ ->
             // some implementation
         }.attach()
     }
 
     class RuleCreationViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager, lifecycle){
 
-        private val fragement_list = listOf(SelectApplicationsFragment(), SelectRuleTypeFragment(), SelectBreakTimeFragment(), SelectAllowedNumberFragment())
+        private val fragement_list = listOf(SelectApplicationsFragment(), SelectRuleTypeFragment(), SelectBreakTimeFragment(), SelectAllowedNumberFragment(), SelectScheduleFragment())
 
         override fun getItemCount() = fragement_list.size
 

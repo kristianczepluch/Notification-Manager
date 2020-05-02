@@ -27,7 +27,7 @@ class SelectAllowedNumberFragment : Fragment(R.layout.fragment_select_allowed_nu
         numberPicker.value = 0
 
 
-        radioGroup.setOnCheckedChangeListener{ radioGroup: RadioGroup, i: Int ->
+        radioGroup.setOnCheckedChangeListener{ _: RadioGroup, i: Int ->
             Toast.makeText(context, "Selected: $i", Toast.LENGTH_SHORT).show()
         }
 
