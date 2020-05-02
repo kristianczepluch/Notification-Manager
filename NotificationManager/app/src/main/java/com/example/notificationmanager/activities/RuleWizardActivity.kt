@@ -37,7 +37,7 @@ class RuleWizardActivity : AppCompatActivity() {
 
     class RuleCreationViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager, lifecycle){
 
-        private val fragement_list = listOf(SelectApplicationsFragment(), SelectRuleTypeFragment(), SelectBreakTimeFragment(), SelectAllowedNumberFragment(), SelectScheduleFragment())
+        private val fragement_list = listOf(SelectApplicationsFragment(), SelectRuleTypeFragment(), SelectBreakTimeFragment(), SelectAllowedNumberFragment(), SelectScheduleFragment(), ReviewFragment())
 
         override fun getItemCount() = fragement_list.size
 

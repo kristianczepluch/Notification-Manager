@@ -31,6 +31,11 @@
     <string name="minute">minute</string>
     <string name="startAt">Start at:</string>
     <string name="endAt">End at:</string>
+    <string name="rule">Rule</string>
+    <string name="apps">Apps</string>
+    <string name="options1">Options 1</string>
+    <string name="options2">Options 2</string>
+    <string name="default_text">defualt text</string>
 
 
     <!-- Rule Wizard Titles-->
@@ -39,6 +44,7 @@
     <string name="rule_wizard_select_breaktime_title">For how long?</string>
     <string name="rule_wizard_select_number_title">How many are allowed?</string>
     <string name="rule_wizard_select_schedule_title">In which time period?</string>
+    <string name="rule_wizard_review">Review</string>
 
 
     <!-- Rule Wizard Rule Descriptions-->

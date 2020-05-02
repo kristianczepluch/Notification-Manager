@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.ruleCreation.ReviewFragment"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/review_fragment_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10sp"
+        android:text="@string/rule_wizard_review"
+        android:textSize="24sp"
+        android:textAlignment="center"
+        android:paddingBottom="10dp"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:padding="7dp">
+
+            <TextView
+                android:id="@+id/wizard_textview_review_rule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:text="@string/rule"
+                android:textColor="@color/lightgrey"
+                android:textAlignment="textStart"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/wizard_textview_review_ruletext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Limit the number"
+                android:layout_weight="3"
+                android:textSize="18sp"
+                android:textAlignment="textStart"
+                android:layout_marginStart="5dp"/>
+        </TableRow>
+
+        <!-- this row is a line to divide the rows -->
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="7dp">
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:alpha="0.5"
+                android:background="@color/lightgrey"
+                android:padding="2dip" />
+        </TableRow>
+
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:padding="7dp">
+
+            <TextView
+                android:id="@+id/wizard_textview_review_apps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/apps"
+                android:textColor="@color/lightgrey"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textAlignment="textStart"
+                android:layout_marginStart="5dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/wizard_textview_review_appstext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Whatsapp, Snapchat"
+                android:layout_weight="3"
+                android:textSize="18sp"
+                android:textAlignment="textStart"
+                android:layout_marginStart="5dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="7dp">
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:alpha="0.5"
+                android:background="@color/lightgrey"
+                android:padding="2dip" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/wizard_tablerow_options_1"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:padding="7dp">
+
+            <TextView
+                android:id="@+id/wizard_textview_review_options1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/options1"
+                android:textColor="@color/lightgrey"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textAlignment="textStart"
+                android:layout_marginStart="5dp"/>
+
+            <TextView
+                android:id="@+id/wizard_textview_review_options1_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/default_text"
+                android:layout_weight="3"
+                android:textSize="18sp"
+                android:textAlignment="textStart"
+                android:layout_marginStart="5dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="7dp">
+
+            <View
+                android:id="@+id/line3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/lightgrey"
+                android:alpha="0.5"
+                android:padding="2dip" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/wizard_tablerow_options_2"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:padding="7dp">
+
+            <TextView
+                android:id="@+id/wizard_textview_review_options2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/options2"
+                android:textColor="@color/lightgrey"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textAlignment="textStart"
+                android:layout_marginStart="5dp"/>
+
+            <TextView
+                android:id="@+id/wizard_textview_review_options2_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/default_text"
+                android:layout_weight="3"
+                android:textSize="18sp"
+                android:textAlignment="textStart"
+                android:layout_marginStart="5dp"/>
+
+
+        </TableRow>
+
+    </TableLayout>
+
+
+
+ <!-- Possible Solution with outer Linear Layout:
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ExampleTitle 1"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textAlignment="textStart"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ExampleText 1"
+            android:layout_weight="3"
+            android:textSize="18sp"
+            android:textAlignment="textStart"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ExampleTitle 2"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textAlignment="textStart"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ExampleText 2"
+            android:layout_weight="3"
+            android:textSize="18sp"
+            android:textAlignment="textStart"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ExampleTitle 3"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textAlignment="textStart"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ExampleText 3"
+            android:layout_weight="3"
+            android:textSize="18sp"
+            android:textAlignment="textStart"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ExampleTitle 4"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textAlignment="textStart"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ExampleText 4"
+            android:layout_weight="3"
+            android:textSize="18sp"
+            android:textAlignment="textStart"/>
+    </LinearLayout> -->
+
+</LinearLayout>
