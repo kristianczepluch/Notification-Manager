@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.notificationmanager.R
+import com.example.notificationmanager.ViewModels.RuleWizardViewModel
 import com.example.notificationmanager.fragments.ruleCreation.*
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -16,6 +19,7 @@ class RuleWizardActivity : AppCompatActivity() {
 
     lateinit var viewPager: ViewPager2
     lateinit var myTabLayout: TabLayout
+    val ruleWizardViewModel by lazy { ViewModelProvider(this).get(RuleWizardViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +27,7 @@ class RuleWizardActivity : AppCompatActivity() {
 
         // Setup the viewPager
         viewPager = findViewById(R.id.maincontent_fragment_container)
+        viewPager.isUserInputEnabled = false
         viewPager.adapter =
             RuleCreationViewPagerAdapter(
                 supportFragmentManager,
@@ -33,6 +38,10 @@ class RuleWizardActivity : AppCompatActivity() {
         TabLayoutMediator(myTabLayout, viewPager){ _, _ ->
             // some implementation
         }.attach()
+
+        ruleWizardViewModel.getCurrentSteps().observe(this, Observer{ step ->
+            viewPager.setCurrentItem(step)
+        })
     }
 
     class RuleCreationViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager, lifecycle){
@@ -45,4 +54,5 @@ class RuleWizardActivity : AppCompatActivity() {
             return fragement_list[position]
         }
     }
+
 }

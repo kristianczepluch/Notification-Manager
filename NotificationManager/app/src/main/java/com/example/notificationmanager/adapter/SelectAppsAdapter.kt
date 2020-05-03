@@ -3,13 +3,16 @@ package com.example.notificationmanager.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.CheckBox
+import android.widget.CompoundButton
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notificationmanager.R
-import com.example.notificationmanager.utils.NotificationManagerApplication
+import com.example.notificationmanager.onAppSelectListener
 import com.example.notificationmanager.utils.Utils
 
-class SelectAppsAdapter (var data: List<String>) : RecyclerView.Adapter<SelectAppsAdapter.SelectedAppsViewHolder>() {
+class SelectAppsAdapter (var data: List<String>, val appSelectListener: onAppSelectListener) : RecyclerView.Adapter<SelectAppsAdapter.SelectedAppsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectedAppsViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.selected_apps_item, parent, false)
@@ -20,8 +23,9 @@ class SelectAppsAdapter (var data: List<String>) : RecyclerView.Adapter<SelectAp
 
         val currentItem = data[position]
 
-        holder.checkbox.setOnCheckedChangeListener(){ _: CompoundButton, _: Boolean ->
-            Toast.makeText(NotificationManagerApplication.appContext, "Clicked: " + currentItem, Toast.LENGTH_SHORT).show()
+        holder.checkbox.setOnCheckedChangeListener(){ _: CompoundButton, selected: Boolean ->
+            if(selected) appSelectListener.onApplicationSelected(currentItem)
+            else if(!selected) appSelectListener.onApplicationUnselected(currentItem)
         }
 
         holder.textView.text = Utils.getAppNameFromPackageName(currentItem)

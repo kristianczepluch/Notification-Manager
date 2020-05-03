@@ -3,6 +3,7 @@ package com.example.notificationmanager.utils
 import android.content.Intent
 import android.content.pm.PackageManager
 import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
 object Utils {
@@ -68,4 +69,7 @@ object Utils {
 
     @JvmStatic
     fun getCurrentTime(): Long = System.currentTimeMillis()
+
+    @JvmStatic
+    fun minutesToMilliSeconds(min: Long): Long = TimeUnit.MINUTES.toMillis(min)
 }
