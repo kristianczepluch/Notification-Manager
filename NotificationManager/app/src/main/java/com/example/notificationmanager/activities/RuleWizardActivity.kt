@@ -27,6 +27,7 @@ class RuleWizardActivity : AppCompatActivity() {
 
         // Setup the viewPager
         viewPager = findViewById(R.id.maincontent_fragment_container)
+        viewPager.offscreenPageLimit = 5
         viewPager.isUserInputEnabled = false
         viewPager.adapter =
             RuleCreationViewPagerAdapter(

@@ -21,15 +21,16 @@ class SelectAppsAdapter (var data: List<String>, val appSelectListener: onAppSel
 
     override fun onBindViewHolder(holder: SelectedAppsViewHolder, position: Int) {
 
-        val currentItem = data[position]
+
+        val currentPackage = data.get(position)
 
         holder.checkbox.setOnCheckedChangeListener(){ _: CompoundButton, selected: Boolean ->
-            if(selected) appSelectListener.onApplicationSelected(currentItem)
-            else if(!selected) appSelectListener.onApplicationUnselected(currentItem)
+            if(selected) appSelectListener.onApplicationSelected(currentPackage)
+            else if(!selected) appSelectListener.onApplicationUnselected(currentPackage)
         }
 
-        holder.textView.text = Utils.getAppNameFromPackageName(currentItem)
-        holder.imageView.setImageDrawable(Utils.getAppIconFromPackageName(currentItem))
+        holder.textView.text = Utils.getAppNameFromPackageName(currentPackage)
+        holder.imageView.setImageDrawable(Utils.getAppIconFromPackageName(currentPackage))
 
     }
 

@@ -19,9 +19,11 @@ class SelectApplicationsFragment : Fragment(R.layout.fragment_select_application
     lateinit var ruleWizardViewModel: RuleWizardViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
         ruleWizardViewModel = ViewModelProviders.of(activity!!).get(RuleWizardViewModel::class.java)
         selectAppsRecyclerView = view.findViewById(R.id.select_apps_recyclerview)
+
         selectedAppsAdapter = SelectAppsAdapter(Utils.getAllInstalledApps(),this)
         selectAppsRecyclerView.layoutManager = LinearLayoutManager(context)
         selectAppsRecyclerView.adapter = selectedAppsAdapter
@@ -35,4 +37,6 @@ class SelectApplicationsFragment : Fragment(R.layout.fragment_select_application
     override fun onApplicationUnselected(app: String) {
         ruleWizardViewModel.removeAppFromList(app)
     }
+
+
 }
