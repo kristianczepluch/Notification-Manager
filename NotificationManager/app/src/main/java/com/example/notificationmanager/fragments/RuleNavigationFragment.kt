@@ -37,16 +37,15 @@ class RuleNavigationFragment : Fragment(R.layout.fragment_rule_navigation) {
             }
         })
 
-        ruleWizardViewModel.getSelectedApplications().observe(viewLifecycleOwner, Observer{appsList ->
-            if(appsList.isEmpty()){
+        ruleWizardViewModel.getEnableNextButton().observe(viewLifecycleOwner, Observer{enable ->
+            if(enable){
+                nextButton.isClickable = true
+                nextButton.focusable = View.FOCUSABLE
+                nextButton.setTextColor(resources.getColor(R.color.black)) }
+            else{
                 nextButton.isClickable = false
                 nextButton.focusable = View.NOT_FOCUSABLE
                 nextButton.setTextColor(resources.getColor(R.color.lightgrey))}
-            else{
-                nextButton.isClickable = true
-                nextButton.focusable = View.FOCUSABLE
-                nextButton.setTextColor(resources.getColor(R.color.black))
-            }
         })
 
         nextButton.setOnClickListener(){
