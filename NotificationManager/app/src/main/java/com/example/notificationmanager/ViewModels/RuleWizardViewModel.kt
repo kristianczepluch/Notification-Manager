@@ -53,7 +53,8 @@ class RuleWizardViewModel(application: Application): AndroidViewModel(applicatio
         selectedApplications.value?.let { updatePrevButtonStep1(it) }
     }
 
-    fun setSelectedRuleType(ruleType: RuleType) { selectedRuleType.value = ruleType }
+    fun setSelectedRuleType(ruleType: RuleType) { selectedRuleType.postValue(ruleType) }
+
     fun setSelectedLimitNumber(limitNumber: Int) { selectedLimitNumber.value = limitNumber }
     fun setSelectedBreakTimeInMilliSeconds(breakTimeInMilliseconds: Long) { selectedBreakTimeInMilliSeconds.value = breakTimeInMilliseconds}
     fun setSelectedLimitNumberMode(limitNumberMode: LimitNumberMode) { selectedLimitNumberMode.value = limitNumberMode}
