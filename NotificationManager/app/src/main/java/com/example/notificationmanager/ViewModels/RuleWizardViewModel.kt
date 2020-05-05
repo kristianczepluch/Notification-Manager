@@ -9,7 +9,7 @@ import com.example.notificationmanager.utils.Utils
 
 class RuleWizardViewModel(application: Application): AndroidViewModel(application) {
 
-    val selectedRuleType: MutableLiveData<RuleType> by lazy { MutableLiveData<RuleType>(RuleType.SHORT_BREAK) }
+    val selectedRuleType: MutableLiveData<RuleType> by lazy { MutableLiveData<RuleType>() }
     val selectedLimitNumberMode: MutableLiveData<LimitNumberMode> by lazy { MutableLiveData<LimitNumberMode>(LimitNumberMode.DAY) }
     val currentStep : MutableLiveData<Int> by lazy { MutableLiveData<Int>(0) }
     val selectedApplications: MutableLiveData<ArrayList<SelectApplicationsFragment.SelectAppListItem>> = MutableLiveData<ArrayList<SelectApplicationsFragment.SelectAppListItem>>(ArrayList())
