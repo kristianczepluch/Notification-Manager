@@ -10,48 +10,19 @@ import com.example.notificationmanager.utils.Utils
 
 class RuleWizardViewModel(application: Application) : AndroidViewModel(application) {
 
-    val selectedRuleTypeList: MutableLiveData<ArrayList<RuleTypeListItem>>  = MutableLiveData(createDefaultRuleList())
-    val selectedRuleType: MutableLiveData<RuleType> by lazy { MutableLiveData<RuleType>(RuleType.SHORT_BREAK) }
-    val selectedLimitNumberMode: MutableLiveData<LimitNumberMode> by lazy {
-        MutableLiveData<LimitNumberMode>(
-            LimitNumberMode.NOT_SELECTED
-        )
-    }
-    val currentStep: MutableLiveData<Int> by lazy { MutableLiveData<Int>(0) }
-    val selectedApplications: MutableLiveData<ArrayList<SelectApplicationsFragment.SelectAppListItem>> =
-        MutableLiveData<ArrayList<SelectApplicationsFragment.SelectAppListItem>>(createDefaultAppList())
-    val selectedLimitNumber: MutableLiveData<Int> by lazy { MutableLiveData<Int>(1) }
-    val selectedBreakTimeInMilliSeconds: MutableLiveData<Long> by lazy {
-        MutableLiveData<Long>(
-            Utils.minutesToMilliSeconds(
-                30
-            )
-        )
-    }
-
+    var selectedBreakTimeMinutes: Int = 0
+    var selectedBreakTimeHours: Int = 0
+    val selectedRuleTypeList = MutableLiveData(createDefaultRuleList())
+    var selectedLimitNumberMode = LimitNumberMode.NOT_SELECTED
+    val currentStep = MutableLiveData(0)
+    val selectedApplications = createDefaultAppList()
+    var selectedLimitNumber: Int = 1
     val enableNextButton: MutableLiveData<Boolean> = MutableLiveData(false)
 
 
-    init {
-        val dataList = ArrayList<SelectApplicationsFragment.SelectAppListItem>()
-
-        Utils.getAllInstalledApps().forEach {
-            dataList.add(SelectApplicationsFragment.SelectAppListItem(it, false))
-            selectedApplications.postValue(dataList)
-        }
-    }
-
     // All Getter Methodes for the RuleWizardUI
     fun getCurrentSteps(): LiveData<Int> = currentStep
-    fun getSelectedRuleType(): LiveData<ArrayList<RuleTypeListItem>> = selectedRuleTypeList
-    fun getSelectedLimitNumberMode(): LiveData<LimitNumberMode> = selectedLimitNumberMode
-    fun getSelectedApplications(): LiveData<ArrayList<SelectApplicationsFragment.SelectAppListItem>> =
-        selectedApplications
-
-    fun getSelectedLimitNumber(): LiveData<Int> = selectedLimitNumber
-    fun getSelectedBreakTimeInMilliSeconds(): LiveData<Long> = selectedBreakTimeInMilliSeconds
     fun getEnableNextButton(): LiveData<Boolean> = enableNextButton
-
 
     fun stepForward() {
         currentStep.postValue(currentStep.value?.plus(1))
@@ -62,15 +33,13 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun addAppToList(app: String) {
-        selectedApplications.value?.find { it.packageName.equals(app) }?.selected = true
-        selectedApplications.postValue(selectedApplications.value)
-        selectedApplications.value?.let { updatePrevButtonStep1(it) }
+        selectedApplications.find { it.packageName.equals(app) }?.selected = true
+        selectedApplications.let { updatePrevButtonStep1(it) }
     }
 
     fun removeAppFromList(app: String) {
-        selectedApplications.value?.find { it.packageName.equals(app) }?.selected = false
-        selectedApplications.postValue(selectedApplications.value)
-        selectedApplications.value?.let { updatePrevButtonStep1(it) }
+        selectedApplications.find { it.packageName.equals(app) }?.selected = false
+        selectedApplications.let { updatePrevButtonStep1(it) }
     }
 
     fun getSelectedRuleTypeList(): LiveData<ArrayList<RuleTypeListItem>> = selectedRuleTypeList
@@ -83,17 +52,6 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
         selectedRuleTypeList.postValue(selectedRuleTypeList.value)
     }
 
-    fun setSelectedLimitNumber(limitNumber: Int) {
-        selectedLimitNumber.postValue(limitNumber)
-    }
-
-    fun setSelectedBreakTimeInMilliSeconds(breakTimeInMilliseconds: Long) {
-        selectedBreakTimeInMilliSeconds.value = breakTimeInMilliseconds
-    }
-
-    fun setSelectedLimitNumberMode(limitNumberMode: LimitNumberMode) {
-        selectedLimitNumberMode.postValue(limitNumberMode)
-    }
 
     private fun updatePrevButtonStep1(appList: ArrayList<SelectApplicationsFragment.SelectAppListItem>) {
 

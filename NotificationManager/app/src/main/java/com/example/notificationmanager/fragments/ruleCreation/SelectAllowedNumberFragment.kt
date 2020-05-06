@@ -44,32 +44,24 @@ class SelectAllowedNumberFragment : Fragment(R.layout.fragment_select_allowed_nu
         numberPicker.value = 0
 
         initRadioButtons(
-            ruleWizardViewModel.getSelectedLimitNumberMode().value ?: LimitNumberMode.NOT_SELECTED
+            ruleWizardViewModel.selectedLimitNumberMode ?: LimitNumberMode.NOT_SELECTED
         )
-        initNumberPicker(ruleWizardViewModel.getSelectedLimitNumber().value ?: 1)
+        initNumberPicker(ruleWizardViewModel.selectedLimitNumber)
 
         radioButtonDay.setOnClickListener {
-            ruleWizardViewModel.setSelectedLimitNumberMode(
-                LimitNumberMode.DAY
-            )
+            ruleWizardViewModel.selectedLimitNumberMode = LimitNumberMode.DAY
         }
 
         radioButtonHour.setOnClickListener {
-            ruleWizardViewModel.setSelectedLimitNumberMode(
-                LimitNumberMode.HOUR
-            )
+            ruleWizardViewModel.selectedLimitNumberMode = LimitNumberMode.HOUR
         }
 
         radioButtonWeek.setOnClickListener {
-            ruleWizardViewModel.setSelectedLimitNumberMode(
-                LimitNumberMode.WEEK
-            )
+            ruleWizardViewModel.selectedLimitNumberMode = LimitNumberMode.WEEK
         }
 
         numberPicker.setOnValueChangedListener { picker, oldVal, newVal ->
-            ruleWizardViewModel.setSelectedLimitNumber(
-                newVal
-            )
+            ruleWizardViewModel.selectedLimitNumber = newVal
         }
 
     }
