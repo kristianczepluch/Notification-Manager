@@ -21,6 +21,7 @@ class SelectRuleTypeFragment : Fragment(R.layout.fragment_select_rule_type), Rad
     lateinit var ruleWizardViewModel: RuleWizardViewModel
 
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         selectAppsRecyclerView = view.findViewById(R.id.select_rule_recyclerview)

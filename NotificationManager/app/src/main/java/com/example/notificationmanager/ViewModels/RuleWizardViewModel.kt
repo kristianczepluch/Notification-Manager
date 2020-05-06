@@ -10,7 +10,7 @@ import com.example.notificationmanager.utils.Utils
 class RuleWizardViewModel(application: Application): AndroidViewModel(application) {
 
     val selectedRuleType: MutableLiveData<RuleType> by lazy { MutableLiveData<RuleType>() }
-    val selectedLimitNumberMode: MutableLiveData<LimitNumberMode> by lazy { MutableLiveData<LimitNumberMode>(LimitNumberMode.DAY) }
+    val selectedLimitNumberMode: MutableLiveData<LimitNumberMode> by lazy { MutableLiveData<LimitNumberMode>(LimitNumberMode.NOT_SELECTED) }
     val currentStep : MutableLiveData<Int> by lazy { MutableLiveData<Int>(0) }
     val selectedApplications: MutableLiveData<ArrayList<SelectApplicationsFragment.SelectAppListItem>> = MutableLiveData<ArrayList<SelectApplicationsFragment.SelectAppListItem>>(ArrayList())
     val selectedLimitNumber: MutableLiveData<Int> by lazy { MutableLiveData<Int>(1) }
@@ -55,9 +55,9 @@ class RuleWizardViewModel(application: Application): AndroidViewModel(applicatio
 
     fun setSelectedRuleType(ruleType: RuleType) { selectedRuleType.postValue(ruleType) }
 
-    fun setSelectedLimitNumber(limitNumber: Int) { selectedLimitNumber.value = limitNumber }
+    fun setSelectedLimitNumber(limitNumber: Int) { selectedLimitNumber.postValue(limitNumber) }
     fun setSelectedBreakTimeInMilliSeconds(breakTimeInMilliseconds: Long) { selectedBreakTimeInMilliSeconds.value = breakTimeInMilliseconds}
-    fun setSelectedLimitNumberMode(limitNumberMode: LimitNumberMode) { selectedLimitNumberMode.value = limitNumberMode}
+    fun setSelectedLimitNumberMode(limitNumberMode: LimitNumberMode) { selectedLimitNumberMode.postValue(limitNumberMode) }
 
     private fun updatePrevButtonStep1(appList: ArrayList<SelectApplicationsFragment.SelectAppListItem>){
 
@@ -76,7 +76,7 @@ class RuleWizardViewModel(application: Application): AndroidViewModel(applicatio
 
 enum class RuleType { ETERNALLY, LIMIT_NUMBER, SHORT_BREAK, SCHEDULE }
 
-enum class LimitNumberMode { DAY, WEEK, HOUR }
+enum class LimitNumberMode { DAY, WEEK, HOUR, NOT_SELECTED }
 
 
 
