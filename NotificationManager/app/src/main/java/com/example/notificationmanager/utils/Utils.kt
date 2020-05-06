@@ -2,6 +2,7 @@ package com.example.notificationmanager.utils
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import com.example.notificationmanager.ViewModels.RuleType
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
@@ -72,4 +73,23 @@ object Utils {
 
     @JvmStatic
     fun minutesToMilliSeconds(min: Long): Long = TimeUnit.MINUTES.toMillis(min)
+
+    @JvmStatic
+    fun uiPositionToRuleType(position: Int) =
+        when (position) {
+            0 -> RuleType.SHORT_BREAK
+            1 -> RuleType.SCHEDULE
+            2 -> RuleType.LIMIT_NUMBER
+            3 -> RuleType.ETERNALLY
+            else -> throw IllegalArgumentException("Unkown Ruletype")
+        }
+
+    @JvmStatic
+    fun ruleTypeToUIPosition(ruleType: RuleType) =
+        when (ruleType) {
+            RuleType.SHORT_BREAK -> 0
+            RuleType.SCHEDULE -> 1
+            RuleType.LIMIT_NUMBER -> 2
+            RuleType.ETERNALLY -> 3
+        }
 }

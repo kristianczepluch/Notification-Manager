@@ -4,12 +4,14 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.notificationmanager.fragments.ruleCreation.RuleTypeListItem
 import com.example.notificationmanager.fragments.ruleCreation.SelectApplicationsFragment
 import com.example.notificationmanager.utils.Utils
 
 class RuleWizardViewModel(application: Application) : AndroidViewModel(application) {
 
-    val selectedRuleType: MutableLiveData<RuleType> by lazy { MutableLiveData<RuleType>() }
+    val selectedRuleTypeList: MutableLiveData<ArrayList<RuleTypeListItem>>  = MutableLiveData(createDefaultRuleList())
+    val selectedRuleType: MutableLiveData<RuleType> by lazy { MutableLiveData<RuleType>(RuleType.SHORT_BREAK) }
     val selectedLimitNumberMode: MutableLiveData<LimitNumberMode> by lazy {
         MutableLiveData<LimitNumberMode>(
             LimitNumberMode.NOT_SELECTED
@@ -17,7 +19,7 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
     }
     val currentStep: MutableLiveData<Int> by lazy { MutableLiveData<Int>(0) }
     val selectedApplications: MutableLiveData<ArrayList<SelectApplicationsFragment.SelectAppListItem>> =
-        MutableLiveData<ArrayList<SelectApplicationsFragment.SelectAppListItem>>(createDefaultList())
+        MutableLiveData<ArrayList<SelectApplicationsFragment.SelectAppListItem>>(createDefaultAppList())
     val selectedLimitNumber: MutableLiveData<Int> by lazy { MutableLiveData<Int>(1) }
     val selectedBreakTimeInMilliSeconds: MutableLiveData<Long> by lazy {
         MutableLiveData<Long>(
@@ -41,7 +43,7 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
 
     // All Getter Methodes for the RuleWizardUI
     fun getCurrentSteps(): LiveData<Int> = currentStep
-    fun getSelectedRuleType(): LiveData<RuleType> = selectedRuleType
+    fun getSelectedRuleType(): LiveData<ArrayList<RuleTypeListItem>> = selectedRuleTypeList
     fun getSelectedLimitNumberMode(): LiveData<LimitNumberMode> = selectedLimitNumberMode
     fun getSelectedApplications(): LiveData<ArrayList<SelectApplicationsFragment.SelectAppListItem>> =
         selectedApplications
@@ -71,8 +73,14 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
         selectedApplications.value?.let { updatePrevButtonStep1(it) }
     }
 
-    fun setSelectedRuleType(ruleType: RuleType) {
-        selectedRuleType.postValue(ruleType)
+    fun getSelectedRuleTypeList(): LiveData<ArrayList<RuleTypeListItem>> = selectedRuleTypeList
+
+    fun setSelectedRuleTypeInList(ruleType: RuleType) {
+        selectedRuleTypeList.value?.forEach{
+            it.selected = false
+        }
+        selectedRuleTypeList.value?.get(Utils.ruleTypeToUIPosition(ruleType))?.selected = true
+        selectedRuleTypeList.postValue(selectedRuleTypeList.value)
     }
 
     fun setSelectedLimitNumber(limitNumber: Int) {
@@ -101,13 +109,23 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
 
     }
 
-    private fun createDefaultList(): ArrayList<SelectApplicationsFragment.SelectAppListItem> {
+    fun createDefaultAppList(): ArrayList<SelectApplicationsFragment.SelectAppListItem> {
         val dataList = ArrayList<SelectApplicationsFragment.SelectAppListItem>()
         Utils.getAllInstalledApps().forEach {
             dataList.add(SelectApplicationsFragment.SelectAppListItem(it, false))
         }
         return dataList
     }
+
+    fun createDefaultRuleList(): ArrayList<RuleTypeListItem> {
+        val result = ArrayList<RuleTypeListItem>()
+        result.add(RuleTypeListItem(RuleType.SHORT_BREAK, false))
+        result.add(RuleTypeListItem(RuleType.SCHEDULE, false))
+        result.add(RuleTypeListItem(RuleType.LIMIT_NUMBER, false))
+        result.add(RuleTypeListItem(RuleType.ETERNALLY, false))
+        return result
+    }
+
 }
 
 enum class RuleType { ETERNALLY, LIMIT_NUMBER, SHORT_BREAK, SCHEDULE }

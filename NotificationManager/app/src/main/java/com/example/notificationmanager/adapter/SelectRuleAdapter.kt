@@ -9,9 +9,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notificationmanager.R
 import com.example.notificationmanager.fragments.ruleCreation.RadioClickListener
+import com.example.notificationmanager.fragments.ruleCreation.RuleTypeListItem
 import com.example.notificationmanager.utils.NotificationManagerApplication
 
-class SelectRuleAdapter(val radioClickListener: RadioClickListener) : RecyclerView.Adapter<SelectRuleAdapter.SelectRuleAdapterViewHolder>() {
+class SelectRuleAdapter(var data: ArrayList<RuleTypeListItem>, val radioClickListener: RadioClickListener) : RecyclerView.Adapter<SelectRuleAdapter.SelectRuleAdapterViewHolder>() {
 
     // Fixed number of rules atm
     val NUMBER_OF_AVAILABLE_RULES = 4
@@ -33,9 +34,16 @@ class SelectRuleAdapter(val radioClickListener: RadioClickListener) : RecyclerVi
             3 -> holder.ruleImageView.setImageResource(R.drawable.ic_not_interested_24px)
         }
 
-        holder.checkRadioButton.setOnClickListener(){
-            radioClickListener.checkRadioButton(position)
+        holder.checkRadioButton.isChecked = data[position].selected
+
+        holder.checkRadioButton.setOnClickListener{
+            radioClickListener.onRadioButtonChecked(position)
         }
+    }
+
+    fun updateData(data: ArrayList<RuleTypeListItem>){
+        this.data = data
+        notifyDataSetChanged()
     }
 
 

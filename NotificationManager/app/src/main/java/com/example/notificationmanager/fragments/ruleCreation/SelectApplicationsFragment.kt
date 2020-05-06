@@ -12,7 +12,6 @@ import com.example.notificationmanager.R
 import com.example.notificationmanager.ViewModels.RuleWizardViewModel
 import com.example.notificationmanager.adapter.SelectAppsAdapter
 import com.example.notificationmanager.onAppSelectListener
-import com.example.notificationmanager.utils.Utils
 
 class SelectApplicationsFragment : Fragment(R.layout.fragment_select_applications),
     onAppSelectListener {
@@ -36,7 +35,7 @@ class SelectApplicationsFragment : Fragment(R.layout.fragment_select_application
         selectAppsRecyclerView = view.findViewById(R.id.select_apps_recyclerview)
         selectAppsRecyclerView.layoutManager = LinearLayoutManager(context)
         selectedAppsAdapter = SelectAppsAdapter(
-            ruleWizardViewModel.getSelectedApplications().value ?: createDefaultList(), this
+            ruleWizardViewModel.getSelectedApplications().value ?: ruleWizardViewModel.createDefaultAppList(), this
         )
         selectAppsRecyclerView.adapter = selectedAppsAdapter
 
@@ -49,14 +48,6 @@ class SelectApplicationsFragment : Fragment(R.layout.fragment_select_application
 
     override fun onApplicationUnselected(app: String) {
         ruleWizardViewModel.removeAppFromList(app)
-    }
-
-    private fun createDefaultList(): ArrayList<SelectAppListItem> {
-        val dataList = ArrayList<SelectAppListItem>()
-        Utils.getAllInstalledApps().forEach {
-            dataList.add(SelectAppListItem(it, false))
-        }
-        return dataList
     }
 
     class SelectAppListItem(val packageName: String, var selected: Boolean)
