@@ -42,7 +42,7 @@ class SelectAllowedNumberFragment : Fragment(R.layout.fragment_select_allowed_nu
         numberPicker.maxValue = 1000
         numberPicker.minValue = 0
         numberPicker.value = 0
-        
+
         initRadioButtons(
             ruleWizardViewModel.getSelectedLimitNumberMode().value ?: LimitNumberMode.NOT_SELECTED
         )

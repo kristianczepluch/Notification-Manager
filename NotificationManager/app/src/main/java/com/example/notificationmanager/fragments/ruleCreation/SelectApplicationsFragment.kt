@@ -1,9 +1,10 @@
 package com.example.notificationmanager.fragments.ruleCreation
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,27 +14,32 @@ import com.example.notificationmanager.adapter.SelectAppsAdapter
 import com.example.notificationmanager.onAppSelectListener
 import com.example.notificationmanager.utils.Utils
 
-class SelectApplicationsFragment : Fragment(R.layout.fragment_select_applications), onAppSelectListener {
+class SelectApplicationsFragment : Fragment(R.layout.fragment_select_applications),
+    onAppSelectListener {
 
-    lateinit var selectAppsRecyclerView: RecyclerView
-    lateinit var ruleWizardViewModel: RuleWizardViewModel
+    private lateinit var selectAppsRecyclerView: RecyclerView
+    private lateinit var ruleWizardViewModel: RuleWizardViewModel
+    private lateinit var selectedAppsAdapter: SelectAppsAdapter
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        ruleWizardViewModel = ViewModelProviders.of(activity!!).get(RuleWizardViewModel::class.java)
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         super.onViewCreated(view, savedInstanceState)
-        ruleWizardViewModel = ViewModelProviders.of(activity!!).get(RuleWizardViewModel::class.java)
         selectAppsRecyclerView = view.findViewById(R.id.select_apps_recyclerview)
         selectAppsRecyclerView.layoutManager = LinearLayoutManager(context)
-
-        val selectedAppsAdapter = SelectAppsAdapter(createDefaultList(),this)
+        selectedAppsAdapter = SelectAppsAdapter(
+            ruleWizardViewModel.getSelectedApplications().value ?: createDefaultList(), this
+        )
         selectAppsRecyclerView.adapter = selectedAppsAdapter
 
-
-        ruleWizardViewModel.getSelectedApplications().observe(this, Observer { data ->
-            if(!data.equals(selectedAppsAdapter.data)){
-                selectedAppsAdapter.updateData(data)
-            }
-        })
     }
 
 
@@ -45,10 +51,10 @@ class SelectApplicationsFragment : Fragment(R.layout.fragment_select_application
         ruleWizardViewModel.removeAppFromList(app)
     }
 
-    fun createDefaultList():ArrayList<SelectAppListItem> {
-        val dataList = ArrayList<SelectApplicationsFragment.SelectAppListItem>()
-        Utils.getAllInstalledApps().forEach{
-            dataList.add(SelectApplicationsFragment.SelectAppListItem(it, false))
+    private fun createDefaultList(): ArrayList<SelectAppListItem> {
+        val dataList = ArrayList<SelectAppListItem>()
+        Utils.getAllInstalledApps().forEach {
+            dataList.add(SelectAppListItem(it, false))
         }
         return dataList
     }
