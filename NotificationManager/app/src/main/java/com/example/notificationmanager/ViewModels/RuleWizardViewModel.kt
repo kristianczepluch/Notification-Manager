@@ -10,6 +10,10 @@ import com.example.notificationmanager.utils.Utils
 
 class RuleWizardViewModel(application: Application) : AndroidViewModel(application) {
 
+    var selectedScheduleStartMinute: Int = 0
+    var selectedScheduleEndMinute: Int = 0
+    var selectedScheduleStartHour: Int = 0
+    var selectedScheduleEndHour: Int = 0
     var selectedBreakTimeMinutes: Int = 0
     var selectedBreakTimeHours: Int = 0
     val selectedRuleTypeList = MutableLiveData(createDefaultRuleList())
