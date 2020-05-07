@@ -10,22 +10,41 @@ import com.example.notificationmanager.utils.Utils
 
 class RuleWizardViewModel(application: Application) : AndroidViewModel(application) {
 
+    var selectedRuleType: RuleType = RuleType.SHORT_BREAK
     var selectedScheduleStartMinute: Int = 0
     var selectedScheduleEndMinute: Int = 0
     var selectedScheduleStartHour: Int = 0
     var selectedScheduleEndHour: Int = 0
-    var selectedBreakTimeMinutes: Int = 0
-    var selectedBreakTimeHours: Int = 0
+    var selectedBreakTimeMinutes = 0
+    var selectedBreakTimeHours = 0
+    var selectedBreakTimeString = MutableLiveData("0 Minutes")
     val selectedRuleTypeList = MutableLiveData(createDefaultRuleList())
     var selectedLimitNumberMode = LimitNumberMode.NOT_SELECTED
     val currentStep = MutableLiveData(0)
-    val selectedApplications = createDefaultAppList()
+    val selectedApplications: MutableLiveData<ArrayList<SelectApplicationsFragment.SelectAppListItem>> = MutableLiveData(createDefaultAppList())
     var selectedLimitNumber: Int = 1
     val enableNextButton: MutableLiveData<Boolean> = MutableLiveData(false)
 
 
+
     // All Getter Methodes for the RuleWizardUI
+
+    fun getSelectedBreakTimeString(): LiveData<String> = selectedBreakTimeString
+
+    fun setSelectedBreakTimeHour(hour: Int) {
+        selectedBreakTimeHours = hour
+        updateBreakTimeString()
+    }
+
+    fun setSelectedBreakTimeMinute(min: Int) {
+        selectedBreakTimeMinutes = min
+        updateBreakTimeString()
+    }
+
+    fun getSelectedApplications(): LiveData<ArrayList<SelectApplicationsFragment.SelectAppListItem>> = selectedApplications
+
     fun getCurrentSteps(): LiveData<Int> = currentStep
+
     fun getEnableNextButton(): LiveData<Boolean> = enableNextButton
 
     fun stepForward() {
@@ -37,13 +56,15 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun addAppToList(app: String) {
-        selectedApplications.find { it.packageName.equals(app) }?.selected = true
-        selectedApplications.let { updatePrevButtonStep1(it) }
+        selectedApplications.value?.find { it.packageName.equals(app) }?.selected = true
+        selectedApplications.postValue(selectedApplications.value)
+        selectedApplications.value?.let { updatePrevButtonStep1(it) }
     }
 
     fun removeAppFromList(app: String) {
-        selectedApplications.find { it.packageName.equals(app) }?.selected = false
-        selectedApplications.let { updatePrevButtonStep1(it) }
+        selectedApplications.value?.find { it.packageName.equals(app) }?.selected = false
+        selectedApplications.postValue(selectedApplications.value)
+        selectedApplications.value?.let { updatePrevButtonStep1(it) }
     }
 
     fun getSelectedRuleTypeList(): LiveData<ArrayList<RuleTypeListItem>> = selectedRuleTypeList
@@ -53,12 +74,24 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
             it.selected = false
         }
         selectedRuleTypeList.value?.get(Utils.ruleTypeToUIPosition(ruleType))?.selected = true
+        selectedRuleType = ruleType
         selectedRuleTypeList.postValue(selectedRuleTypeList.value)
+    }
+
+    private fun updateBreakTimeString(){
+        if (selectedBreakTimeMinutes == 0 && selectedBreakTimeHours == 0) {
+            selectedBreakTimeString.postValue("No Time Selected")
+        } else if(selectedBreakTimeHours == 0){
+            selectedBreakTimeString.postValue("$selectedBreakTimeMinutes Minutes")
+        }else if (selectedBreakTimeMinutes==0){
+            selectedBreakTimeString.postValue("$selectedBreakTimeHours Hours")
+        }else{
+            selectedBreakTimeString.postValue("$selectedBreakTimeHours Hours and $selectedBreakTimeMinutes Minutes")
+        }
     }
 
 
     private fun updatePrevButtonStep1(appList: ArrayList<SelectApplicationsFragment.SelectAppListItem>) {
-
         var atLeastOneAppSelected = false
 
         appList.forEach {
@@ -81,7 +114,7 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
 
     fun createDefaultRuleList(): ArrayList<RuleTypeListItem> {
         val result = ArrayList<RuleTypeListItem>()
-        result.add(RuleTypeListItem(RuleType.SHORT_BREAK, false))
+        result.add(RuleTypeListItem(RuleType.SHORT_BREAK, true))
         result.add(RuleTypeListItem(RuleType.SCHEDULE, false))
         result.add(RuleTypeListItem(RuleType.LIMIT_NUMBER, false))
         result.add(RuleTypeListItem(RuleType.ETERNALLY, false))

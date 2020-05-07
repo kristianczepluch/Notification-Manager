@@ -9,7 +9,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.notificationmanager.R
-import com.example.notificationmanager.fragments.ManipulatedNotificationsFragment
 import com.example.notificationmanager.fragments.NotificationOverview
 import com.example.notificationmanager.fragments.NotificationRules
 import com.google.android.material.tabs.TabLayout
@@ -42,7 +41,6 @@ class MainActivity : AppCompatActivity() {
             when(position){
                 0 -> tab.text = getString(R.string.tab_name_0)
                 1 -> tab.text = getString(R.string.tab_name_1)
-                2 -> tab.text = getString(R.string.tab_name_2)
             }
         }.attach()
 
@@ -51,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
 class MainViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager, lifecycle){
 
-    private val fragement_list = listOf(NotificationOverview(), NotificationRules(), ManipulatedNotificationsFragment())
+    private val fragement_list = listOf(NotificationOverview(), NotificationRules())
 
     override fun getItemCount() = fragement_list.size
 

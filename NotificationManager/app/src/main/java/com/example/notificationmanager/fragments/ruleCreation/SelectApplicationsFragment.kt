@@ -35,7 +35,7 @@ class SelectApplicationsFragment : Fragment(R.layout.fragment_select_application
         selectAppsRecyclerView = view.findViewById(R.id.select_apps_recyclerview)
         selectAppsRecyclerView.layoutManager = LinearLayoutManager(context)
         selectedAppsAdapter = SelectAppsAdapter(
-            ruleWizardViewModel.selectedApplications, this
+            ruleWizardViewModel.getSelectedApplications().value ?: ruleWizardViewModel.createDefaultAppList(), this
         )
         selectAppsRecyclerView.adapter = selectedAppsAdapter
 

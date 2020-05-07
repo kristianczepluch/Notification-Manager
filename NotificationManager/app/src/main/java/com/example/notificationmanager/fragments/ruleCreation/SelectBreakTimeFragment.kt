@@ -42,11 +42,11 @@ class SelectBreakTimeFragment : Fragment(R.layout.fragment_select_break_time) {
         hourPicker.value = ruleWizardViewModel.selectedBreakTimeHours
 
         minutePicker.setOnValueChangedListener { picker, oldVal, newVal ->
-            ruleWizardViewModel.selectedBreakTimeMinutes = newVal
+            ruleWizardViewModel.setSelectedBreakTimeMinute(newVal)
         }
 
         hourPicker.setOnValueChangedListener { picker, oldVal, newVal ->
-            ruleWizardViewModel.selectedBreakTimeHours = newVal
+            ruleWizardViewModel.setSelectedBreakTimeHour(newVal)
         }
 
     }
