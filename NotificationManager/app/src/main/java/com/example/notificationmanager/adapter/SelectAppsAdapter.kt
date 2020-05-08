@@ -32,10 +32,10 @@ class SelectAppsAdapter (var data: List<SelectApplicationsFragment.SelectAppList
 
         holder.checkbox.isChecked = currentItem.selected
 
-        holder.checkbox.setOnCheckedChangeListener(){ _: CompoundButton, selected: Boolean ->
+        holder.checkbox.isFocusable = false
+        holder.checkbox.isClickable = false
 
-
-
+        holder.checkbox.setOnCheckedChangeListener{ _: CompoundButton, selected: Boolean ->
             if(selected) {
                 currentItem.selected = true
                 appSelectListener.onApplicationSelected(currentItem.packageName)
@@ -60,6 +60,11 @@ class SelectAppsAdapter (var data: List<SelectApplicationsFragment.SelectAppList
 
 
     class SelectedAppsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        init {
+            itemView.setOnClickListener(){
+                checkbox.isChecked = !checkbox.isChecked
+            }
+        }
         val textView = itemView.findViewById<TextView>(R.id.selected_apps_textview)
         val checkbox = itemView.findViewById<CheckBox>(R.id.selected_apps_checkBox)
         val imageView = itemView.findViewById<ImageView>(R.id.selected_apps_imageview)

@@ -91,7 +91,17 @@ class ReviewFragment : Fragment(R.layout.fragment_review) {
                 })
 
                 options2TextViewTitle.text = getString(R.string.weekdays)
-                options2TextViewText.text = "<days go here>"
+
+                ruleWizardViewModel.getWeekdays().observe(viewLifecycleOwner, Observer {
+                    options2TextViewText.text = ""
+                    if(it.isNotEmpty()){
+                        it.forEach{
+                            options2TextViewText.append("$it, ")
+
+                        }
+                        options2TextViewText.text.substring(0, options2TextViewText.text.length - 2)
+                    } else options2TextViewText.text = "No weekdays selected"
+                })
             }
         }
 

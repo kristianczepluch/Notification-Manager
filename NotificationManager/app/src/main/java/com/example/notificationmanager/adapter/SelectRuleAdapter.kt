@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.TextView
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notificationmanager.R
 import com.example.notificationmanager.fragments.ruleCreation.RadioClickListener
@@ -19,6 +20,9 @@ class SelectRuleAdapter(var data: ArrayList<RuleTypeListItem>, val radioClickLis
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectRuleAdapterViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.select_rule_item, parent, false)
+
+
+
         return SelectRuleAdapterViewHolder(itemView)
     }
 
@@ -28,10 +32,26 @@ class SelectRuleAdapter(var data: ArrayList<RuleTypeListItem>, val radioClickLis
         holder.descriptionTextView.text = NotificationManagerApplication.appContext.resources.getStringArray(R.array.rule_descriptions)[position].toString()
 
         when(position){
-            0 -> holder.ruleImageView.setImageResource(R.drawable.ic_snooze_24px)
-            1 -> holder.ruleImageView.setImageResource(R.drawable.ic_today_24px)
-            2 -> holder.ruleImageView.setImageResource(R.drawable.ic_filter_9_plus_24px)
-            3 -> holder.ruleImageView.setImageResource(R.drawable.ic_not_interested_24px)
+            0 -> {
+                val drawable = NotificationManagerApplication.appContext.getDrawable(R.drawable.ic_snooze_24px)!!
+                DrawableCompat.setTint(drawable, NotificationManagerApplication.appContext.getColor(R.color.rule_short_break))
+                holder.ruleImageView.setImageDrawable(drawable)
+                holder.titleTextView.setTextColor(NotificationManagerApplication.appContext.getColor(R.color.rule_short_break))}
+            1 -> {
+                val drawable = NotificationManagerApplication.appContext.getDrawable(R.drawable.ic_today_24px)!!
+                DrawableCompat.setTint(drawable, NotificationManagerApplication.appContext.getColor(R.color.rule_schedule))
+                holder.ruleImageView.setImageDrawable(drawable)
+                holder.titleTextView.setTextColor(NotificationManagerApplication.appContext.getColor(R.color.rule_schedule))}
+            2 -> {
+                val drawable = NotificationManagerApplication.appContext.getDrawable(R.drawable.ic_filter_9_plus_24px)!!
+                DrawableCompat.setTint(drawable, NotificationManagerApplication.appContext.getColor(R.color.rule_limit_numner))
+                holder.ruleImageView.setImageDrawable(drawable)
+                holder.titleTextView.setTextColor(NotificationManagerApplication.appContext.getColor(R.color.rule_limit_numner))}
+            3 -> {
+                val drawable = NotificationManagerApplication.appContext.getDrawable(R.drawable.ic_not_interested_24px)!!
+                DrawableCompat.setTint(drawable, NotificationManagerApplication.appContext.getColor(R.color.rule_forbid_eternally))
+                holder.ruleImageView.setImageDrawable(drawable)
+                holder.titleTextView.setTextColor(NotificationManagerApplication.appContext.getColor(R.color.rule_forbid_eternally))}
         }
 
         holder.checkRadioButton.isChecked = data[position].selected

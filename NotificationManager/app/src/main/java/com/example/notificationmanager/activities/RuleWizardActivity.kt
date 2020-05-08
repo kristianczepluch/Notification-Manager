@@ -92,10 +92,13 @@ class RuleWizardActivity : AppCompatActivity() {
                     notifyDataSetChanged()
                 }
                 RuleType.SCHEDULE -> {
-                    val fragmentToAdd1 = SelectScheduleFragment()
+                    val fragmentToAdd1 = SelectWeekdaysFragment()
+                    val fragmenToAdd2 =  SelectScheduleFragment()
                     fragement_list.add(fragmentToAdd1)
+                    fragement_list.add(fragmenToAdd2)
                     fragement_list.add(reviewFragment)
                     fragment_ids.add(fragmentToAdd1.hashCode().toLong())
+                    fragment_ids.add(fragmenToAdd2.hashCode().toLong())
                     fragment_ids.add(reviewFragment.hashCode().toLong())
                     notifyDataSetChanged()
                 }

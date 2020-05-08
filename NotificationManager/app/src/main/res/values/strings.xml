@@ -56,6 +56,7 @@
     <string name="time">Time</string>
     <string name="weekdays">Days</string>
     <string name="notSelected">Not Selected</string>
+    <string name="rule_wizard_weekday_number_title">Select weekdays</string>
 
 
     <!-- Rule Wizard Rule Descriptions-->
@@ -72,6 +73,16 @@
         <item>Forbit at time</item>
         <item>Number of Notifications</item>
         <item>Suppress Notifications</item>
+    </string-array>
+
+    <string-array name="weekdays">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
     </string-array>
 
 

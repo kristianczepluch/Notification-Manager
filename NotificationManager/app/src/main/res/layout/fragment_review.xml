@@ -197,7 +197,9 @@
                 android:layout_weight="3"
                 android:textSize="18sp"
                 android:textAlignment="textStart"
-                android:layout_marginStart="5dp"/>
+                android:layout_marginStart="5dp"
+                android:maxLines="1"
+                android:ellipsize="end"/>
         </TableRow>
         <TableRow
             android:layout_width="match_parent"

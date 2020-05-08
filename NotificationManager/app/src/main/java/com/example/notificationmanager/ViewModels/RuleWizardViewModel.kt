@@ -12,10 +12,14 @@ import com.example.notificationmanager.utils.Utils
 
 class RuleWizardViewModel(application: Application) : AndroidViewModel(application) {
 
+    var selectedWeekdayCheckboxes: BooleanArray = BooleanArray(7)
+
     var selectedScheduleStartMinute: Int = 0
     var selectedScheduleEndMinute: Int = 0
     var selectedScheduleStartHour: Int = 0
     var selectedScheduleEndHour: Int = 0
+
+    private val selectedWeekdays: MutableLiveData<ArrayList<Weekdays>> = MutableLiveData(ArrayList<Weekdays>())
 
     private val selectedScheduleString = MutableLiveData("00:00 - 00:00")
 
@@ -34,6 +38,21 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
     private val selectedApplications: MutableLiveData<ArrayList<SelectApplicationsFragment.SelectAppListItem>> = MutableLiveData(createDefaultAppList())
 
     private val enableNextButton: MutableLiveData<Boolean> = MutableLiveData(false)
+
+
+    fun getWeekdays(): LiveData<ArrayList<Weekdays>> = selectedWeekdays
+
+    fun addWeekDay(weekday: Weekdays, position: Int) {
+        selectedWeekdays.value?.add(weekday)
+        selectedWeekdayCheckboxes[position] = true
+        selectedWeekdays.postValue(selectedWeekdays.value)
+    }
+
+    fun removeWeekDay(weekday: Weekdays, position: Int) {
+        selectedWeekdays.value?.remove(weekday)
+        selectedWeekdayCheckboxes[position] = false
+        selectedWeekdays.postValue(selectedWeekdays.value)
+    }
 
 
 
@@ -186,6 +205,8 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
 enum class RuleType { ETERNALLY, LIMIT_NUMBER, SHORT_BREAK, SCHEDULE }
 
 enum class LimitNumberMode { DAY, WEEK, HOUR, NOT_SELECTED }
+
+enum class Weekdays { MO, TU, WE, TH, FR, SA, SU }
 
 
 
