@@ -4,32 +4,40 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.notificationmanager.R
 import com.example.notificationmanager.fragments.ruleCreation.RuleTypeListItem
 import com.example.notificationmanager.fragments.ruleCreation.SelectApplicationsFragment
+import com.example.notificationmanager.utils.NotificationManagerApplication
 import com.example.notificationmanager.utils.Utils
 
 class RuleWizardViewModel(application: Application) : AndroidViewModel(application) {
 
-    var selectedRuleType: RuleType = RuleType.SHORT_BREAK
     var selectedScheduleStartMinute: Int = 0
     var selectedScheduleEndMinute: Int = 0
     var selectedScheduleStartHour: Int = 0
     var selectedScheduleEndHour: Int = 0
+
+    private val selectedScheduleString = MutableLiveData("00:00 - 00:00")
+
     var selectedBreakTimeMinutes = 0
     var selectedBreakTimeHours = 0
-    var selectedBreakTimeString = MutableLiveData("0 Minutes")
-    val selectedRuleTypeList = MutableLiveData(createDefaultRuleList())
-    var selectedLimitNumberMode = LimitNumberMode.NOT_SELECTED
-    val currentStep = MutableLiveData(0)
-    val selectedApplications: MutableLiveData<ArrayList<SelectApplicationsFragment.SelectAppListItem>> = MutableLiveData(createDefaultAppList())
-    var selectedLimitNumber: Int = 1
-    val enableNextButton: MutableLiveData<Boolean> = MutableLiveData(false)
+    private val selectedBreakTimeString = MutableLiveData("0 Minutes")
+
+    var selectedRuleType: RuleType = RuleType.SHORT_BREAK
+    private val selectedRuleTypeList = MutableLiveData(createDefaultRuleList())
+
+    private val selectedLimitNumberMode = MutableLiveData(LimitNumberMode.NOT_SELECTED)
+    private val selectedLimitNumber = MutableLiveData(1)
+
+    private val currentStep = MutableLiveData(0)
+
+    private val selectedApplications: MutableLiveData<ArrayList<SelectApplicationsFragment.SelectAppListItem>> = MutableLiveData(createDefaultAppList())
+
+    private val enableNextButton: MutableLiveData<Boolean> = MutableLiveData(false)
 
 
 
     // All Getter Methodes for the RuleWizardUI
-
-    fun getSelectedBreakTimeString(): LiveData<String> = selectedBreakTimeString
 
     fun setSelectedBreakTimeHour(hour: Int) {
         selectedBreakTimeHours = hour
@@ -41,11 +49,54 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
         updateBreakTimeString()
     }
 
+    fun setScheduleStartHour(startHour: Int){
+        selectedScheduleStartHour = startHour
+        updateScheduleTimeString()
+    }
+
+    fun setScheduleStartMinute(startMinute: Int){
+        selectedScheduleStartMinute = startMinute
+        updateScheduleTimeString()
+    }
+
+    fun setScheduleEndHour(endHour: Int){
+        selectedScheduleEndHour = endHour
+        updateScheduleTimeString()
+    }
+
+    fun setScheduleEndMinute(endMinute: Int){
+        selectedScheduleEndMinute = endMinute
+        updateScheduleTimeString()
+    }
+
+    private fun updateScheduleTimeString(){
+
+        val startString = if(selectedScheduleStartHour<10) "0${selectedScheduleStartHour}" else {selectedScheduleStartHour.toString()} + ":" +
+                          if(selectedScheduleStartMinute<10) "0$selectedScheduleStartMinute" else selectedScheduleStartMinute.toString()
+
+        val endString = if(selectedScheduleEndHour<10) "0$selectedScheduleEndHour" else {selectedScheduleEndHour.toString()} + ":" +
+                if(selectedScheduleEndMinute<10) "0$selectedScheduleEndMinute" else selectedScheduleEndMinute.toString()
+
+        selectedScheduleString.postValue("$startString - $endString")
+    }
+
+    fun getScheduleTimeString(): LiveData<String> = selectedScheduleString
+
+    fun setSelectedLimitNumberMode(mode: LimitNumberMode) = selectedLimitNumberMode.postValue(mode)
+
+    fun setSelectedLimitNumber(limit: Int) = selectedLimitNumber.postValue(limit)
+
+    fun getLimitNumber(): LiveData<Int> =  selectedLimitNumber
+
+    fun getLimitNumberMode(): LiveData<LimitNumberMode> = selectedLimitNumberMode
+
     fun getSelectedApplications(): LiveData<ArrayList<SelectApplicationsFragment.SelectAppListItem>> = selectedApplications
 
     fun getCurrentSteps(): LiveData<Int> = currentStep
 
     fun getEnableNextButton(): LiveData<Boolean> = enableNextButton
+
+    fun getSelectedBreakTimeString(): LiveData<String> = selectedBreakTimeString
 
     fun stepForward() {
         currentStep.postValue(currentStep.value?.plus(1))
@@ -79,15 +130,24 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     private fun updateBreakTimeString(){
+        val hourString = NotificationManagerApplication.appContext.resources.getString(R.string.hour)
+        val hoursString = NotificationManagerApplication.appContext.resources.getString(R.string.hours)
+        val minuteString = NotificationManagerApplication.appContext.resources.getString(R.string.minute)
+        val minutesString = NotificationManagerApplication.appContext.resources.getString(R.string.minutes)
+
         if (selectedBreakTimeMinutes == 0 && selectedBreakTimeHours == 0) {
             selectedBreakTimeString.postValue("No Time Selected")
         } else if(selectedBreakTimeHours == 0){
-            selectedBreakTimeString.postValue("$selectedBreakTimeMinutes Minutes")
+            selectedBreakTimeString.postValue("$selectedBreakTimeMinutes ${if(selectedBreakTimeMinutes==1) minuteString else minutesString}")
         }else if (selectedBreakTimeMinutes==0){
-            selectedBreakTimeString.postValue("$selectedBreakTimeHours Hours")
+            selectedBreakTimeString.postValue("$selectedBreakTimeHours ${if(selectedBreakTimeHours==1) hourString else hoursString}")
         }else{
-            selectedBreakTimeString.postValue("$selectedBreakTimeHours Hours and $selectedBreakTimeMinutes Minutes")
+            selectedBreakTimeString.postValue("$selectedBreakTimeHours " +
+                    "${if(selectedBreakTimeHours==1) hourString else hoursString} and $selectedBreakTimeMinutes ${if(selectedBreakTimeMinutes==1) minuteString else minutesString}")
         }
+
+        NotificationManagerApplication.appContext.resources.getString(R.string.minute)
+        NotificationManagerApplication.appContext.resources.getString(R.string.minutes)
     }
 
 

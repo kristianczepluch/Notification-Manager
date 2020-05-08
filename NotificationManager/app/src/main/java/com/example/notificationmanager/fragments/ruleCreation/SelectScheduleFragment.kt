@@ -42,13 +42,13 @@ class SelectScheduleFragment : Fragment(R.layout.fragment_select_schedule) {
         timePickerEnd.minute = ruleWizardViewModel.selectedScheduleEndMinute
 
         timePickerStart.setOnTimeChangedListener { _, hourOfDay, minute ->
-            ruleWizardViewModel.selectedScheduleStartHour = hourOfDay
-            ruleWizardViewModel.selectedScheduleStartMinute = minute
+            ruleWizardViewModel.setScheduleStartHour(hourOfDay)
+            ruleWizardViewModel.setScheduleStartMinute(minute)
         }
 
         timePickerEnd.setOnTimeChangedListener { _, hourOfDay, minute ->
-            ruleWizardViewModel.selectedScheduleEndHour = hourOfDay
-            ruleWizardViewModel.selectedScheduleStartMinute = minute
+            ruleWizardViewModel.setScheduleEndHour(hourOfDay)
+            ruleWizardViewModel.setScheduleEndMinute(minute)
         }
 
     }

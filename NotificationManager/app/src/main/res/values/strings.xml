@@ -27,8 +27,13 @@
     <string name="week">week</string>
     <string name="day">day</string>
     <string name="hour">hour</string>
+    <string name="hours">hours</string>
+    <string name="weekReview">Limit per week</string>
+    <string name="dayReview">Limit per day</string>
+    <string name="hourReview">Limit per hour</string>
     <string name="per">per</string>
     <string name="minute">minute</string>
+    <string name="minutes">minutes</string>
     <string name="startAt">Start at:</string>
     <string name="endAt">End at:</string>
     <string name="rule">Rule</string>
@@ -50,6 +55,7 @@
     <string name="number">Number</string>
     <string name="time">Time</string>
     <string name="weekdays">Days</string>
+    <string name="notSelected">Not Selected</string>
 
 
     <!-- Rule Wizard Rule Descriptions-->

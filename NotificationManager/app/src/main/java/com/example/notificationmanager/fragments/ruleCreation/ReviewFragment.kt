@@ -28,6 +28,10 @@ class ReviewFragment : Fragment(R.layout.fragment_review) {
     private lateinit var line3: View
     private lateinit var line4: View
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        ruleWizardViewModel = ViewModelProviders.of(activity!!).get(RuleWizardViewModel::class.java)
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,59 +49,67 @@ class ReviewFragment : Fragment(R.layout.fragment_review) {
 
         ruleTextView.text = Utils.ruleTypeToUiString(ruleWizardViewModel.selectedRuleType)
 
-        when(ruleWizardViewModel.selectedRuleType){
-            RuleType.SHORT_BREAK ->{
+        when (ruleWizardViewModel.selectedRuleType) {
+
+            RuleType.SHORT_BREAK -> {
                 options1TextViewTitle.text = getString(R.string.duration)
                 options2Row.visibility = View.INVISIBLE
                 line4.visibility = View.INVISIBLE
-                ruleWizardViewModel.selectedBreakTimeString.observe(viewLifecycleOwner, Observer {
-                    options1TextViewText.text = it
-                })
+                ruleWizardViewModel.getSelectedBreakTimeString()
+                    .observe(viewLifecycleOwner, Observer {
+                        options1TextViewText.text = it
+                    })
             }
-            RuleType.ETERNALLY ->{
+
+            RuleType.ETERNALLY -> {
                 options1Row.visibility = View.INVISIBLE
                 options2Row.visibility = View.INVISIBLE
                 line3.visibility = View.INVISIBLE
                 line4.visibility = View.INVISIBLE
 
             }
-            RuleType.LIMIT_NUMBER ->{
-                options1TextViewTitle.text = getString(R.string.limitmode)
-                options1TextViewText.text = "<limitmode goes here>"
-                options2TextViewTitle.text = getString(R.string.number)
-                options2TextViewText.text = "<number goes here>"
 
+            RuleType.LIMIT_NUMBER -> {
+                options1TextViewTitle.text = getString(R.string.limitmode)
+
+                ruleWizardViewModel.getLimitNumberMode().observe(viewLifecycleOwner, Observer {
+                    options1TextViewText.text = Utils.limitNumberModeToUiString(it)
+                })
+
+                options2TextViewTitle.text = getString(R.string.number)
+
+                ruleWizardViewModel.getLimitNumber().observe(viewLifecycleOwner, Observer {
+                    options2TextViewText.text = it.toString()
+                })
             }
-            RuleType.SCHEDULE ->{
+
+            RuleType.SCHEDULE -> {
                 options1TextViewTitle.text = getString(R.string.time)
-                options1TextViewText.text = "<time goes here>"
+
+                ruleWizardViewModel.getScheduleTimeString().observe(viewLifecycleOwner, Observer {
+                    options1TextViewText.text = (it)
+                })
+
                 options2TextViewTitle.text = getString(R.string.weekdays)
                 options2TextViewText.text = "<days go here>"
             }
-
         }
 
         ruleWizardViewModel.getSelectedApplications().observe(viewLifecycleOwner, Observer { appList ->
-            var selectedCounter = 0
-            appsTextView.text = ""
-            appList.forEach{
-                if(it.selected) {
-                    appsTextView.append(Utils.getAppNameFromPackageName(it.packageName) + ", ")
-                    selectedCounter++
+                var selectedCounter = 0
+                appsTextView.text = ""
+
+                appList.forEach {
+                    if (it.selected) {
+                        appsTextView.append(Utils.getAppNameFromPackageName(it.packageName) + ", ")
+                        selectedCounter++
+                    }
                 }
-            }
-            if(selectedCounter>0) appsTextView.text = appsTextView.text.substring(0, appsTextView.text.length-2)
-        })
+
+                if (selectedCounter > 0) appsTextView.text =
+                    appsTextView.text.substring(0, appsTextView.text.length - 2)
+            })
 
 
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        ruleWizardViewModel = ViewModelProviders.of(activity!!).get(RuleWizardViewModel::class.java)
-        return super.onCreateView(inflater, container, savedInstanceState)
     }
 }

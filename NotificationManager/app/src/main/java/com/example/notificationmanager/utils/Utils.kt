@@ -3,6 +3,7 @@ package com.example.notificationmanager.utils
 import android.content.Intent
 import android.content.pm.PackageManager
 import com.example.notificationmanager.R
+import com.example.notificationmanager.ViewModels.LimitNumberMode
 import com.example.notificationmanager.ViewModels.RuleType
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -102,5 +103,15 @@ object Utils {
             RuleType.LIMIT_NUMBER -> NotificationManagerApplication.appContext.resources.getStringArray(R.array.rule_names)[2].toString()
             RuleType.ETERNALLY -> NotificationManagerApplication.appContext.resources.getStringArray(R.array.rule_names)[3].toString()
         }
+
+    @JvmStatic
+    fun limitNumberModeToUiString(limitNumberMode: LimitNumberMode) =
+        when(limitNumberMode){
+            LimitNumberMode.HOUR -> getStaticStringRessource(R.string.hourReview)
+            LimitNumberMode.DAY-> getStaticStringRessource(R.string.dayReview)
+            LimitNumberMode.WEEK -> getStaticStringRessource(R.string.weekReview)
+            LimitNumberMode.NOT_SELECTED -> getStaticStringRessource(R.string.notSelected)
+        }
+
 
 }
