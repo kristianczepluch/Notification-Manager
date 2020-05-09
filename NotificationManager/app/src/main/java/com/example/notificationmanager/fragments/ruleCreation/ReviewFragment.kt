@@ -99,7 +99,7 @@ class ReviewFragment : Fragment(R.layout.fragment_review) {
                             options2TextViewText.append("$it, ")
 
                         }
-                        options2TextViewText.text.substring(0, options2TextViewText.text.length - 2)
+                        options2TextViewText.text = options2TextViewText.text.substring(0, options2TextViewText.text.length - 2)
                     } else options2TextViewText.text = "No weekdays selected"
                 })
             }
