@@ -47,13 +47,9 @@ class RuleWizardActivity : AppCompatActivity() {
             viewPager.setCurrentItem(step)
         })
 
-        ruleWizardViewModel.getSelectedRuleTypeList().observe(this, Observer { ruleTypeList ->
+        ruleWizardViewModel.selectedRuleType.observe(this, Observer { ruleType ->
             myAdapter.removeRuleFragments()
-            ruleTypeList.forEach{
-                if(it.selected){
-                    myAdapter.addFragmentForRuleType(it.ruleType)
-                }
-            }
+                    myAdapter.addFragmentForRuleType(ruleType)
         })
 
     }

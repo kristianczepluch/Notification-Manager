@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.notificationmanager.R
-import com.example.notificationmanager.fragments.ruleCreation.RuleTypeListItem
 import com.example.notificationmanager.fragments.ruleCreation.SelectApplicationsFragment
 import com.example.notificationmanager.utils.NotificationManagerApplication
 import com.example.notificationmanager.utils.Utils
@@ -27,8 +26,7 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
     var selectedBreakTimeHours = 0
     private val selectedBreakTimeString = MutableLiveData("0 Minutes")
 
-    var selectedRuleType: RuleType = RuleType.SHORT_BREAK
-    private val selectedRuleTypeList = MutableLiveData(createDefaultRuleList())
+    var selectedRuleType= MutableLiveData(RuleType.SHORT_BREAK)
 
     private val selectedLimitNumberMode = MutableLiveData(LimitNumberMode.NOT_SELECTED)
     private val selectedLimitNumber = MutableLiveData(1)
@@ -137,16 +135,7 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
         selectedApplications.value?.let { updatePrevButtonStep1(it) }
     }
 
-    fun getSelectedRuleTypeList(): LiveData<ArrayList<RuleTypeListItem>> = selectedRuleTypeList
-
-    fun setSelectedRuleTypeInList(ruleType: RuleType) {
-        selectedRuleTypeList.value?.forEach{
-            it.selected = false
-        }
-        selectedRuleTypeList.value?.get(Utils.ruleTypeToUIPosition(ruleType))?.selected = true
-        selectedRuleType = ruleType
-        selectedRuleTypeList.postValue(selectedRuleTypeList.value)
-    }
+    fun setSelectedRuleType(ruleType: RuleType) { selectedRuleType.postValue(ruleType)}
 
     private fun updateBreakTimeString(){
         val hourString = NotificationManagerApplication.appContext.resources.getString(R.string.hour)
@@ -190,19 +179,9 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
         }
         return dataList
     }
-
-    fun createDefaultRuleList(): ArrayList<RuleTypeListItem> {
-        val result = ArrayList<RuleTypeListItem>()
-        result.add(RuleTypeListItem(RuleType.SHORT_BREAK, true))
-        result.add(RuleTypeListItem(RuleType.SCHEDULE, false))
-        result.add(RuleTypeListItem(RuleType.LIMIT_NUMBER, false))
-        result.add(RuleTypeListItem(RuleType.ETERNALLY, false))
-        return result
-    }
-
 }
 
-enum class RuleType { ETERNALLY, LIMIT_NUMBER, SHORT_BREAK, SCHEDULE }
+enum class RuleType { ETERNALLY, LIMIT_NUMBER, SHORT_BREAK, SCHEDULE, NOT_SELECTED }
 
 enum class LimitNumberMode { DAY, WEEK, HOUR, NOT_SELECTED }
 

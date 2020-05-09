@@ -47,9 +47,9 @@ class ReviewFragment : Fragment(R.layout.fragment_review) {
         line3 = view.findViewById(R.id.line3)
         line4 = view.findViewById(R.id.line4)
 
-        ruleTextView.text = Utils.ruleTypeToUiString(ruleWizardViewModel.selectedRuleType)
+        ruleTextView.text = Utils.ruleTypeToUiString(ruleWizardViewModel.selectedRuleType.value ?: RuleType.NOT_SELECTED)
 
-        when (ruleWizardViewModel.selectedRuleType) {
+        when (ruleWizardViewModel.selectedRuleType.value) {
 
             RuleType.SHORT_BREAK -> {
                 options1TextViewTitle.text = getString(R.string.duration)

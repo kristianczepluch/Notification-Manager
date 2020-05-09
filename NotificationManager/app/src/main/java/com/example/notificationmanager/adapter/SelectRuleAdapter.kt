@@ -3,20 +3,24 @@ package com.example.notificationmanager.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.TextView
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notificationmanager.R
+import com.example.notificationmanager.ViewModels.RuleType
 import com.example.notificationmanager.fragments.ruleCreation.RadioClickListener
-import com.example.notificationmanager.fragments.ruleCreation.RuleTypeListItem
 import com.example.notificationmanager.utils.NotificationManagerApplication
+import com.example.notificationmanager.utils.Utils
 
-class SelectRuleAdapter(var data: ArrayList<RuleTypeListItem>, val radioClickListener: RadioClickListener) : RecyclerView.Adapter<SelectRuleAdapter.SelectRuleAdapterViewHolder>() {
+class SelectRuleAdapter(var selectedRuleType: RuleType, val radioClickListener: RadioClickListener) : RecyclerView.Adapter<SelectRuleAdapter.SelectRuleAdapterViewHolder>() {
 
     // Fixed number of rules atm
     val NUMBER_OF_AVAILABLE_RULES = 4
+
+    var lastCheckedBox = Utils.ruleTypeToUIPosition(selectedRuleType)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectRuleAdapterViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.select_rule_item, parent, false)
@@ -30,6 +34,8 @@ class SelectRuleAdapter(var data: ArrayList<RuleTypeListItem>, val radioClickLis
 
         holder.titleTextView.text = NotificationManagerApplication.appContext.resources.getStringArray(R.array.rule_names)[position].toString()
         holder.descriptionTextView.text = NotificationManagerApplication.appContext.resources.getStringArray(R.array.rule_descriptions)[position].toString()
+
+        if(Utils.ruleTypeToUIPosition(selectedRuleType) == position)holder.checkRadioButton.isChecked = true
 
         when(position){
             0 -> {
@@ -54,22 +60,23 @@ class SelectRuleAdapter(var data: ArrayList<RuleTypeListItem>, val radioClickLis
                 holder.titleTextView.setTextColor(NotificationManagerApplication.appContext.getColor(R.color.rule_forbid_eternally))}
         }
 
-        holder.checkRadioButton.isChecked = data[position].selected
-
-        holder.checkRadioButton.setOnClickListener{
-            radioClickListener.onRadioButtonChecked(position)
+        holder.checkRadioButton.setOnCheckedChangeListener{ button: CompoundButton, b: Boolean ->
+            if(b) radioClickListener.onRadioButtonChecked(position)
+            radioClickListener.onRadioButtonUnchecked(lastCheckedBox)
+            lastCheckedBox = position
         }
     }
-
-    fun updateData(data: ArrayList<RuleTypeListItem>){
-        this.data = data
-        notifyDataSetChanged()
-    }
-
 
     override fun getItemCount() = NUMBER_OF_AVAILABLE_RULES
 
     class SelectRuleAdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+
+        init {
+            itemView.setOnClickListener{
+                checkRadioButton.isChecked = !checkRadioButton.isChecked
+            }
+        }
+
         val titleTextView = itemView.findViewById<TextView>(R.id.select_rule_title)
         val descriptionTextView = itemView.findViewById<TextView>(R.id.select_rule_description)
         val ruleImageView = itemView.findViewById<ImageView>(R.id.select_rule_imageView)

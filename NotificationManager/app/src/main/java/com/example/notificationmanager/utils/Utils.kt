@@ -93,6 +93,7 @@ object Utils {
             RuleType.SCHEDULE -> 1
             RuleType.LIMIT_NUMBER -> 2
             RuleType.ETERNALLY -> 3
+            RuleType.NOT_SELECTED -> -1
         }
 
     @JvmStatic
@@ -102,6 +103,7 @@ object Utils {
             RuleType.SCHEDULE -> NotificationManagerApplication.appContext.resources.getStringArray(R.array.rule_names)[1].toString()
             RuleType.LIMIT_NUMBER -> NotificationManagerApplication.appContext.resources.getStringArray(R.array.rule_names)[2].toString()
             RuleType.ETERNALLY -> NotificationManagerApplication.appContext.resources.getStringArray(R.array.rule_names)[3].toString()
+            RuleType.NOT_SELECTED -> NotificationManagerApplication.appContext.resources.getStringArray(R.array.rule_names)[4].toString()
         }
 
     @JvmStatic

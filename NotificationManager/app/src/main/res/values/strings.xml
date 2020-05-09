@@ -73,6 +73,7 @@
         <item>Forbit at time</item>
         <item>Number of Notifications</item>
         <item>Suppress Notifications</item>
+        <item>Not Selected</item>
     </string-array>
 
     <string-array name="weekdays">
