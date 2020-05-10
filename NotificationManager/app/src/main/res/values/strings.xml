@@ -43,6 +43,11 @@
     <string name="default_text">defualt text</string>
     <string name="duration">Duration</string>
 
+    <!-- Navigation Button for rule creation-->
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="create">Create</string>
+
 
     <!-- Rule Wizard Titles-->
     <string name="rule_wizard_select_apps_title">Select one or more apps</string>

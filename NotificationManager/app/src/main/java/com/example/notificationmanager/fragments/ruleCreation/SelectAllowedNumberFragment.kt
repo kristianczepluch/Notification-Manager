@@ -40,11 +40,11 @@ class SelectAllowedNumberFragment : Fragment(R.layout.fragment_select_allowed_nu
         radioButtonWeek = view.findViewById(R.id.week_radioButton)
 
         numberPicker.maxValue = 1000
-        numberPicker.minValue = 0
-        numberPicker.value = 0
+        numberPicker.minValue = 1
+        numberPicker.value = 1
 
         initRadioButtons(
-            ruleWizardViewModel.getLimitNumberMode().value ?: LimitNumberMode.NOT_SELECTED
+            ruleWizardViewModel.getLimitNumberMode().value ?: LimitNumberMode.DAY
         )
         initNumberPicker(ruleWizardViewModel.getLimitNumber().value ?: 1)
 

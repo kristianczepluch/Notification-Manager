@@ -1,7 +1,6 @@
 package com.example.notificationmanager.ViewModels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,7 +18,7 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
     var selectedScheduleStartHour: Int = 0
     var selectedScheduleEndHour: Int = 0
 
-    private val selectedWeekdays: MutableLiveData<ArrayList<Weekdays>> = MutableLiveData(ArrayList<Weekdays>())
+    private val selectedWeekdays: MutableLiveData<ArrayList<Weekdays>> = MutableLiveData(ArrayList())
 
     private val selectedScheduleString = MutableLiveData("00:00 - 00:00")
 
@@ -29,7 +28,7 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
 
     var selectedRuleType= MutableLiveData(RuleType.SHORT_BREAK)
 
-    private val selectedLimitNumberMode = MutableLiveData(LimitNumberMode.NOT_SELECTED)
+    private val selectedLimitNumberMode = MutableLiveData(LimitNumberMode.DAY)
     private val selectedLimitNumber = MutableLiveData(1)
 
     private val currentStep = MutableLiveData(0)
@@ -38,8 +37,11 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
 
     private val enableNextButton: MutableLiveData<Boolean> = MutableLiveData(false)
 
+    private val enableCreateButton: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun getWeekdays(): LiveData<ArrayList<Weekdays>> = selectedWeekdays
+
+    fun getEnableCreateButton(): LiveData<Boolean> = enableCreateButton
 
     fun addWeekDay(weekday: Weekdays, position: Int) {
         selectedWeekdays.value?.add(weekday)
@@ -74,21 +76,25 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
     fun setScheduleStartHour(startHour: Int){
         selectedScheduleStartHour = startHour
         updateScheduleTimeString()
+        updateNextButtonScheduleTime()
     }
 
     fun setScheduleStartMinute(startMinute: Int){
         selectedScheduleStartMinute = startMinute
         updateScheduleTimeString()
+        updateNextButtonScheduleTime()
     }
 
     fun setScheduleEndHour(endHour: Int){
         selectedScheduleEndHour = endHour
         updateScheduleTimeString()
+        updateNextButtonScheduleTime()
     }
 
     fun setScheduleEndMinute(endMinute: Int){
         selectedScheduleEndMinute = endMinute
         updateScheduleTimeString()
+        updateNextButtonScheduleTime()
     }
 
     private fun updateScheduleTimeString(){
@@ -150,9 +156,7 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
         val minuteString = NotificationManagerApplication.appContext.resources.getString(R.string.minute)
         val minutesString = NotificationManagerApplication.appContext.resources.getString(R.string.minutes)
 
-        if (selectedBreakTimeMinutes == 0 && selectedBreakTimeHours == 0) {
-            selectedBreakTimeString.postValue("No Time Selected")
-        } else if(selectedBreakTimeHours == 0){
+        if(selectedBreakTimeHours == 0){
             selectedBreakTimeString.postValue("$selectedBreakTimeMinutes ${if(selectedBreakTimeMinutes==1) minuteString else minutesString}")
         }else if (selectedBreakTimeMinutes==0){
             selectedBreakTimeString.postValue("$selectedBreakTimeHours ${if(selectedBreakTimeHours==1) hourString else hoursString}")
@@ -176,11 +180,9 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
         }
         if (atLeastOneAppSelected) {
             enableNextButton.postValue(true)
-            Log.d("KristianDEBUG", "updateNextButtonStep1 called: set enabledButton to true")
         }
         else {
             enableNextButton.postValue(false)
-            Log.d("KristianDEBUG", "updateNextButtonStep1 called: set enabledButton to false")
         }
 
     }
@@ -188,10 +190,8 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
     private fun updateNextButtonShortBreakFragment(){
         if(selectedBreakTimeHours == 0 && selectedBreakTimeMinutes == 0){
             enableNextButton.postValue(false)
-            Log.d("KristianDEBUG", "updateButtonShortBreakFragment called: set enabledButton to false")
         } else {
             enableNextButton.postValue(true)
-            Log.d("KristianDEBUG", "updateButtonShortBreakFragment called: set enabledButton to true")
         }
     }
 
@@ -202,16 +202,42 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
         else enableNextButton.postValue(true)
     }
 
+    private fun updateNextButtonScheduleTime(){
+        val start = selectedScheduleStartHour * 60 + selectedScheduleStartMinute
+        val end = selectedScheduleEndHour * 60 + selectedScheduleEndMinute
+        if ( start+end==0 ) enableNextButton.postValue(false)
+        else enableNextButton.postValue(true)
+    }
+
     private fun updateNavigationFragment(step: Int){
-        Log.d("KristianDEBUG", "updateNavigationFragment called with step: $step")
         when(step){
             0 -> updateNextButtonStep1(selectedApplications.value!!)
             1 -> updateNextButtonSelectRuleFragment()
             2 -> {
                 if(selectedRuleType.value == RuleType.SHORT_BREAK) updateNextButtonShortBreakFragment()
                 if(selectedRuleType.value == RuleType.SCHEDULE) updateNextButtonScheduleWeekdayFragment()
+                if(selectedRuleType.value == RuleType.LIMIT_NUMBER) updateNextButtonLimitNumberFragment()
+                if(selectedRuleType.value == RuleType.ETERNALLY) activateCreateButton()
             }
+            3 -> {
+                if(selectedRuleType.value == RuleType.SHORT_BREAK) activateCreateButton()
+                if(selectedRuleType.value == RuleType.LIMIT_NUMBER) activateCreateButton()
+                if(selectedRuleType.value == RuleType.SCHEDULE) updateNextButtonScheduleTime()
+            }
+            4 -> if(selectedRuleType.value == RuleType.SCHEDULE) activateCreateButton()
         }
+    }
+
+    private fun activateCreateButton(){
+        enableCreateButton.postValue(true)
+    }
+
+    private fun deactiveCreateButton(){
+        enableCreateButton.postValue(false)
+    }
+
+    private fun updateNextButtonLimitNumberFragment(){
+        enableNextButton.postValue(true)
     }
 
     fun createDefaultAppList(): ArrayList<SelectApplicationsFragment.SelectAppListItem> {
