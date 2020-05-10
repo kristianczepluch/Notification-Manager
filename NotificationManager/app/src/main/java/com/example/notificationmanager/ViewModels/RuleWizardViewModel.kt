@@ -135,7 +135,7 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
         selectedApplications.value?.let { updatePrevButtonStep1(it) }
     }
 
-    fun setSelectedRuleType(ruleType: RuleType) { selectedRuleType.postValue(ruleType)}
+    fun setSelectedRuleType(ruleType: RuleType) { selectedRuleType.postValue(ruleType) }
 
     private fun updateBreakTimeString(){
         val hourString = NotificationManagerApplication.appContext.resources.getString(R.string.hour)

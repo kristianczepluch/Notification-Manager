@@ -17,7 +17,6 @@ import com.example.notificationmanager.utils.Utils
 
 class SelectRuleAdapter(var selectedRuleType: RuleType, val radioClickListener: RadioClickListener) : RecyclerView.Adapter<SelectRuleAdapter.SelectRuleAdapterViewHolder>() {
 
-    // Fixed number of rules atm
     val NUMBER_OF_AVAILABLE_RULES = 4
 
     var lastCheckedBox = Utils.ruleTypeToUIPosition(selectedRuleType)
@@ -61,9 +60,11 @@ class SelectRuleAdapter(var selectedRuleType: RuleType, val radioClickListener: 
         }
 
         holder.checkRadioButton.setOnCheckedChangeListener{ button: CompoundButton, b: Boolean ->
-            if(b) radioClickListener.onRadioButtonChecked(position)
-            radioClickListener.onRadioButtonUnchecked(lastCheckedBox)
-            lastCheckedBox = position
+            if(b) {
+                radioClickListener.onRadioButtonChecked(position)
+                radioClickListener.onRadioButtonUnchecked(lastCheckedBox)
+                lastCheckedBox = position
+            }
         }
     }
 
@@ -73,7 +74,7 @@ class SelectRuleAdapter(var selectedRuleType: RuleType, val radioClickListener: 
 
         init {
             itemView.setOnClickListener{
-                checkRadioButton.isChecked = !checkRadioButton.isChecked
+                if(!checkRadioButton.isChecked) checkRadioButton.isChecked = true
             }
         }
 

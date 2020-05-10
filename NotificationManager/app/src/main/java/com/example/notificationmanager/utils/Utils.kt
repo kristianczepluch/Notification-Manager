@@ -83,6 +83,7 @@ object Utils {
             1 -> RuleType.SCHEDULE
             2 -> RuleType.LIMIT_NUMBER
             3 -> RuleType.ETERNALLY
+            -1 -> RuleType.NOT_SELECTED
             else -> throw IllegalArgumentException("Unkown Ruletype")
         }
 
