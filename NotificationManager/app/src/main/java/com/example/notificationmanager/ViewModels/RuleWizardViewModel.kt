@@ -1,6 +1,7 @@
 package com.example.notificationmanager.ViewModels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -44,12 +45,14 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
         selectedWeekdays.value?.add(weekday)
         selectedWeekdayCheckboxes[position] = true
         selectedWeekdays.postValue(selectedWeekdays.value)
+        updateNextButtonScheduleWeekdayFragment()
     }
 
     fun removeWeekDay(weekday: Weekdays, position: Int) {
         selectedWeekdays.value?.remove(weekday)
         selectedWeekdayCheckboxes[position] = false
         selectedWeekdays.postValue(selectedWeekdays.value)
+        updateNextButtonScheduleWeekdayFragment()
     }
 
 
@@ -59,11 +62,13 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
     fun setSelectedBreakTimeHour(hour: Int) {
         selectedBreakTimeHours = hour
         updateBreakTimeString()
+        updateNextButtonShortBreakFragment()
     }
 
     fun setSelectedBreakTimeMinute(min: Int) {
         selectedBreakTimeMinutes = min
         updateBreakTimeString()
+        updateNextButtonShortBreakFragment()
     }
 
     fun setScheduleStartHour(startHour: Int){
@@ -116,23 +121,25 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
     fun getSelectedBreakTimeString(): LiveData<String> = selectedBreakTimeString
 
     fun stepForward() {
+        (currentStep.value?.plus(1))?.let { updateNavigationFragment(it) }
         currentStep.postValue(currentStep.value?.plus(1))
     }
 
     fun stepBackwards() {
+        (currentStep.value?.minus(1))?.let { updateNavigationFragment(it) }
         currentStep.postValue(currentStep.value?.minus(1))
     }
 
     fun addAppToList(app: String) {
         selectedApplications.value?.find { it.packageName.equals(app) }?.selected = true
         selectedApplications.postValue(selectedApplications.value)
-        selectedApplications.value?.let { updatePrevButtonStep1(it) }
+        selectedApplications.value?.let { updateNextButtonStep1(it) }
     }
 
     fun removeAppFromList(app: String) {
         selectedApplications.value?.find { it.packageName.equals(app) }?.selected = false
         selectedApplications.postValue(selectedApplications.value)
-        selectedApplications.value?.let { updatePrevButtonStep1(it) }
+        selectedApplications.value?.let { updateNextButtonStep1(it) }
     }
 
     fun setSelectedRuleType(ruleType: RuleType) { selectedRuleType.postValue(ruleType) }
@@ -159,7 +166,7 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
     }
 
 
-    private fun updatePrevButtonStep1(appList: ArrayList<SelectApplicationsFragment.SelectAppListItem>) {
+    private fun updateNextButtonStep1(appList: ArrayList<SelectApplicationsFragment.SelectAppListItem>) {
         var atLeastOneAppSelected = false
 
         appList.forEach {
@@ -167,9 +174,44 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
                 atLeastOneAppSelected = true
             }
         }
-        if (atLeastOneAppSelected) enableNextButton.postValue(true)
-        else enableNextButton.postValue(false)
+        if (atLeastOneAppSelected) {
+            enableNextButton.postValue(true)
+            Log.d("KristianDEBUG", "updateNextButtonStep1 called: set enabledButton to true")
+        }
+        else {
+            enableNextButton.postValue(false)
+            Log.d("KristianDEBUG", "updateNextButtonStep1 called: set enabledButton to false")
+        }
 
+    }
+
+    private fun updateNextButtonShortBreakFragment(){
+        if(selectedBreakTimeHours == 0 && selectedBreakTimeMinutes == 0){
+            enableNextButton.postValue(false)
+            Log.d("KristianDEBUG", "updateButtonShortBreakFragment called: set enabledButton to false")
+        } else {
+            enableNextButton.postValue(true)
+            Log.d("KristianDEBUG", "updateButtonShortBreakFragment called: set enabledButton to true")
+        }
+    }
+
+    private fun updateNextButtonSelectRuleFragment(){ enableNextButton.postValue(true) }
+
+    private fun updateNextButtonScheduleWeekdayFragment(){
+        if(selectedWeekdays.value?.isEmpty()!!) enableNextButton.postValue(false)
+        else enableNextButton.postValue(true)
+    }
+
+    private fun updateNavigationFragment(step: Int){
+        Log.d("KristianDEBUG", "updateNavigationFragment called with step: $step")
+        when(step){
+            0 -> updateNextButtonStep1(selectedApplications.value!!)
+            1 -> updateNextButtonSelectRuleFragment()
+            2 -> {
+                if(selectedRuleType.value == RuleType.SHORT_BREAK) updateNextButtonShortBreakFragment()
+                if(selectedRuleType.value == RuleType.SCHEDULE) updateNextButtonScheduleWeekdayFragment()
+            }
+        }
     }
 
     fun createDefaultAppList(): ArrayList<SelectApplicationsFragment.SelectAppListItem> {
