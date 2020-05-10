@@ -57,10 +57,6 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
         updateNextButtonScheduleWeekdayFragment()
     }
 
-
-
-    // All Getter Methodes for the RuleWizardUI
-
     fun setSelectedBreakTimeHour(hour: Int) {
         selectedBreakTimeHours = hour
         updateBreakTimeString()
@@ -230,10 +226,6 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
 
     private fun activateCreateButton(){
         enableCreateButton.postValue(true)
-    }
-
-    private fun deactiveCreateButton(){
-        enableCreateButton.postValue(false)
     }
 
     private fun updateNextButtonLimitNumberFragment(){

@@ -8,6 +8,8 @@
     <color name="black">#000000</color>
     <color name="lightgrey">#D3D3D3</color>
 
+    <color name="lightgreen">#98FB98</color>
+
     <color name="rule_forbid_eternally">#e91e63</color>
     <color name="rule_short_break">#795548</color>
     <color name="rule_schedule">#9c27b0</color>
