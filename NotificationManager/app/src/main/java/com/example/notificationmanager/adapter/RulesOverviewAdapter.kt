@@ -33,27 +33,28 @@ class RulesOverviewAdapter(val data: ArrayList<DetoxRuleEntity>) :
 
         holder.ruletype.text = Utils.ruleTypeToUiString(Utils.uiPositionToRuleType(currentItem.ruleType))
         holder.title.text = Utils.getAppNameFromPackageName(currentItem.packageName)
+        holder.imgApp.setImageDrawable(Utils.getAppIconFromPackageName(currentItem.packageName))
 
         when(Utils.uiPositionToRuleType(currentItem.ruleType)){
             RuleType.ETERNALLY -> {
                 val drawable = NotificationManagerApplication.appContext.getDrawable(R.drawable.ic_not_interested_24px)!!
                 DrawableCompat.setTint(drawable, NotificationManagerApplication.appContext.getColor(R.color.rule_forbid_eternally))
-                holder.img.setImageDrawable(drawable)
+                holder.imgRuleType.setImageDrawable(drawable)
                 holder.ruletype.setTextColor(NotificationManagerApplication.appContext.getColor(R.color.rule_forbid_eternally)) }
             RuleType.SHORT_BREAK -> {
                 val drawable = NotificationManagerApplication.appContext.getDrawable(R.drawable.ic_snooze_24px)!!
                 DrawableCompat.setTint(drawable, NotificationManagerApplication.appContext.getColor(R.color.rule_short_break))
-                holder.img.setImageDrawable(drawable)
+                holder.imgRuleType.setImageDrawable(drawable)
                 holder.ruletype.setTextColor(NotificationManagerApplication.appContext.getColor(R.color.rule_short_break))}
             RuleType.SCHEDULE -> {
                 val drawable = NotificationManagerApplication.appContext.getDrawable(R.drawable.ic_today_24px)!!
                 DrawableCompat.setTint(drawable, NotificationManagerApplication.appContext.getColor(R.color.rule_schedule))
-                holder.img.setImageDrawable(drawable)
+                holder.imgRuleType.setImageDrawable(drawable)
                 holder.ruletype.setTextColor(NotificationManagerApplication.appContext.getColor(R.color.rule_schedule))}
             RuleType.LIMIT_NUMBER -> {
                 val drawable = NotificationManagerApplication.appContext.getDrawable(R.drawable.ic_filter_9_plus_24px)!!
                 DrawableCompat.setTint(drawable, NotificationManagerApplication.appContext.getColor(R.color.rule_limit_numner))
-                holder.img.setImageDrawable(drawable)
+                holder.imgRuleType.setImageDrawable(drawable)
                 holder.ruletype.setTextColor(NotificationManagerApplication.appContext.getColor(R.color.rule_limit_numner))
             }
             else -> { }
@@ -72,6 +73,8 @@ class RulesOverviewAdapter(val data: ArrayList<DetoxRuleEntity>) :
 
         val title = itemView.rule_card_title
         val ruletype = itemView.rules_card_ruletype
-        val img = itemView.rule_card_imageView
+        val imgRuleType = itemView.rule_card__imageView_ruletype
+        val imgApp = itemView.rule_card__imageView_app
+
     }
 }
