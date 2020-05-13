@@ -9,6 +9,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
+
 object Utils {
 
     @JvmStatic
@@ -17,34 +18,40 @@ object Utils {
 
 
     @JvmStatic
-    fun getAppNameFromPackageName(packageName: String) : String {
+    fun getAppNameFromPackageName(packageName: String): String {
         val pm = NotificationManagerApplication.appContext.packageManager
         val appInfo = pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
         var resolvedAppName: String = appInfo.loadLabel(pm).toString()
-        try{
-            if(resolvedAppName.equals(packageName)){
-                val lauchIntent: Intent?  = pm.getLaunchIntentForPackage(packageName)
-                if(lauchIntent != null && lauchIntent.component != null){
-                    val launchingComponentLabel = pm.getActivityInfo(lauchIntent.component ?: throw Exception(), PackageManager.GET_META_DATA).labelRes
-                    if(launchingComponentLabel>0) {
-                        val launcherActivityLabel = pm.getText(packageName,launchingComponentLabel,null)
-                        if (launcherActivityLabel != null){
+        try {
+            if (resolvedAppName.equals(packageName)) {
+                val lauchIntent: Intent? = pm.getLaunchIntentForPackage(packageName)
+                if (lauchIntent != null && lauchIntent.component != null) {
+                    val launchingComponentLabel = pm.getActivityInfo(
+                        lauchIntent.component ?: throw Exception(),
+                        PackageManager.GET_META_DATA
+                    ).labelRes
+                    if (launchingComponentLabel > 0) {
+                        val launcherActivityLabel =
+                            pm.getText(packageName, launchingComponentLabel, null)
+                        if (launcherActivityLabel != null) {
                             resolvedAppName = launcherActivityLabel.toString()
                         }
                     }
                 }
             }
-        }catch(e: Exception){
+        } catch (e: Exception) {
             return resolvedAppName
         }
         return resolvedAppName
     }
 
     @JvmStatic
-    fun getStaticStringRessource(ressourceID: Int) = NotificationManagerApplication.appContext.getString(ressourceID)
+    fun getStaticStringRessource(ressourceID: Int) =
+        NotificationManagerApplication.appContext.getString(ressourceID)
 
     @JvmStatic
-    fun getStaticStringRessourceWithInt(ressourceID: Int, intToAdd: Int) = NotificationManagerApplication.appContext.getString(ressourceID, intToAdd)
+    fun getStaticStringRessourceWithInt(ressourceID: Int, intToAdd: Int) =
+        NotificationManagerApplication.appContext.getString(ressourceID, intToAdd)
 
     @JvmStatic
     fun getAllInstalledApps(): List<String> {
@@ -100,21 +107,29 @@ object Utils {
     @JvmStatic
     fun ruleTypeToUiString(ruleType: RuleType) =
         when (ruleType) {
-            RuleType.SHORT_BREAK -> NotificationManagerApplication.appContext.resources.getStringArray(R.array.rule_names)[0].toString()
-            RuleType.SCHEDULE -> NotificationManagerApplication.appContext.resources.getStringArray(R.array.rule_names)[1].toString()
-            RuleType.LIMIT_NUMBER -> NotificationManagerApplication.appContext.resources.getStringArray(R.array.rule_names)[2].toString()
-            RuleType.ETERNALLY -> NotificationManagerApplication.appContext.resources.getStringArray(R.array.rule_names)[3].toString()
-            RuleType.NOT_SELECTED -> NotificationManagerApplication.appContext.resources.getStringArray(R.array.rule_names)[4].toString()
+            RuleType.SHORT_BREAK -> NotificationManagerApplication.appContext.resources.getStringArray(
+                R.array.rule_names
+            )[0].toString()
+            RuleType.SCHEDULE -> NotificationManagerApplication.appContext.resources.getStringArray(
+                R.array.rule_names
+            )[1].toString()
+            RuleType.LIMIT_NUMBER -> NotificationManagerApplication.appContext.resources.getStringArray(
+                R.array.rule_names
+            )[2].toString()
+            RuleType.ETERNALLY -> NotificationManagerApplication.appContext.resources.getStringArray(
+                R.array.rule_names
+            )[3].toString()
+            RuleType.NOT_SELECTED -> NotificationManagerApplication.appContext.resources.getStringArray(
+                R.array.rule_names
+            )[4].toString()
         }
 
     @JvmStatic
     fun limitNumberModeToUiString(limitNumberMode: LimitNumberMode) =
-        when(limitNumberMode){
+        when (limitNumberMode) {
             LimitNumberMode.HOUR -> getStaticStringRessource(R.string.hourReview)
-            LimitNumberMode.DAY-> getStaticStringRessource(R.string.dayReview)
+            LimitNumberMode.DAY -> getStaticStringRessource(R.string.dayReview)
             LimitNumberMode.WEEK -> getStaticStringRessource(R.string.weekReview)
             LimitNumberMode.NOT_SELECTED -> getStaticStringRessource(R.string.notSelected)
         }
-
-
 }

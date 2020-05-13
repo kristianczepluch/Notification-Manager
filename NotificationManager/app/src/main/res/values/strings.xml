@@ -42,11 +42,21 @@
     <string name="options2">Options 2</string>
     <string name="default_text">defualt text</string>
     <string name="duration">Duration</string>
+    <string name="outdated">Outdated</string>
 
     <!-- Navigation Button for rule creation-->
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="create">Create</string>
+    <string name="ruletype">Ruletyp here</string>
+
+
+    <!-- timeslot-string -->
+    <string name="rule_timeslot_for_this_minute">for this minute</string>
+    <string name="rule_timeslot_for_this_hour">for this hour</string>
+    <string name="rule_timeslot_for_this_day">for this day</string>
+    <string name="rule_timeslot_for_this_week">for this week</string>
+    <string name="rule_timeslot_none">none</string>
 
 
     <!-- Rule Wizard Titles-->

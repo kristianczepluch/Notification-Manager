@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+    <integer name="rule_type_id_forbideternally">0</integer>
+    <integer name="rule_type_id_forbidmillisfromnow">1</integer>
+    <integer name="rule_type_id_forbidathoursondays">2</integer>
+    <integer name="rule_type_id_allowlaunchespertime">3</integer>
+    <integer name="rule_type_id_allowusagepertime">4</integer>
+    <integer name="rule_type_id_allowusagepersteps">5</integer>
+    <integer name="rule_type_id_snoozeNotificationUntilNextAppUsage">6</integer>
+
+</resources>

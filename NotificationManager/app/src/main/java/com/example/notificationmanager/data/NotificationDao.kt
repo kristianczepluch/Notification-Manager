@@ -18,7 +18,6 @@ interface NotificationDao {
     @Query("SELECT * FROM NOTIFICATIONS_TABLE WHERE received_time > :timestamp AND packageName = :packageNameArg")
     fun getNotificationsFromPackageNameFromTimestamp(timestamp: Long, packageNameArg: String): LiveData<List<NotificationEntity>>
 
-    // Todo: finish this opeartion
     @Query("DELETE FROM notifications_table")
     fun deleteAllNotifications()
 
