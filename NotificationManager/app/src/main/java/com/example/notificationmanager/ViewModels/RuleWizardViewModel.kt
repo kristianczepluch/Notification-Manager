@@ -180,9 +180,6 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
                         "${if (selectedBreakTimeHours == 1) hourString else hoursString} and $selectedBreakTimeMinutes ${if (selectedBreakTimeMinutes == 1) minuteString else minutesString}"
             )
         }
-
-        NotificationManagerApplication.appContext.resources.getString(R.string.minute)
-        NotificationManagerApplication.appContext.resources.getString(R.string.minutes)
     }
 
 
@@ -300,7 +297,7 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
                         )
 
                     repository.insertDetoxRule(DetoxRuleEntity(
-                        ruleType = Utils.ruleTypeToUIPosition(RuleType.SHORT_BREAK),
+                        ruleType = Utils.ruleTypeToUIPosition(ruleType),
                         packageName = packageName,
                         appName = appName,
                         ruleBreakTimeEndTimestamp = breakTimeEndTimestamp
@@ -308,7 +305,33 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
                     }
                 }
 
-        } else throw Exception("Not Supported RuleType")
+        }else if(selectedRuleType.value?.equals(RuleType.LIMIT_NUMBER)!!){
+
+            selectedApplications.value?.forEach{
+
+                if(it.selected){
+
+                    val limitNumber = getLimitNumber().value
+                    val limitNumberMode = getLimitNumberMode().value
+                    val ruleType = RuleType.LIMIT_NUMBER
+                    val packageName = it.packageName
+                    val appName = Utils.getAppNameFromPackageName(it.packageName)
+
+                    if(limitNumber != null && limitNumberMode != null) {
+
+                        repository.insertDetoxRule(DetoxRuleEntity(
+                            ruleType = Utils.ruleTypeToUIPosition(ruleType),
+                            packageName = packageName,
+                            appName = appName,
+                            ruleLimitNumberAllowedNumber = limitNumber,
+                            ruleLimitNumberLaunchesSoFar = 0,
+                            ruleLimitNumberTimeSlotType = Utils.limitNumberModeToTimeSlotType(limitNumberMode)
+                        ))
+                    }
+                }
+            }
+        }
+        else throw Exception("Not Supported RuleType")
     }
 }
 

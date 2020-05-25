@@ -28,7 +28,7 @@ class DetoxRuleEntity(
     val ruleLimitNumberTimeSlotType: Int = -1,
     val ruleLimitNumberAllowedNumber: Int = -1,
     val ruleLimitNumberTimeSlotID: Int = -1,
-    val ruleLimitNumberLaunchesSoFar: Int = -1
+    val ruleLimitNumberLaunchesSoFar: Int = 0
 ) {
     public @PrimaryKey(autoGenerate = true)
     var id: Int = 0

@@ -43,6 +43,8 @@
     <string name="default_text">defualt text</string>
     <string name="duration">Duration</string>
     <string name="outdated">Outdated</string>
+    <string name="delete">Delete</string>
+    <string name="choose_one_or_more">Choose one or more</string>
 
     <!-- Navigation Button for rule creation-->
     <string name="next">Next</string>

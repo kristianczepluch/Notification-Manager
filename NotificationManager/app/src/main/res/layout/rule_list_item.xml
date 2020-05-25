@@ -14,22 +14,34 @@
 
         <TextView
             android:id="@+id/rule_card_title"
-            android:layout_width="298dp"
+            android:layout_width="250dp"
             android:layout_height="31dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
+            android:layout_marginStart="24dp"
             android:padding="3dp"
             android:text="@string/app_title_defualt"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.304"
             app:layout_constraintStart_toEndOf="@+id/rule_card__imageView_app"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.224" />
+            app:layout_constraintVertical_bias="0.271" />
+
+        <TextView
+            android:id="@+id/rules_card_ruletype"
+            android:layout_width="228dp"
+            android:layout_height="20dp"
+            android:layout_alignBottom="@+id/rule_card__imageView_ruletype"
+            android:layout_toEndOf="@+id/rule_card__imageView_ruletype"
+            android:text="@string/ruletype"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/rule_card_title"
+            app:layout_constraintStart_toEndOf="@+id/rule_card__imageView_ruletype"
+            app:layout_constraintTop_toTopOf="@+id/rule_card__imageView_ruletype"
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
             android:id="@+id/rule_card__imageView_ruletype"
@@ -43,20 +55,6 @@
             app:layout_constraintTop_toBottomOf="@+id/rule_card_title"
             app:layout_constraintVertical_bias="0.19999999"
             app:srcCompat="@drawable/ic_android_black_24dp" />
-
-        <TextView
-            android:id="@+id/rules_card_ruletype"
-            android:layout_width="137dp"
-            android:layout_height="19dp"
-            android:layout_alignBottom="@+id/rule_card__imageView_ruletype"
-            android:layout_toEndOf="@+id/rule_card__imageView_ruletype"
-            android:text="@string/ruletype"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/rule_card_title"
-            app:layout_constraintHorizontal_bias="0.03"
-            app:layout_constraintStart_toEndOf="@+id/rule_card__imageView_ruletype"
-            app:layout_constraintTop_toTopOf="@+id/rule_card__imageView_ruletype"
-            app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
             android:id="@+id/rule_card__imageView_app"
@@ -73,6 +71,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.58000004"
             app:srcCompat="@drawable/ic_android_black_24dp" />
+
+        <CheckBox
+            android:id="@+id/rules_card_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

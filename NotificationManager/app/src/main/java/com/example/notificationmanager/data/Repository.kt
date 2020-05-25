@@ -27,6 +27,14 @@ class Repository(application: Application) {
         }
     }
 
+    fun deleteDetoxRule(id: Int){
+        Log.d("KristianDEBUG", "Deleting: DetoxRule with id: $id")
+        DetoxRulesDatabase.databaseWriteExecutor.execute{
+            detoxRuleDao.deleteDetoxRuleById(id)
+        }
+
+    }
+
     fun insertDetoxRule(detoxRule: DetoxRuleEntity){
         Log.d("KristianDEBUG", "Saving: $detoxRule")
         DetoxRulesDatabase.databaseWriteExecutor.execute() {

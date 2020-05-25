@@ -132,4 +132,21 @@ object Utils {
             LimitNumberMode.WEEK -> getStaticStringRessource(R.string.weekReview)
             LimitNumberMode.NOT_SELECTED -> getStaticStringRessource(R.string.notSelected)
         }
+
+    @JvmStatic
+    fun limitNumberModeToTimeSlotType(limitNumberMode: LimitNumberMode) = when (limitNumberMode) {
+        LimitNumberMode.HOUR -> 0
+        LimitNumberMode.DAY -> 1
+        LimitNumberMode.WEEK -> 2
+        LimitNumberMode.NOT_SELECTED -> 3
+    }
+
+    @JvmStatic
+    fun timeSlotTypeToLimitNumberMode(timeSlotType: Int) = when (timeSlotType) {
+        0 -> LimitNumberMode.HOUR
+        1 -> LimitNumberMode.DAY
+        2 -> LimitNumberMode.WEEK
+        3 -> LimitNumberMode.NOT_SELECTED
+        else -> LimitNumberMode.NOT_SELECTED
+    }
 }
