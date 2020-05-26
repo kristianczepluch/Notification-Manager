@@ -32,13 +32,14 @@
 
         <TextView
             android:id="@+id/rules_card_ruletype"
-            android:layout_width="228dp"
-            android:layout_height="20dp"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/rule_card__imageView_ruletype"
             android:layout_toEndOf="@+id/rule_card__imageView_ruletype"
             android:text="@string/ruletype"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/rule_card_title"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/rule_card__imageView_ruletype"
             app:layout_constraintTop_toTopOf="@+id/rule_card__imageView_ruletype"
             app:layout_constraintVertical_bias="0.0" />

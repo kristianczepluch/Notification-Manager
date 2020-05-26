@@ -259,13 +259,11 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
     }
 
 
-    fun saveDetoxRule(){
+    fun saveDetoxRule() {
+        when (selectedRuleType.value) {
 
-        if (selectedRuleType.value?.equals(RuleType.ETERNALLY)!!) {
-
-
+            RuleType.ETERNALLY -> {
                 selectedApplications.value?.forEach {
-
                     if (it.selected) {
                         val ruleType = RuleType.ETERNALLY
                         val packageName = it.packageName
@@ -273,65 +271,112 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
 
                         repository.insertDetoxRule(
                             DetoxRuleEntity(
-                                ruleType = Utils.ruleTypeToUIPosition(RuleType.ETERNALLY),
+                                ruleType = Utils.ruleTypeToUIPosition(ruleType),
                                 packageName = packageName,
                                 appName = appName
                             )
                         )
-
-                    }
-                }
-
-        } else if (selectedRuleType.value?.equals(RuleType.SHORT_BREAK)!!) {
-
-                selectedApplications.value?.forEach {
-
-                    if(it.selected){
-
-                    val ruleType = RuleType.SHORT_BREAK
-                    val packageName = it.packageName
-                    val appName = Utils.getAppNameFromPackageName(it.packageName)
-                    val breakTimeEndTimestamp =
-                        Utils.getCurrentTime() + TimeUnit.HOURS.toMillis(selectedBreakTimeMinutes.toLong()) + TimeUnit.MINUTES.toMillis(
-                            selectedBreakTimeMinutes.toLong()
-                        )
-
-                    repository.insertDetoxRule(DetoxRuleEntity(
-                        ruleType = Utils.ruleTypeToUIPosition(ruleType),
-                        packageName = packageName,
-                        appName = appName,
-                        ruleBreakTimeEndTimestamp = breakTimeEndTimestamp
-                    ))
-                    }
-                }
-
-        }else if(selectedRuleType.value?.equals(RuleType.LIMIT_NUMBER)!!){
-
-            selectedApplications.value?.forEach{
-
-                if(it.selected){
-
-                    val limitNumber = getLimitNumber().value
-                    val limitNumberMode = getLimitNumberMode().value
-                    val ruleType = RuleType.LIMIT_NUMBER
-                    val packageName = it.packageName
-                    val appName = Utils.getAppNameFromPackageName(it.packageName)
-
-                    if(limitNumber != null && limitNumberMode != null) {
-
-                        repository.insertDetoxRule(DetoxRuleEntity(
-                            ruleType = Utils.ruleTypeToUIPosition(ruleType),
-                            packageName = packageName,
-                            appName = appName,
-                            ruleLimitNumberAllowedNumber = limitNumber,
-                            ruleLimitNumberLaunchesSoFar = 0,
-                            ruleLimitNumberTimeSlotType = Utils.limitNumberModeToTimeSlotType(limitNumberMode)
-                        ))
                     }
                 }
             }
+
+            RuleType.SHORT_BREAK -> {
+                selectedApplications.value?.forEach {
+
+                    if (it.selected) {
+
+                        val ruleType = RuleType.SHORT_BREAK
+                        val packageName = it.packageName
+                        val appName = Utils.getAppNameFromPackageName(it.packageName)
+                        val breakTimeEndTimestamp =
+                            Utils.getCurrentTime() + TimeUnit.HOURS.toMillis(
+                                selectedBreakTimeMinutes.toLong()
+                            ) + TimeUnit.MINUTES.toMillis(
+                                selectedBreakTimeMinutes.toLong()
+                            )
+
+                        repository.insertDetoxRule(
+                            DetoxRuleEntity(
+                                ruleType = Utils.ruleTypeToUIPosition(ruleType),
+                                packageName = packageName,
+                                appName = appName,
+                                ruleBreakTimeEndTimestamp = breakTimeEndTimestamp
+                            )
+                        )
+                    }
+                }
+            }
+
+            RuleType.LIMIT_NUMBER -> {
+                selectedApplications.value?.forEach {
+
+                    if (it.selected) {
+
+                        val limitNumber = getLimitNumber().value
+                        val limitNumberMode = getLimitNumberMode().value
+                        val ruleType = RuleType.LIMIT_NUMBER
+                        val packageName = it.packageName
+                        val appName = Utils.getAppNameFromPackageName(it.packageName)
+
+                        if (limitNumber != null && limitNumberMode != null) {
+
+                            repository.insertDetoxRule(
+                                DetoxRuleEntity(
+                                    ruleType = Utils.ruleTypeToUIPosition(ruleType),
+                                    packageName = packageName,
+                                    appName = appName,
+                                    ruleLimitNumberAllowedNumber = limitNumber,
+                                    ruleLimitNumberLaunchesSoFar = 0,
+                                    ruleLimitNumberTimeSlotType = Utils.limitNumberModeToTimeSlotType(
+                                        limitNumberMode
+                                    )
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+
+            RuleType.SCHEDULE -> {
+                selectedApplications.value?.forEach {
+                    if (it.selected) {
+                        val ruleType = RuleType.SCHEDULE
+                        val packageName = it.packageName
+                        val appName = Utils.getAppNameFromPackageName(it.packageName)
+
+                        val mo = selectedWeekdays.value?.contains(Weekdays.MO) ?: false
+                        val tu = selectedWeekdays.value?.contains(Weekdays.TU) ?: false
+                        val we = selectedWeekdays.value?.contains(Weekdays.WE) ?: false
+                        val th = selectedWeekdays.value?.contains(Weekdays.TH) ?: false
+                        val fr = selectedWeekdays.value?.contains(Weekdays.FR) ?: false
+                        val sa = selectedWeekdays.value?.contains(Weekdays.SA) ?: false
+                        val su = selectedWeekdays.value?.contains(Weekdays.SU) ?: false
+
+
+                        repository.insertDetoxRule(
+                            DetoxRuleEntity(
+                                ruleType = Utils.ruleTypeToUIPosition(ruleType),
+                                packageName = packageName,
+                                appName = appName,
+                                ruleScheduleStartHour = selectedScheduleStartHour,
+                                ruleScheduleEndHour = selectedScheduleEndHour,
+                                ruleScheduleStartMinute = selectedScheduleStartMinute,
+                                ruleScheduleEndMinute = selectedScheduleEndMinute,
+                                ruleScheduleMO = mo,
+                                ruleScheduleTU = tu,
+                                ruleScheduleWE = we,
+                                ruleScheduleTH = th,
+                                ruleScheduleFR = fr,
+                                ruleScheduleSA = sa,
+                                ruleScheduleSU = su
+                            )
+                        )
+                    }
+                }
+            }
+            else -> {
+            }
         }
-        else throw Exception("Not Supported RuleType")
     }
 }
 
