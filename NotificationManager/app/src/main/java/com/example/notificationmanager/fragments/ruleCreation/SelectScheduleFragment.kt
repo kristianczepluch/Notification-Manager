@@ -6,23 +6,35 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TimePicker
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.notificationmanager.R
 import com.example.notificationmanager.ViewModels.RuleWizardViewModel
 
 
 class SelectScheduleFragment : Fragment(R.layout.fragment_select_schedule) {
 
-    lateinit var timePickerStart: TimePicker
-    lateinit var timePickerEnd: TimePicker
-    lateinit var ruleWizardViewModel: RuleWizardViewModel
+    private val SATE_START_MINUTE = "state_start_minute"
+    private val SATE_END_MINUTE = "state_end_minute"
+    private val SATE_START_HOUR = "state_start_hour"
+    private val SATE_END_HOUR = "state_end_hour"
+
+    private lateinit var timePickerStart: TimePicker
+    private lateinit var timePickerEnd: TimePicker
+    private lateinit var ruleWizardViewModel: RuleWizardViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        ruleWizardViewModel = ViewModelProviders.of(activity!!).get(RuleWizardViewModel::class.java)
+        ruleWizardViewModel = ViewModelProvider(requireActivity()).get(RuleWizardViewModel::class.java)
+
+        if(savedInstanceState != null){
+            ruleWizardViewModel.setScheduleStartHour(savedInstanceState.getInt(SATE_START_HOUR))
+            ruleWizardViewModel.setScheduleStartMinute(savedInstanceState.getInt(SATE_START_MINUTE))
+            ruleWizardViewModel.setScheduleEndHour(savedInstanceState.getInt(SATE_END_HOUR))
+            ruleWizardViewModel.setScheduleEndMinute(savedInstanceState.getInt(SATE_END_MINUTE))
+        }
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
@@ -50,6 +62,13 @@ class SelectScheduleFragment : Fragment(R.layout.fragment_select_schedule) {
             ruleWizardViewModel.setScheduleEndHour(hourOfDay)
             ruleWizardViewModel.setScheduleEndMinute(minute)
         }
+    }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(SATE_START_MINUTE, ruleWizardViewModel.selectedScheduleStartMinute)
+        outState.putInt(SATE_START_HOUR, ruleWizardViewModel.selectedScheduleStartHour)
+        outState.putInt(SATE_END_MINUTE, ruleWizardViewModel.selectedScheduleEndMinute)
+        outState.putInt(SATE_END_HOUR, ruleWizardViewModel.selectedScheduleEndHour)
     }
 }

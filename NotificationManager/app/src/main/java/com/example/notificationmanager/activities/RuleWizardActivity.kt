@@ -18,6 +18,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class RuleWizardActivity : AppCompatActivity() {
 
+    // saved-instance-state keys
+    private val STATE_CURRENT_STEP = "state_current_step"
+
     lateinit var viewPager: ViewPager2
     lateinit var myTabLayout: TabLayout
     lateinit var myAdapter: RuleCreationViewPagerAdapter
@@ -28,6 +31,12 @@ class RuleWizardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rule_wizzard)
 
+        // restore state after potential process death
+        if(savedInstanceState != null) {
+            val currentStep = savedInstanceState.getInt(STATE_CURRENT_STEP)
+            ruleWizardViewModel.setCurrentStep(currentStep)
+        }
+
         // Setup the viewPager
         viewPager = findViewById(R.id.maincontent_fragment_container)
         viewPager.isUserInputEnabled = false
@@ -37,8 +46,8 @@ class RuleWizardActivity : AppCompatActivity() {
             lifecycle
         )
 
+        viewPager.offscreenPageLimit = 5
         viewPager.adapter = myAdapter
-        myAdapter.hasStableIds()
 
         myTabLayout = findViewById(R.id.tablayout_rulecreation)
         TabLayoutMediator(myTabLayout, viewPager){ _, _ -> }.attach()
@@ -49,9 +58,17 @@ class RuleWizardActivity : AppCompatActivity() {
 
         ruleWizardViewModel.selectedRuleType.observe(this, Observer { ruleType ->
             myAdapter.removeRuleFragments()
-                    myAdapter.addFragmentForRuleType(ruleType)
+            myAdapter.addFragmentForRuleType(ruleType)
         })
+    }
 
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val stateCurrentStep = ruleWizardViewModel.getCurrentSteps().value
+        if(stateCurrentStep != null) {
+            outState.putInt(STATE_CURRENT_STEP, stateCurrentStep)
+        }
     }
 
     inner class RuleCreationViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager, lifecycle){
@@ -98,6 +115,7 @@ class RuleWizardActivity : AppCompatActivity() {
                     fragment_ids.add(reviewFragment.hashCode().toLong())
                     notifyDataSetChanged()
                 }
+                else -> throw  Exception("Ruletype not found")
             }
         }
 
@@ -108,7 +126,6 @@ class RuleWizardActivity : AppCompatActivity() {
             fragement_list.add(selectRuleTypeFragment)
             fragment_ids.add(selectApplicationsFragment.hashCode().toLong())
             fragment_ids.add(selectRuleTypeFragment.hashCode().toLong())
-
         }
 
         override fun containsItem(itemId: Long): Boolean {

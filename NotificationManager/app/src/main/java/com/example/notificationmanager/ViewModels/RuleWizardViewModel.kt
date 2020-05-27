@@ -23,6 +23,7 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
     var selectedScheduleStartHour: Int = 0
     var selectedScheduleEndHour: Int = 0
 
+
     private val selectedWeekdays: MutableLiveData<ArrayList<Weekdays>> =
         MutableLiveData(ArrayList())
 
@@ -56,6 +57,7 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
         selectedWeekdays.postValue(selectedWeekdays.value)
         updateNextButtonScheduleWeekdayFragment()
     }
+
 
     fun removeWeekDay(weekday: Weekdays, position: Int) {
         selectedWeekdays.value?.remove(weekday)
@@ -128,6 +130,10 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
     fun getSelectedApplications(): LiveData<ArrayList<SelectApplicationsFragment.SelectAppListItem>> =
         selectedApplications
 
+    fun setSelectedApplications(list :ArrayList<SelectApplicationsFragment.SelectAppListItem>){
+        selectedApplications.postValue(list)
+    }
+
     fun getCurrentSteps(): LiveData<Int> = currentStep
 
     fun getEnableNextButton(): LiveData<Boolean> = enableNextButton
@@ -142,6 +148,10 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
     fun stepBackwards() {
         (currentStep.value?.minus(1))?.let { updateNavigationFragment(it) }
         currentStep.postValue(currentStep.value?.minus(1))
+    }
+
+    fun setCurrentStep(step: Int){
+        currentStep.postValue(step)
     }
 
     fun addAppToList(app: String) {
@@ -223,7 +233,7 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
         else enableNextButton.postValue(true)
     }
 
-    private fun updateNavigationFragment(step: Int) {
+    fun updateNavigationFragment(step: Int) {
         when (step) {
             0 -> updateNextButtonStep1(selectedApplications.value!!)
             1 -> updateNextButtonSelectRuleFragment()

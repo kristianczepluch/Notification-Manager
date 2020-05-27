@@ -8,7 +8,7 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.notificationmanager.R
 import com.example.notificationmanager.ViewModels.RuleType
 import com.example.notificationmanager.ViewModels.RuleWizardViewModel
@@ -29,12 +29,13 @@ class ReviewFragment : Fragment(R.layout.fragment_review) {
     private lateinit var line4: View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        ruleWizardViewModel = ViewModelProviders.of(activity!!).get(RuleWizardViewModel::class.java)
+        ruleWizardViewModel = ViewModelProvider(requireActivity()).get(RuleWizardViewModel::class.java)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         ruleTextView = view.findViewById(R.id.wizard_textview_review_ruletext)
         appsTextView = view.findViewById(R.id.wizard_textview_review_appstext)

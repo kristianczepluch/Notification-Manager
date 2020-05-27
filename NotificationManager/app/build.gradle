@@ -90,4 +90,5 @@ dependencies {
     implementation "org.koin:koin-android-architecture:0.8.2"
 
     implementation "androidx.core:core-ktx:1.2.0"
+
 }

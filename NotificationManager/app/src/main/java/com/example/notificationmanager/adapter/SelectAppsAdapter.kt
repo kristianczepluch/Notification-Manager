@@ -30,8 +30,6 @@ class SelectAppsAdapter (var data: List<SelectApplicationsFragment.SelectAppList
 
         val currentItem = data.get(position)
 
-        holder.checkbox.isChecked = currentItem.selected
-
         holder.checkbox.isFocusable = false
         holder.checkbox.isClickable = false
 
@@ -46,14 +44,11 @@ class SelectAppsAdapter (var data: List<SelectApplicationsFragment.SelectAppList
             }
         }
 
+        holder.checkbox.isChecked = currentItem.selected
+
         holder.textView.text = Utils.getAppNameFromPackageName(currentItem.packageName)
         holder.imageView.setImageDrawable(Utils.getAppIconFromPackageName(currentItem.packageName))
 
-    }
-
-    fun updateData(newData: ArrayList<SelectApplicationsFragment.SelectAppListItem>){
-        data = newData
-        notifyDataSetChanged()
     }
 
     override fun getItemCount() = data.size

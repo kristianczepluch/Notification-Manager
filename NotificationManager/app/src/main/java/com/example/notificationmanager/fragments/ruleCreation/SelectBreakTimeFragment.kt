@@ -6,22 +6,33 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.NumberPicker
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.notificationmanager.R
 import com.example.notificationmanager.ViewModels.RuleWizardViewModel
 
 class SelectBreakTimeFragment : Fragment(R.layout.fragment_select_break_time) {
 
-    lateinit var minutePicker: NumberPicker
-    lateinit var hourPicker: NumberPicker
-    lateinit var ruleWizardViewModel: RuleWizardViewModel
+    private val STATE_MINUTE_PICKER = "state_minute_picker"
+    private val STATE_HOUR_PICKER = "state_hour_picker"
+
+    private lateinit var minutePicker: NumberPicker
+    private lateinit var hourPicker: NumberPicker
+    private lateinit var ruleWizardViewModel: RuleWizardViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        ruleWizardViewModel = ViewModelProviders.of(activity!!).get(RuleWizardViewModel::class.java)
+        ruleWizardViewModel =
+            ViewModelProvider(requireActivity()).get(RuleWizardViewModel::class.java)
+
+        if (savedInstanceState != null) {
+            val currentMinute = savedInstanceState.getInt(STATE_MINUTE_PICKER)
+            val currentHour = savedInstanceState.getInt(STATE_HOUR_PICKER)
+            ruleWizardViewModel.setSelectedBreakTimeMinute(currentMinute)
+            ruleWizardViewModel.setSelectedBreakTimeHour(currentHour)
+        }
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
@@ -51,4 +62,9 @@ class SelectBreakTimeFragment : Fragment(R.layout.fragment_select_break_time) {
 
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(STATE_MINUTE_PICKER, ruleWizardViewModel.selectedBreakTimeMinutes)
+        outState.putInt(STATE_HOUR_PICKER, ruleWizardViewModel.selectedBreakTimeHours)
+    }
 }
