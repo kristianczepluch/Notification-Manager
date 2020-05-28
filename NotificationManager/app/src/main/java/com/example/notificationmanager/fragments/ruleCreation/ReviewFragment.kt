@@ -1,14 +1,12 @@
 package com.example.notificationmanager.fragments.ruleCreation
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.example.notificationmanager.R
 import com.example.notificationmanager.ViewModels.RuleType
 import com.example.notificationmanager.ViewModels.RuleWizardViewModel
@@ -16,7 +14,6 @@ import com.example.notificationmanager.utils.Utils
 
 class ReviewFragment : Fragment(R.layout.fragment_review) {
 
-    private lateinit var ruleWizardViewModel: RuleWizardViewModel
     private lateinit var ruleTextView: TextView
     private lateinit var appsTextView: TextView
     private lateinit var options1TextViewTitle: TextView
@@ -27,11 +24,8 @@ class ReviewFragment : Fragment(R.layout.fragment_review) {
     private lateinit var options2Row: TableRow
     private lateinit var line3: View
     private lateinit var line4: View
+    private val ruleWizardViewModel: RuleWizardViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        ruleWizardViewModel = ViewModelProviders.of(activity!!).get(RuleWizardViewModel::class.java)
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

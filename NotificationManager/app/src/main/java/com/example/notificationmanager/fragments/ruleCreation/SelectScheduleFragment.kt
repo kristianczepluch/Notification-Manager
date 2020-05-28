@@ -1,12 +1,10 @@
 package com.example.notificationmanager.fragments.ruleCreation
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TimePicker
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.activityViewModels
 import com.example.notificationmanager.R
 import com.example.notificationmanager.ViewModels.RuleWizardViewModel
 
@@ -15,16 +13,7 @@ class SelectScheduleFragment : Fragment(R.layout.fragment_select_schedule) {
 
     lateinit var timePickerStart: TimePicker
     lateinit var timePickerEnd: TimePicker
-    lateinit var ruleWizardViewModel: RuleWizardViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        ruleWizardViewModel = ViewModelProviders.of(activity!!).get(RuleWizardViewModel::class.java)
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
+    private val ruleWizardViewModel: RuleWizardViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

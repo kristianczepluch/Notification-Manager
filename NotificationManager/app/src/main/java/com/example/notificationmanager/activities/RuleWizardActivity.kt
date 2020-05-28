@@ -1,11 +1,11 @@
 package com.example.notificationmanager.activities
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.notificationmanager.R
@@ -21,8 +21,7 @@ class RuleWizardActivity : AppCompatActivity() {
     lateinit var viewPager: ViewPager2
     lateinit var myTabLayout: TabLayout
     lateinit var myAdapter: RuleCreationViewPagerAdapter
-
-    val ruleWizardViewModel by lazy { ViewModelProvider(this).get(RuleWizardViewModel::class.java) }
+    private val ruleWizardViewModel: RuleWizardViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

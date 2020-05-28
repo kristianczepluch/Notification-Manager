@@ -1,11 +1,9 @@
 package com.example.notificationmanager.fragments.ruleCreation
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notificationmanager.R
@@ -17,12 +15,7 @@ class SelectWeekdaysFragment : Fragment(R.layout.fragment_select_weekdays), OnWe
 
     lateinit var recyclerView: RecyclerView
     lateinit var adapter : SelectWeekdayAdapter
-    private lateinit var ruleWizardViewModel: RuleWizardViewModel
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        ruleWizardViewModel = ViewModelProviders.of(activity!!).get(RuleWizardViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_select_weekdays, container, false)
-    }
+    private val ruleWizardViewModel: RuleWizardViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

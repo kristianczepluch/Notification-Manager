@@ -3,13 +3,15 @@ package com.example.notificationmanager.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notificationmanager.R
@@ -29,18 +31,9 @@ class NotificationRules : Fragment(R.layout.fragment_notification_rules),
 
     lateinit var recyclerView: RecyclerView
     lateinit var recyclerViewAdapter: RulesOverviewAdapter
-    lateinit var model: MainActivityViewModel
     private var actionMode: ActionMode? = null
+    private val model: MainActivityViewModel by activityViewModels()
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        model = ViewModelProviders.of(activity!!).get(MainActivityViewModel::class.java)
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -65,7 +58,7 @@ class NotificationRules : Fragment(R.layout.fragment_notification_rules),
 
         val myData: LiveData<List<DetoxRuleEntity>> = model.getRulesOverview()
 
-        myData.observe(this, Observer { newList ->
+        myData.observe(viewLifecycleOwner, Observer { newList ->
             recyclerViewAdapter.setData(newList)
         })
     }

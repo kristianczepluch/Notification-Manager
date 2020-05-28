@@ -1,27 +1,20 @@
 package com.example.notificationmanager.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.example.notificationmanager.R
 import com.example.notificationmanager.ViewModels.RuleWizardViewModel
 
 
 class RuleNavigationFragment : Fragment(R.layout.fragment_rule_navigation) {
 
-    lateinit var ruleWizardViewModel: RuleWizardViewModel
     lateinit var nextButton: Button
     lateinit var prevButton: Button
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        ruleWizardViewModel = ViewModelProviders.of(activity!!).get(RuleWizardViewModel::class.java)
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
+    private val ruleWizardViewModel: RuleWizardViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
