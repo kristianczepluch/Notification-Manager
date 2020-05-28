@@ -14,6 +14,9 @@ interface DetoxRulesDao {
     @Query("DELETE FROM detoxRules_table")
     fun deleteAllDetoxRules()
 
+    @Query("SELECT * FROM detoxRules_table WHERE id = :id")
+    fun getDetoxRuleById(id: Int): LiveData<DetoxRuleEntity>
+
     @Query("DELETE FROM detoxRules_table WHERE id = :id")
     fun deleteDetoxRuleById(id: Int)
 

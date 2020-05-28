@@ -1,7 +1,6 @@
 package com.example.notificationmanager.data
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.notificationmanager.utils.Utils
 
@@ -28,15 +27,14 @@ class Repository(application: Application) {
     }
 
     fun deleteDetoxRule(id: Int){
-        Log.d("KristianDEBUG", "Deleting: DetoxRule with id: $id")
         DetoxRulesDatabase.databaseWriteExecutor.execute{
             detoxRuleDao.deleteDetoxRuleById(id)
         }
-
     }
 
+    fun getDetoxRule(id: Int) = detoxRuleDao.getDetoxRuleById(id)
+
     fun insertDetoxRule(detoxRule: DetoxRuleEntity){
-        Log.d("KristianDEBUG", "Saving: $detoxRule")
         DetoxRulesDatabase.databaseWriteExecutor.execute() {
             detoxRuleDao.insertDetoxRule(detoxRule)
         }
