@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notificationmanager.R
 import com.example.notificationmanager.ViewModels.MainActivityViewModel
+import com.example.notificationmanager.activities.RuleDetailActivity
 import com.example.notificationmanager.activities.RuleWizardActivity
 import com.example.notificationmanager.adapter.RulesOverviewAdapter
 import com.example.notificationmanager.data.DetoxRuleEntity
@@ -113,6 +114,10 @@ class NotificationRules : Fragment(R.layout.fragment_notification_rules),
         if (actionMode != null) {
             model.setItemSelect(position, isSelected, id)
             recyclerViewAdapter.setItemSelected(position, isSelected)
+        } else{
+            val detailsActivityIntent = Intent(activity, RuleDetailActivity::class.java)
+            detailsActivityIntent.putExtra(RuleDetailActivity.RULE_ID_EXTRA, id)
+            startActivity(detailsActivityIntent)
         }
     }
 
