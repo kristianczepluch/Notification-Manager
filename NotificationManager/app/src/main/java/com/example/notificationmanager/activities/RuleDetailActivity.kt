@@ -1,7 +1,6 @@
 package com.example.notificationmanager.activities
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.notificationmanager.R
@@ -22,7 +21,6 @@ class RuleDetailActivity : AppCompatActivity() {
 
         // Get RuleId to request details about the rule
         val ruleId = intent.getIntExtra(RULE_ID_EXTRA, RULE_ID_DEFAULT_VALUE)
-        Toast.makeText(this, "Rule: $ruleId", Toast.LENGTH_LONG).show()
     }
 
     override fun onSupportNavigateUp(): Boolean {
