@@ -312,14 +312,13 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
 
                     if (it.selected) {
 
-                        val limitNumber = getLimitNumber().value
-                        val limitNumberMode = getLimitNumberMode().value
+                        val limitNumber = selectedLimitNumber.value
+                        val limitNumberMode = selectedLimitNumberMode.value
                         val ruleType = RuleType.LIMIT_NUMBER
                         val packageName = it.packageName
                         val appName = Utils.getAppNameFromPackageName(it.packageName)
 
                         if (limitNumber != null && limitNumberMode != null) {
-
                             repository.insertDetoxRule(
                                 DetoxRuleEntity(
                                     ruleType = Utils.ruleTypeToUIPosition(ruleType),

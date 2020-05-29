@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.RuleDetailActivity"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context=".activities.RuleDetailActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/ruleDetails_toolbar"
@@ -15,8 +21,8 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
-        app:title="@string/rule_details_toolbar_title"
         app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/rule_details_toolbar_title"
         app:titleTextColor="@color/ToolbarTextColor" />
 
 
@@ -181,6 +187,102 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/rule_details_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/configuration"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.038"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rule_details_item_layout"
+        app:layout_constraintVertical_bias="0.0" />
 
+    <View
+        android:id="@+id/line03"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        android:alpha="0.5"
+        android:background="@color/lightgrey"
+        android:padding="2dip"
+        app:layout_constraintTop_toBottomOf="@+id/rule_details_settings" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <RadioGroup
+            android:id="@+id/select_number_radioGroup"
+            android:layout_width="149dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="32dp"
+            android:layout_toEndOf="@id/per_text_view"
+            app:layout_constraintBottom_toBottomOf="@+id/rule_details_allowed_number"
+            app:layout_constraintStart_toEndOf="@+id/per_text_view"
+            app:layout_constraintTop_toTopOf="@+id/rule_details_allowed_number">
+
+            <RadioButton
+                android:id="@+id/day_radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/day"
+                android:textSize="16sp"
+                tools:layout_editor_absoluteX="203dp"
+                tools:layout_editor_absoluteY="185dp" />
+
+            <RadioButton
+                android:id="@+id/hour_radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/hour"
+                android:textSize="16sp"
+                tools:layout_editor_absoluteX="205dp"
+                tools:layout_editor_absoluteY="254dp" />
+
+            <RadioButton
+                android:id="@+id/week_radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/week"
+                android:textSize="16sp"
+                tools:layout_editor_absoluteX="205dp"
+                tools:layout_editor_absoluteY="330dp" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/per_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="@string/per"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/rule_details_allowed_number"
+            app:layout_constraintStart_toEndOf="@+id/rule_details_allowed_number"
+            app:layout_constraintTop_toTopOf="@+id/rule_details_allowed_number"
+            app:layout_constraintVertical_bias="0.517" />
+
+        <NumberPicker
+            android:id="@+id/rule_details_allowed_number"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="84dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+            android:layout_toStartOf="@id/per_text_view"
+            android:gravity="center"
+            android:scaleX="1.2"
+            android:scaleY="1.2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/line03"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

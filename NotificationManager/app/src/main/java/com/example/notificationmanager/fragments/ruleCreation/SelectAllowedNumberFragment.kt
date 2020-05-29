@@ -21,7 +21,7 @@ class SelectAllowedNumberFragment : Fragment(R.layout.fragment_select_allowed_nu
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        numberPicker = view.findViewById(R.id.numberpicker_allowed_number)
+        numberPicker = view.findViewById(R.id.rule_details_allowed_number)
         radioButtonDay = view.findViewById(R.id.day_radioButton)
         radioButtonHour = view.findViewById(R.id.hour_radioButton)
         radioButtonWeek = view.findViewById(R.id.week_radioButton)

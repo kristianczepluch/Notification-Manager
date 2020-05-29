@@ -78,7 +78,7 @@
         </RadioGroup>
 
         <NumberPicker
-            android:id="@+id/numberpicker_allowed_number"
+            android:id="@+id/rule_details_allowed_number"
             android:layout_width="64dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
