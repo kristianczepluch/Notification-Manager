@@ -19,6 +19,8 @@ class RuleDetailActivity : AppCompatActivity() {
     private lateinit var ruletypeTitle: TextView
     private lateinit var ruletypeDescription: TextView
     private lateinit var ruletypeImageView: ImageView
+    private lateinit var applicationsName: TextView
+    private lateinit var applicationsImage: ImageView
     private val detailActivityViewModel: DetailActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,12 +37,18 @@ class RuleDetailActivity : AppCompatActivity() {
         ruletypeTitle = findViewById(R.id.rule_details_title)
         ruletypeDescription = findViewById(R.id.rule_details_description)
         ruletypeImageView = findViewById(R.id.rule_details_imageView)
+        applicationsName = findViewById(R.id.rule_details_app_name)
+        applicationsImage = findViewById(R.id.rule_details_app_imageView)
 
 
         // Get ruleId and request data
         val ruleId = intent.getIntExtra(RULE_ID_EXTRA, RULE_ID_DEFAULT_VALUE)
 
         detailActivityViewModel.getDetoxRuleEntity(ruleId).observe(this, Observer { rule ->
+
+            applicationsName.text = rule.appName
+            applicationsImage.setImageDrawable(Utils.getAppIconFromPackageName(rule.packageName))
+
             when (Utils.uiPositionToRuleType(rule.ruleType)) {
 
                 RuleType.SHORT_BREAK -> {

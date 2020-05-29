@@ -11,11 +11,22 @@
     <string name="tab_name_2">Snoozed</string>
 
 
+    <!-- DetailsActivity Text -->
+    <string name="selected_ruletype">Selected ruletype</string>
+    <string name="selected_applcication">Selected application</string>
+    <string name="description">Description:</string>
+
+
+
     <!-- Toolbar Titles -->
     <string name="rule_details_toolbar_title">Details of your rule</string>
 
     <!-- Image Descriptions -->
-    <string name="app_image_notification">Image of App</string>
+    <string name="app_image_notification">Image of app</string>
+    <string name="rule_image_content_description">Image of app</string>
+    <string name="app_image_content_description">Image of ruletype</string>
+
+
     <string name="app_title_defualt">Applications Name</string>
     <string name="app_notifications_received">Received today: </string>
     <string name="app_notifications_average">Average per week: </string>
