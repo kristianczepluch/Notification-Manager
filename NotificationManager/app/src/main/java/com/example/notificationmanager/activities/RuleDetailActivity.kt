@@ -3,8 +3,6 @@ package com.example.notificationmanager.activities
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
-import android.widget.NumberPicker
-import android.widget.RadioButton
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -13,9 +11,11 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.lifecycle.Observer
 import com.example.notificationmanager.R
 import com.example.notificationmanager.ViewModels.DetailActivityViewModel
-import com.example.notificationmanager.ViewModels.LimitNumberMode
 import com.example.notificationmanager.ViewModels.RuleType
+import com.example.notificationmanager.fragments.detailsFragments.LimitNumberDetailsBackgroundFragment
+import com.example.notificationmanager.fragments.detailsFragments.LimitNumberDetailsFragment
 import com.example.notificationmanager.utils.Utils
+import kotlinx.android.synthetic.main.activity_rule_detail.*
 
 class RuleDetailActivity : AppCompatActivity() {
 
@@ -25,19 +25,17 @@ class RuleDetailActivity : AppCompatActivity() {
     private lateinit var ruletypeImageView: ImageView
     private lateinit var applicationsName: TextView
     private lateinit var applicationsImage: ImageView
-    private lateinit var numberPicker: NumberPicker
-    private lateinit var radioButtonDay: RadioButton
-    private lateinit var radioButtonHour: RadioButton
-    private lateinit var radioButtonWeek: RadioButton
-    private lateinit var perText: TextView
     private lateinit var configurationsTextView: TextView
     private lateinit var configurationsLine: View
+
+    private var showingBack = false
 
     private val detailActivityViewModel: DetailActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rule_detail)
+
 
         // Setup the toolbar with backbutton
         mainToolbar = findViewById(R.id.ruleDetails_toolbar)
@@ -51,17 +49,8 @@ class RuleDetailActivity : AppCompatActivity() {
         ruletypeImageView = findViewById(R.id.rule_details_imageView)
         applicationsName = findViewById(R.id.rule_details_app_name)
         applicationsImage = findViewById(R.id.rule_details_app_imageView)
-
-        numberPicker = findViewById(R.id.rule_details_allowed_number)
-        radioButtonDay = findViewById(R.id.day_radioButton)
-        radioButtonHour = findViewById(R.id.hour_radioButton)
-        radioButtonWeek = findViewById(R.id.week_radioButton)
-        perText = findViewById(R.id.per_text_view)
         configurationsTextView = findViewById(R.id.rule_details_settings)
         configurationsLine = findViewById(R.id.line03)
-
-        setLimitNumberConfigurationsVisibile(false)
-
 
         // Get ruleId and request data
         val ruleId = intent.getIntExtra(RULE_ID_EXTRA, RULE_ID_DEFAULT_VALUE)
@@ -115,25 +104,28 @@ class RuleDetailActivity : AppCompatActivity() {
                         getColor(R.color.rule_limit_numner)
                     )
                     ruletypeImageView.setImageDrawable(drawable)
-                    setLimitNumberConfigurationsVisibile(true)
-                    val limitnumber = rule.ruleLimitNumberAllowedNumber
-                    numberPicker.maxValue = limitnumber
-                    numberPicker.minValue = limitnumber
-                    numberPicker.value = limitnumber
+                    supportFragmentManager.beginTransaction().add(R.id.configuration_card_fragment_container, LimitNumberDetailsFragment(ruleId)).commit()
 
-                    val mode = Utils.timeSlotTypeToLimitNumberMode(rule.ruleLimitNumberTimeSlotType)
+                    configuration_card_fragment_container.setOnClickListener(){
+                        if(showingBack) {
+                            supportFragmentManager.popBackStack()
+                            showingBack = false
+                        } else{
 
-                    when(mode){
-                        LimitNumberMode.HOUR -> {
-                            radioButtonHour.isChecked = true
+                            showingBack = true
+
+                            supportFragmentManager.beginTransaction()
+                                .setCustomAnimations(
+                                    R.animator.card_flip_right_in,
+                                    R.animator.card_flip_right_out,
+                                    R.animator.card_flip_left_in,
+                                    R.animator.card_flip_left_out
+                                )
+                                .replace(R.id.configuration_card_fragment_container, LimitNumberDetailsBackgroundFragment(ruleId))
+                                .addToBackStack(null)
+                                .commit()
+
                         }
-                        LimitNumberMode.WEEK -> {
-                            radioButtonWeek.isChecked = true
-                        }
-                        LimitNumberMode.DAY -> {
-                            radioButtonDay.isChecked = true
-                        }
-                        else -> throw Exception("Timeslot Mode not found")
                     }
 
                 }
@@ -152,37 +144,9 @@ class RuleDetailActivity : AppCompatActivity() {
                     ruletypeImageView.setImageDrawable(drawable)
                     removeConfigurationsSection()
                 }
-
             }
         })
 
-    }
-
-    private fun setLimitNumberConfigurationsVisibile(visible: Boolean){
-        if(!visible) {
-            numberPicker.visibility = View.GONE
-            radioButtonDay.visibility = View.GONE
-            radioButtonHour.visibility = View.GONE
-            radioButtonWeek.visibility = View.GONE
-            perText.visibility = View.GONE
-        }else{
-            numberPicker.visibility = View.VISIBLE
-            radioButtonDay.visibility = View.VISIBLE
-            radioButtonHour.visibility = View.VISIBLE
-            radioButtonWeek.visibility = View.VISIBLE
-            perText.visibility = View.VISIBLE
-
-            radioButtonHour.isClickable = false
-            radioButtonHour.isFocusable = false
-            radioButtonWeek.isClickable = false
-            radioButtonWeek.isFocusable = false
-            radioButtonDay.isFocusable = false
-            radioButtonDay.isClickable = false
-
-            numberPicker.isFocusable = false
-            numberPicker.isClickable = false
-            numberPicker.isActivated = false
-        }
     }
 
     private fun removeConfigurationsSection(){

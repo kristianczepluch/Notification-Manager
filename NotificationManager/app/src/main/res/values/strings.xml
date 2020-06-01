@@ -16,8 +16,8 @@
     <string name="selected_applcication">Selected application</string>
     <string name="description">Description:</string>
     <string name="configuration">Configurations</string>
-
-
+    <string name="tab_to_flip">Tab to flip</string>
+    <string name="remaining">Remaining notifications</string>
 
 
     <!-- Toolbar Titles -->
