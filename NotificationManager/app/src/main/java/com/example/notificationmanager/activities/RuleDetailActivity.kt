@@ -104,7 +104,7 @@ class RuleDetailActivity : AppCompatActivity() {
                         getColor(R.color.rule_limit_numner)
                     )
                     ruletypeImageView.setImageDrawable(drawable)
-                    supportFragmentManager.beginTransaction().add(R.id.configuration_card_fragment_container, LimitNumberDetailsFragment(ruleId)).commit()
+                    supportFragmentManager.beginTransaction().add(R.id.configuration_card_fragment_container, LimitNumberDetailsFragment.getInstance(ruleId)).commit()
 
                     configuration_card_fragment_container.setOnClickListener(){
                         if(showingBack) {
@@ -121,7 +121,7 @@ class RuleDetailActivity : AppCompatActivity() {
                                     R.animator.card_flip_left_in,
                                     R.animator.card_flip_left_out
                                 )
-                                .replace(R.id.configuration_card_fragment_container, LimitNumberDetailsBackgroundFragment(ruleId))
+                                .replace(R.id.configuration_card_fragment_container, LimitNumberDetailsBackgroundFragment.getInstance(ruleId))
                                 .addToBackStack(null)
                                 .commit()
 

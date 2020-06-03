@@ -8,10 +8,10 @@ import androidx.fragment.app.viewModels
 import com.example.notificationmanager.R
 import com.example.notificationmanager.ViewModels.DetailActivityViewModel
 
-class LimitNumberDetailsBackgroundFragment(val ruleId: Int) : Fragment(R.layout.fragment_limit_number_details_background) {
+class LimitNumberDetailsBackgroundFragment : Fragment(R.layout.fragment_limit_number_details_background) {
 
     private val detailActivityViewModel: DetailActivityViewModel by viewModels()
-    lateinit var numberPicker: NumberPicker
+    private lateinit var numberPicker: NumberPicker
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,5 +27,18 @@ class LimitNumberDetailsBackgroundFragment(val ruleId: Int) : Fragment(R.layout.
         numberPicker.maxValue = 3
         numberPicker.minValue = 3
         numberPicker.value = 3
+    }
+
+    companion object{
+
+        private val BUNDLE_RULE_ID = "bundle_rule_id"
+
+        fun getInstance(ruleId: Int): Fragment{
+            val bundle = Bundle()
+            bundle.putInt(BUNDLE_RULE_ID, ruleId)
+            val fragment = LimitNumberDetailsBackgroundFragment()
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 }

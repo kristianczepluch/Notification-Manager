@@ -12,13 +12,14 @@
     tools:context=".fragments.detailsFragments.LimitNumberDetailsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="5dp">
 
         <RadioGroup
             android:id="@+id/select_number_radioGroup"
@@ -27,9 +28,9 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="32dp"
             android:layout_toEndOf="@id/per_text_view"
-            app:layout_constraintBottom_toBottomOf="@+id/rule_details_allowed_number"
+            app:layout_constraintBottom_toBottomOf="@+id/per_text_view"
             app:layout_constraintStart_toEndOf="@+id/per_text_view"
-            app:layout_constraintTop_toTopOf="@+id/rule_details_allowed_number">
+            app:layout_constraintTop_toTopOf="@+id/per_text_view">
 
             <RadioButton
                 android:id="@+id/day_radioButton"
@@ -67,30 +68,28 @@
             android:id="@+id/per_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
             android:text="@string/per"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/rule_details_allowed_number"
-            app:layout_constraintStart_toEndOf="@+id/rule_details_allowed_number"
-            app:layout_constraintTop_toTopOf="@+id/rule_details_allowed_number"
-            app:layout_constraintVertical_bias="0.517" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <NumberPicker
             android:id="@+id/rule_details_allowed_number"
             android:layout_width="64dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginEnd="52dp"
             android:layout_toStartOf="@id/per_text_view"
             android:gravity="center"
             android:scaleX="1.2"
             android:scaleY="1.2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintBottom_toBottomOf="@+id/per_text_view"
+            app:layout_constraintEnd_toStartOf="@+id/per_text_view"
+            app:layout_constraintTop_toTopOf="@+id/per_text_view"
+            app:layout_constraintVertical_bias="0.503" />
 
         <TextView
             android:id="@+id/textView"
