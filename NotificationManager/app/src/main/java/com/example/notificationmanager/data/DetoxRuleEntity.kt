@@ -14,6 +14,8 @@ class DetoxRuleEntity(
     val active: Boolean = true,
     val created: Long = Utils.getCurrentTime(),
     val ruleBreakTimeEndTimestamp: Long = -1,
+    val ruleBreakTimeMinutes: Int = -1,
+    val ruleBreakTimeHours: Int = -1,
     val ruleScheduleStartMinute: Int = -1,
     val ruleScheduleStartHour: Int = -1,
     val ruleScheduleEndMinute: Int = -1,

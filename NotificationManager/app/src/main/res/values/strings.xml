@@ -18,6 +18,8 @@
     <string name="configuration">Configurations</string>
     <string name="tab_to_flip">Tab to flip</string>
     <string name="remaining">Remaining notifications</string>
+    <string name="Breaktime">Break-Time</string>
+    <string name="colon">:</string>
 
 
     <!-- Toolbar Titles -->
@@ -44,12 +46,14 @@
     <string name="week">week</string>
     <string name="day">day</string>
     <string name="hour">hour</string>
+    <string name="Hour">Hour</string>
     <string name="hours">hours</string>
     <string name="weekReview">Limit per week</string>
     <string name="dayReview">Limit per day</string>
     <string name="hourReview">Limit per hour</string>
     <string name="per">per</string>
     <string name="minute">minute</string>
+    <string name="Minute">Minute</string>
     <string name="minutes">minutes</string>
     <string name="startAt">Start at:</string>
     <string name="endAt">End at:</string>

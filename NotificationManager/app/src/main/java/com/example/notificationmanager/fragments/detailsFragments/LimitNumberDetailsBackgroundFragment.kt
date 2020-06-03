@@ -29,16 +29,16 @@ class LimitNumberDetailsBackgroundFragment : Fragment(R.layout.fragment_limit_nu
         numberPicker.value = 3
     }
 
-    companion object{
-
+    companion object {
         private val BUNDLE_RULE_ID = "bundle_rule_id"
 
-        fun getInstance(ruleId: Int): Fragment{
-            val bundle = Bundle()
-            bundle.putInt(BUNDLE_RULE_ID, ruleId)
-            val fragment = LimitNumberDetailsBackgroundFragment()
-            fragment.arguments = bundle
-            return fragment
-        }
+        @JvmStatic
+        fun newInstance(ruleId: Int): Fragment =
+            LimitNumberDetailsBackgroundFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(BUNDLE_RULE_ID, ruleId)
+                }
+            }
+
     }
 }

@@ -41,25 +41,26 @@ class LimitNumberDetailsFragment : Fragment(R.layout.fragment_limit_number_detai
         numberPicker.isActivated = false
 
         arguments?.getInt(BUNDLE_RULE_ID)?.let {
-            detailActivityViewModel.getDetoxRuleEntity(it).observe(viewLifecycleOwner, Observer{ rule ->
-                val limitNumber = rule.ruleLimitNumberAllowedNumber
-                numberPicker.maxValue = limitNumber
-                numberPicker.minValue = limitNumber
-                numberPicker.value = limitNumber
+            detailActivityViewModel.getDetoxRuleEntity(it)
+                .observe(viewLifecycleOwner, Observer { rule ->
+                    val limitNumber = rule.ruleLimitNumberAllowedNumber
+                    numberPicker.maxValue = limitNumber
+                    numberPicker.minValue = limitNumber
+                    numberPicker.value = limitNumber
 
-                when(Utils.timeSlotTypeToLimitNumberMode(rule.ruleLimitNumberTimeSlotType)){
-                    LimitNumberMode.HOUR -> {
-                        radioButtonHour.isChecked = true
+                    when (Utils.timeSlotTypeToLimitNumberMode(rule.ruleLimitNumberTimeSlotType)) {
+                        LimitNumberMode.HOUR -> {
+                            radioButtonHour.isChecked = true
+                        }
+                        LimitNumberMode.WEEK -> {
+                            radioButtonWeek.isChecked = true
+                        }
+                        LimitNumberMode.DAY -> {
+                            radioButtonDay.isChecked = true
+                        }
+                        else -> throw Exception("Timeslot Mode not found")
                     }
-                    LimitNumberMode.WEEK -> {
-                        radioButtonWeek.isChecked = true
-                    }
-                    LimitNumberMode.DAY -> {
-                        radioButtonDay.isChecked = true
-                    }
-                    else -> throw Exception("Timeslot Mode not found")
-                }
-            })
+                })
         }
 
     }
@@ -67,12 +68,13 @@ class LimitNumberDetailsFragment : Fragment(R.layout.fragment_limit_number_detai
     companion object {
         private val BUNDLE_RULE_ID = "bundle_rule_id"
 
-        fun getInstance(ruleId: Int): Fragment{
-            val bundle = Bundle()
-            bundle.putInt(BUNDLE_RULE_ID, ruleId)
-            val fragment = LimitNumberDetailsFragment()
-            fragment.arguments = bundle
-            return fragment
-        }
+        @JvmStatic
+        fun newInstance(ruleId: Int): Fragment =
+            LimitNumberDetailsFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(BUNDLE_RULE_ID, ruleId)
+                }
+            }
+
     }
 }

@@ -14,6 +14,7 @@ import com.example.notificationmanager.ViewModels.DetailActivityViewModel
 import com.example.notificationmanager.ViewModels.RuleType
 import com.example.notificationmanager.fragments.detailsFragments.LimitNumberDetailsBackgroundFragment
 import com.example.notificationmanager.fragments.detailsFragments.LimitNumberDetailsFragment
+import com.example.notificationmanager.fragments.detailsFragments.ShortBreakDetailsFragment
 import com.example.notificationmanager.utils.Utils
 import kotlinx.android.synthetic.main.activity_rule_detail.*
 
@@ -74,6 +75,8 @@ class RuleDetailActivity : AppCompatActivity() {
                         getColor(R.color.rule_short_break)
                     )
                     ruletypeImageView.setImageDrawable(drawable)
+
+                    supportFragmentManager.beginTransaction().add(R.id.configuration_card_fragment_container, ShortBreakDetailsFragment.newInstance(ruleId)).commit()
                 }
 
                 RuleType.SCHEDULE -> {
@@ -88,6 +91,7 @@ class RuleDetailActivity : AppCompatActivity() {
                         getColor(R.color.rule_schedule)
                     )
                     ruletypeImageView.setImageDrawable(drawable)
+
                 }
 
                 RuleType.LIMIT_NUMBER -> {
@@ -104,7 +108,7 @@ class RuleDetailActivity : AppCompatActivity() {
                         getColor(R.color.rule_limit_numner)
                     )
                     ruletypeImageView.setImageDrawable(drawable)
-                    supportFragmentManager.beginTransaction().add(R.id.configuration_card_fragment_container, LimitNumberDetailsFragment.getInstance(ruleId)).commit()
+                    supportFragmentManager.beginTransaction().add(R.id.configuration_card_fragment_container, LimitNumberDetailsFragment.newInstance(ruleId)).commit()
 
                     configuration_card_fragment_container.setOnClickListener(){
                         if(showingBack) {
@@ -121,7 +125,7 @@ class RuleDetailActivity : AppCompatActivity() {
                                     R.animator.card_flip_left_in,
                                     R.animator.card_flip_left_out
                                 )
-                                .replace(R.id.configuration_card_fragment_container, LimitNumberDetailsBackgroundFragment.getInstance(ruleId))
+                                .replace(R.id.configuration_card_fragment_container, LimitNumberDetailsBackgroundFragment.newInstance(ruleId))
                                 .addToBackStack(null)
                                 .commit()
 

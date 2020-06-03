@@ -300,7 +300,9 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
                                 ruleType = Utils.ruleTypeToUIPosition(ruleType),
                                 packageName = packageName,
                                 appName = appName,
-                                ruleBreakTimeEndTimestamp = breakTimeEndTimestamp
+                                ruleBreakTimeEndTimestamp = breakTimeEndTimestamp,
+                                ruleBreakTimeHours = selectedBreakTimeHours,
+                                ruleBreakTimeMinutes = selectedBreakTimeMinutes
                             )
                         )
                     }
