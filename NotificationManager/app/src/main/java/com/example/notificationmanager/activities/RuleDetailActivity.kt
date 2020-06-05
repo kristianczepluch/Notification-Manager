@@ -14,12 +14,14 @@ import com.example.notificationmanager.ViewModels.DetailActivityViewModel
 import com.example.notificationmanager.ViewModels.RuleType
 import com.example.notificationmanager.fragments.detailsFragments.LimitNumberDetailsBackgroundFragment
 import com.example.notificationmanager.fragments.detailsFragments.LimitNumberDetailsFragment
+import com.example.notificationmanager.fragments.detailsFragments.ShortBreakDetailsBackgroundFragment
 import com.example.notificationmanager.fragments.detailsFragments.ShortBreakDetailsFragment
 import com.example.notificationmanager.utils.Utils
 import kotlinx.android.synthetic.main.activity_rule_detail.*
 
 class RuleDetailActivity : AppCompatActivity() {
 
+    private val BUNDLE_CARD_STATE = "bundle_card_state"
     private lateinit var mainToolbar: Toolbar
     private lateinit var ruletypeTitle: TextView
     private lateinit var ruletypeDescription: TextView
@@ -28,7 +30,6 @@ class RuleDetailActivity : AppCompatActivity() {
     private lateinit var applicationsImage: ImageView
     private lateinit var configurationsTextView: TextView
     private lateinit var configurationsLine: View
-
     private var showingBack = false
 
     private val detailActivityViewModel: DetailActivityViewModel by viewModels()
@@ -37,6 +38,9 @@ class RuleDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rule_detail)
 
+        savedInstanceState?.let {
+            showingBack = it.getBoolean(BUNDLE_CARD_STATE)
+        }
 
         // Setup the toolbar with backbutton
         mainToolbar = findViewById(R.id.ruleDetails_toolbar)
@@ -76,7 +80,40 @@ class RuleDetailActivity : AppCompatActivity() {
                     )
                     ruletypeImageView.setImageDrawable(drawable)
 
-                    supportFragmentManager.beginTransaction().add(R.id.configuration_card_fragment_container, ShortBreakDetailsFragment.newInstance(ruleId)).commit()
+                    if (!showingBack) {
+                        supportFragmentManager.beginTransaction().add(
+                            R.id.configuration_card_fragment_container,
+                            ShortBreakDetailsFragment.newInstance(ruleId)
+                        ).commit()
+                    } else supportFragmentManager.beginTransaction().add(
+                        R.id.configuration_card_fragment_container,
+                        ShortBreakDetailsBackgroundFragment.newInstance(ruleId)
+                    ).commit()
+
+                    configuration_card_fragment_container.setOnClickListener {
+                        if (showingBack) {
+                            supportFragmentManager.popBackStack()
+                            showingBack = false
+                        } else {
+
+                            showingBack = true
+
+                            supportFragmentManager.beginTransaction()
+                                .setCustomAnimations(
+                                    R.animator.card_flip_right_in,
+                                    R.animator.card_flip_right_out,
+                                    R.animator.card_flip_left_in,
+                                    R.animator.card_flip_left_out
+                                )
+                                .replace(
+                                    R.id.configuration_card_fragment_container,
+                                    ShortBreakDetailsBackgroundFragment.newInstance(ruleId)
+                                )
+                                .addToBackStack(null)
+                                .commit()
+
+                        }
+                    }
                 }
 
                 RuleType.SCHEDULE -> {
@@ -108,13 +145,23 @@ class RuleDetailActivity : AppCompatActivity() {
                         getColor(R.color.rule_limit_numner)
                     )
                     ruletypeImageView.setImageDrawable(drawable)
-                    supportFragmentManager.beginTransaction().add(R.id.configuration_card_fragment_container, LimitNumberDetailsFragment.newInstance(ruleId)).commit()
 
-                    configuration_card_fragment_container.setOnClickListener(){
-                        if(showingBack) {
+                    if (!showingBack) {
+                        supportFragmentManager.beginTransaction().add(
+                            R.id.configuration_card_fragment_container,
+                            LimitNumberDetailsFragment.newInstance(ruleId)
+                        ).commit()
+                    } else supportFragmentManager.beginTransaction().add(
+                        R.id.configuration_card_fragment_container,
+                        LimitNumberDetailsBackgroundFragment.newInstance(ruleId)
+                    ).commit()
+
+
+                    configuration_card_fragment_container.setOnClickListener() {
+                        if (showingBack) {
                             supportFragmentManager.popBackStack()
                             showingBack = false
-                        } else{
+                        } else {
 
                             showingBack = true
 
@@ -125,7 +172,10 @@ class RuleDetailActivity : AppCompatActivity() {
                                     R.animator.card_flip_left_in,
                                     R.animator.card_flip_left_out
                                 )
-                                .replace(R.id.configuration_card_fragment_container, LimitNumberDetailsBackgroundFragment.newInstance(ruleId))
+                                .replace(
+                                    R.id.configuration_card_fragment_container,
+                                    LimitNumberDetailsBackgroundFragment.newInstance(ruleId)
+                                )
                                 .addToBackStack(null)
                                 .commit()
 
@@ -153,7 +203,13 @@ class RuleDetailActivity : AppCompatActivity() {
 
     }
 
-    private fun removeConfigurationsSection(){
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(BUNDLE_CARD_STATE, showingBack)
+    }
+
+    private fun removeConfigurationsSection() {
         configurationsLine.visibility = View.GONE
         configurationsTextView.visibility = View.GONE
     }

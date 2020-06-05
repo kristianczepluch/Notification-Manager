@@ -290,7 +290,7 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
                         val appName = Utils.getAppNameFromPackageName(it.packageName)
                         val breakTimeEndTimestamp =
                             Utils.getCurrentTime() + TimeUnit.HOURS.toMillis(
-                                selectedBreakTimeMinutes.toLong()
+                                selectedBreakTimeHours.toLong()
                             ) + TimeUnit.MINUTES.toMillis(
                                 selectedBreakTimeMinutes.toLong()
                             )

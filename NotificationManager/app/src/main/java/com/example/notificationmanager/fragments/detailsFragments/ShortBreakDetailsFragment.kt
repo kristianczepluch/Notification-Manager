@@ -26,6 +26,7 @@ class ShortBreakDetailsFragment : Fragment(R.layout.fragment_short_break_details
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         minutePicker = view.findViewById(R.id.numberpicker_shortbreak_minute_rule)
         hourPicker = view.findViewById(R.id.numberpicker_shortbreak_hour_rule)
 
