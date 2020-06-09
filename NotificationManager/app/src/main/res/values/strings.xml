@@ -22,6 +22,7 @@
     <string name="colon">:</string>
     <string name="default_countdown">00:00</string>
     <string name="remaining_time">Remaining-Time</string>
+    <string name="tab_for_weekdays">Tab for weekdays</string>
 
     <!-- Toolbar Titles -->
     <string name="rule_details_toolbar_title">Details of your rule</string>
@@ -96,6 +97,7 @@
     <string name="weekdays">Days</string>
     <string name="notSelected">Not Selected</string>
     <string name="rule_wizard_weekday_number_title">Select weekdays</string>
+    <string name="tab_for_time">Tab for time</string>
 
 
     <!-- Rule Wizard Rule Descriptions-->

@@ -47,7 +47,7 @@ class SelectAllowedNumberFragment : Fragment(R.layout.fragment_select_allowed_nu
             ruleWizardViewModel.setSelectedLimitNumberMode(LimitNumberMode.WEEK)
         }
 
-        numberPicker.setOnValueChangedListener { picker, oldVal, newVal ->
+        numberPicker.setOnValueChangedListener { _, _, newVal ->
             ruleWizardViewModel.setSelectedLimitNumber(newVal)
         }
 

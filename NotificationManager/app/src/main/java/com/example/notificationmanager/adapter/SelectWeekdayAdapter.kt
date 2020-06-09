@@ -13,7 +13,7 @@ import com.example.notificationmanager.fragments.ruleCreation.OnWeekdaySelectedL
 import com.example.notificationmanager.utils.NotificationManagerApplication
 
 
-class SelectWeekdayAdapter(val selectedArray: BooleanArray, val listener: OnWeekdaySelectedListener): RecyclerView.Adapter<SelectWeekdayAdapter.SelectedWeekViewHolder>() {
+class SelectWeekdayAdapter(val selectedArray: BooleanArray, val listener: OnWeekdaySelectedListener? = null, val readOnly: Boolean = false): RecyclerView.Adapter<SelectWeekdayAdapter.SelectedWeekViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectedWeekViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.weekday_listitem, parent, false)
@@ -28,22 +28,30 @@ class SelectWeekdayAdapter(val selectedArray: BooleanArray, val listener: OnWeek
     override fun onBindViewHolder(holder: SelectedWeekViewHolder, position: Int) {
         holder.textView.text = NotificationManagerApplication.appContext.resources.getStringArray(R.array.weekdays)[position].toString()
         if(selectedArray[position]) holder.checkbox.isChecked = true
-        holder.checkbox.setOnCheckedChangeListener{ _: CompoundButton, selected: Boolean ->
-            if(selected) {
-                listener.onWeekdaySelected(positionToWeekday(position), position)
+
+        if(!readOnly){
+            holder.checkbox.setOnCheckedChangeListener{ _: CompoundButton, selected: Boolean ->
+                if(selected) {
+                    listener?.onWeekdaySelected(positionToWeekday(position), position)
+                }
+                else {
+                    listener?.onWeekdayUnSelected(positionToWeekday(position), position)
+                }
             }
-            else {
-                listener.onWeekdayUnSelected(positionToWeekday(position), position)
-            }
+        } else {
+            holder.checkbox.focusable = View.NOT_FOCUSABLE
+            holder.checkbox.isClickable = false
         }
     }
 
     override fun getItemCount(): Int = 7
 
-    class SelectedWeekViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class SelectedWeekViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         init {
-            itemView.setOnClickListener(){
-                checkbox.isChecked = !checkbox.isChecked
+            if(!readOnly) {
+                itemView.setOnClickListener{
+                    checkbox.isChecked = !checkbox.isChecked
+                }
             }
         }
         val textView = itemView.findViewById<TextView>(R.id.select_weekday_textView)

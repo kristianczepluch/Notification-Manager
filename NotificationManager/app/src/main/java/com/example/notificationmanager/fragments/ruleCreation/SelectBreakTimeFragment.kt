@@ -30,11 +30,11 @@ class SelectBreakTimeFragment : Fragment(R.layout.fragment_select_break_time) {
         minutePicker.value = ruleWizardViewModel.selectedBreakTimeMinutes
         hourPicker.value = ruleWizardViewModel.selectedBreakTimeHours
 
-        minutePicker.setOnValueChangedListener { picker, oldVal, newVal ->
+        minutePicker.setOnValueChangedListener { _, _, newVal ->
             ruleWizardViewModel.setSelectedBreakTimeMinute(newVal)
         }
 
-        hourPicker.setOnValueChangedListener { picker, oldVal, newVal ->
+        hourPicker.setOnValueChangedListener { _, _, newVal ->
             ruleWizardViewModel.setSelectedBreakTimeHour(newVal)
         }
 

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="650dp"
+    android:layout_margin="3dp"
+    android:background="@color/white"
+    android:padding="3dp"
+    app:cardCornerRadius="10dp"
+    tools:context=".fragments.detailsFragments.ScheduleDetailsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/schedule_details_constraint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/tab_for_weekdays"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.032" />
+
+        <TimePicker
+            android:id="@+id/details_timePicker_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:timePickerMode="spinner"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.222" />
+
+        <TextView
+            android:id="@+id/details_timerpicker_start_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/startAt"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/details_timePicker_start"
+            app:layout_constraintEnd_toEndOf="@+id/details_timePicker_start"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="@+id/details_timePicker_start" />
+
+        <TimePicker
+            android:id="@+id/details_timePicker_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:timePickerMode="spinner"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/details_timePicker_start"
+            app:layout_constraintVertical_bias="0.337" />
+
+        <TextView
+            android:id="@+id/details_timerpicker_end_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/endAt"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/details_timePicker_end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

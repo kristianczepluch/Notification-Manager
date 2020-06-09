@@ -97,6 +97,8 @@ class ReviewFragment : Fragment(R.layout.fragment_review) {
                     } else options2TextViewText.text = "No weekdays selected"
                 })
             }
+
+            else -> { }
         }
 
         ruleWizardViewModel.getSelectedApplications().observe(viewLifecycleOwner, Observer { appList ->

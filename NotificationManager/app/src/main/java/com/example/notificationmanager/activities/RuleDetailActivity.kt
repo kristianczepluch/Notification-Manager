@@ -12,10 +12,7 @@ import androidx.lifecycle.Observer
 import com.example.notificationmanager.R
 import com.example.notificationmanager.ViewModels.DetailActivityViewModel
 import com.example.notificationmanager.ViewModels.RuleType
-import com.example.notificationmanager.fragments.detailsFragments.LimitNumberDetailsBackgroundFragment
-import com.example.notificationmanager.fragments.detailsFragments.LimitNumberDetailsFragment
-import com.example.notificationmanager.fragments.detailsFragments.ShortBreakDetailsBackgroundFragment
-import com.example.notificationmanager.fragments.detailsFragments.ShortBreakDetailsFragment
+import com.example.notificationmanager.fragments.detailsFragments.*
 import com.example.notificationmanager.utils.Utils
 import kotlinx.android.synthetic.main.activity_rule_detail.*
 
@@ -129,6 +126,36 @@ class RuleDetailActivity : AppCompatActivity() {
                     )
                     ruletypeImageView.setImageDrawable(drawable)
 
+                    supportFragmentManager.beginTransaction().add(
+                        R.id.configuration_card_fragment_container,
+                        ScheduleDetailsFragment.newInstance(ruleId)
+                    ).commit()
+
+                    configuration_card_fragment_container.setOnClickListener() {
+                        if (showingBack) {
+                            supportFragmentManager.popBackStack()
+                            showingBack = false
+                        } else {
+
+                            showingBack = true
+
+                            supportFragmentManager.beginTransaction()
+                                .setCustomAnimations(
+                                    R.animator.card_flip_right_in,
+                                    R.animator.card_flip_right_out,
+                                    R.animator.card_flip_left_in,
+                                    R.animator.card_flip_left_out
+                                )
+                                .replace(
+                                    R.id.configuration_card_fragment_container,
+                                    ScheduleDetailsBackgroundFragment.newInstance(ruleId)
+                                )
+                                .addToBackStack(null)
+                                .commit()
+
+                        }
+                    }
+
                 }
 
                 RuleType.LIMIT_NUMBER -> {
@@ -198,6 +225,8 @@ class RuleDetailActivity : AppCompatActivity() {
                     ruletypeImageView.setImageDrawable(drawable)
                     removeConfigurationsSection()
                 }
+
+                else -> throw Exception("Ruletype not found")
             }
         })
 

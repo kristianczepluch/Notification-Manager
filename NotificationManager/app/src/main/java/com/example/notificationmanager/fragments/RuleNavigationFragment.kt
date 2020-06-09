@@ -35,8 +35,8 @@ class RuleNavigationFragment : Fragment(R.layout.fragment_rule_navigation) {
                 nextButton.isClickable = true
                 nextButton.focusable = View.FOCUSABLE
                 nextButton.text = resources.getString(R.string.next)
-                nextButton.setBackgroundColor(resources.getColor(R.color.white))
-                nextButton.setTextColor(resources.getColor(R.color.black))
+                nextButton.setBackgroundColor(resources.getColor(R.color.white, null))
+                nextButton.setTextColor(resources.getColor(R.color.black, null))
                 nextButton.setOnClickListener(){
                     ruleWizardViewModel.stepForward()
                 }
@@ -45,8 +45,8 @@ class RuleNavigationFragment : Fragment(R.layout.fragment_rule_navigation) {
                 nextButton.isClickable = false
                 nextButton.focusable = View.NOT_FOCUSABLE
                 nextButton.text = resources.getString(R.string.next)
-                nextButton.setBackgroundColor(resources.getColor(R.color.white))
-                nextButton.setTextColor(resources.getColor(R.color.lightgrey))
+                nextButton.setBackgroundColor(resources.getColor(R.color.white, null))
+                nextButton.setTextColor(resources.getColor(R.color.lightgrey, null))
             }
         })
 
@@ -57,8 +57,8 @@ class RuleNavigationFragment : Fragment(R.layout.fragment_rule_navigation) {
                 nextButton.isClickable = true
                 nextButton.focusable = View.FOCUSABLE
                 nextButton.text = resources.getString(R.string.create)
-                nextButton.setBackgroundColor(resources.getColor(R.color.lightgreen))
-                nextButton.setTextColor(resources.getColor(R.color.white))
+                nextButton.setBackgroundColor(resources.getColor(R.color.lightgreen, null))
+                nextButton.setTextColor(resources.getColor(R.color.white, null))
                 nextButton.setOnClickListener(){
                     ruleWizardViewModel.saveDetoxRule()
                     activity?.finish()

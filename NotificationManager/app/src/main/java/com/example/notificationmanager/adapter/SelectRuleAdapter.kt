@@ -59,7 +59,7 @@ class SelectRuleAdapter(var selectedRuleType: RuleType, val radioClickListener: 
                 holder.titleTextView.setTextColor(NotificationManagerApplication.appContext.getColor(R.color.rule_forbid_eternally))}
         }
 
-        holder.checkRadioButton.setOnCheckedChangeListener{ button: CompoundButton, b: Boolean ->
+        holder.checkRadioButton.setOnCheckedChangeListener{ _: CompoundButton, b: Boolean ->
             if(b) {
                 radioClickListener.onRadioButtonChecked(position)
                 radioClickListener.onRadioButtonUnchecked(lastCheckedBox)

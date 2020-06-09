@@ -97,6 +97,7 @@ class RuleWizardActivity : AppCompatActivity() {
                     fragment_ids.add(reviewFragment.hashCode().toLong())
                     notifyDataSetChanged()
                 }
+                else -> throw Exception("Ruletype not found")
             }
         }
 

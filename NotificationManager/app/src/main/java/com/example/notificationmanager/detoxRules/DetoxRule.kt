@@ -25,12 +25,12 @@ abstract class DetoxRule
         this.appName = Utils.getAppNameFromPackageName(packageName)
     }
 
-    enum class TimeSlotType(type: Int){
-        TIMESLOT_TYPE_MINUTE(0),
-        TIMESLOT_TYPE_HOUR(1),
-        TIMESLOT_TYPE_DAY(2),
-        TIMESLOT_TYPE_WEEK(3),
-        TIMESLOT_TYPE_NONE(-1)
+    enum class TimeSlotType{
+        TIMESLOT_TYPE_MINUTE,
+        TIMESLOT_TYPE_HOUR,
+        TIMESLOT_TYPE_DAY,
+        TIMESLOT_TYPE_WEEK,
+        TIMESLOT_TYPE_NONE
     }
 
     fun getForThisTimeslotStringRessource(timeslotType: TimeSlotType): Int{

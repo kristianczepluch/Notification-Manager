@@ -135,7 +135,7 @@ class RulesOverviewAdapter(
     }
 
     fun clearItemSelectedArray() {
-        selectedSparseArray.forEach { i: Int, b: Boolean ->
+        selectedSparseArray.forEach { i: Int, _: Boolean ->
             selectedSparseArray[i] = false
         }
     }
