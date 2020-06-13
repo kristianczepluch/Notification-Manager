@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface DetoxRulesDao {
@@ -22,5 +23,8 @@ interface DetoxRulesDao {
 
     @Query("SELECT * FROM detoxRules_table ")
     fun getAllRules(): LiveData<List<DetoxRuleEntity>>
+
+    @Update
+    fun updateDetoxRule(detoxRule: DetoxRuleEntity)
 
 }

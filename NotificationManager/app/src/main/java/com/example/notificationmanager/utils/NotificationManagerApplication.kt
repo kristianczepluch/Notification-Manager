@@ -16,6 +16,7 @@ class NotificationManagerApplication : Application() {
         lateinit var appContext: Context
             private set
 
+
         @JvmStatic
         val staticRessources: Resources
             get() = appContext.resources

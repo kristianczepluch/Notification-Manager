@@ -32,6 +32,12 @@ class Repository(application: Application) {
         }
     }
 
+    fun updateDetoxRule(detoxRule: DetoxRuleEntity){
+        DetoxRulesDatabase.databaseWriteExecutor.execute{
+            detoxRuleDao.updateDetoxRule(detoxRule)
+        }
+    }
+
     fun getDetoxRule(id: Int) = detoxRuleDao.getDetoxRuleById(id)
 
     fun insertDetoxRule(detoxRule: DetoxRuleEntity){

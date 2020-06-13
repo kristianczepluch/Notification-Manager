@@ -2,7 +2,6 @@ package com.example.notificationmanager.detoxRules
 
 import com.example.notificationmanager.R
 import com.example.notificationmanager.ViewModels.RuleType
-import com.example.notificationmanager.utils.Utils
 
 abstract class DetoxRule
     (
@@ -14,16 +13,12 @@ abstract class DetoxRule
     var created: Long = 0
 ) {
 
-    var _id: Int? = 0
+    var _id: Int = -1
 
     abstract fun fire(packageName: String): Boolean
 
     abstract fun getRuleType(): RuleType
 
-    fun setApplicationByPackageName(packageName: String){
-        this.packageName = packageName
-        this.appName = Utils.getAppNameFromPackageName(packageName)
-    }
 
     enum class TimeSlotType{
         TIMESLOT_TYPE_MINUTE,
@@ -51,10 +46,7 @@ abstract class DetoxRule
 
         other as DetoxRule
 
-        if (_id == null) {
-            if (other._id != null)
-                return false;
-        } else if (!_id?.equals(other._id)!!)
+        if (!_id.equals(other._id))
             return false;
         else if (!packageName.equals(other.packageName)) {
             return false
@@ -71,7 +63,7 @@ abstract class DetoxRule
     override fun hashCode(): Int {
         val prime = 31
         var result = 1
-        result = prime * result + if (_id == null) 0 else _id.hashCode()
+        result = prime * result + _id.hashCode()
         result = (prime * result + packageName.hashCode())
         result = (prime * result + appName.hashCode())
         result = prime * result + java.lang.Long.valueOf(created).hashCode()
