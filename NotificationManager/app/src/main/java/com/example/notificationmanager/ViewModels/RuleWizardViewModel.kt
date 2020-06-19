@@ -125,6 +125,8 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
 
     fun getLimitNumberMode(): LiveData<LimitNumberMode> = selectedLimitNumberMode
 
+    fun getSelectedRuleType(): LiveData<RuleType> = selectedRuleType
+
     fun getSelectedApplications(): LiveData<ArrayList<SelectApplicationsFragment.SelectAppListItem>> =
         selectedApplications
 

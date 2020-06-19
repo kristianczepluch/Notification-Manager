@@ -18,14 +18,10 @@ import com.example.notificationmanager.utils.Utils
 class SelectRuleAdapter(var selectedRuleType: RuleType, val radioClickListener: RadioClickListener) : RecyclerView.Adapter<SelectRuleAdapter.SelectRuleAdapterViewHolder>() {
 
     val NUMBER_OF_AVAILABLE_RULES = 4
-
     var lastCheckedBox = Utils.ruleTypeToUIPosition(selectedRuleType)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectRuleAdapterViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.select_rule_item, parent, false)
-
-
-
         return SelectRuleAdapterViewHolder(itemView)
     }
 
@@ -33,8 +29,9 @@ class SelectRuleAdapter(var selectedRuleType: RuleType, val radioClickListener: 
 
         holder.titleTextView.text = NotificationManagerApplication.appContext.resources.getStringArray(R.array.rule_names)[position].toString()
         holder.descriptionTextView.text = NotificationManagerApplication.appContext.resources.getStringArray(R.array.rule_descriptions)[position].toString()
+        holder.checkRadioButton.isChecked = lastCheckedBox == position
 
-        if(Utils.ruleTypeToUIPosition(selectedRuleType) == position)holder.checkRadioButton.isChecked = true
+        //Log.d("KristianDEBUG", "onBindViewHolder called: Is checked: ${lastCheckedBox==position}")
 
         when(position){
             0 -> {
@@ -62,10 +59,14 @@ class SelectRuleAdapter(var selectedRuleType: RuleType, val radioClickListener: 
         holder.checkRadioButton.setOnCheckedChangeListener{ _: CompoundButton, b: Boolean ->
             if(b) {
                 radioClickListener.onRadioButtonChecked(position)
-                radioClickListener.onRadioButtonUnchecked(lastCheckedBox)
                 lastCheckedBox = position
             }
         }
+    }
+
+    fun setRuleTypeCheckbox(ruleType: RuleType){
+        lastCheckedBox = Utils.ruleTypeToUIPosition(ruleType)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount() = NUMBER_OF_AVAILABLE_RULES

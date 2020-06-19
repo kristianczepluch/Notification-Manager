@@ -24,17 +24,19 @@ class SelectAppsAdapter (var data: List<SelectApplicationsFragment.SelectAppList
         holder.checkbox.setOnCheckedChangeListener(null)
         super.onViewRecycled(holder)
     }
-
+    
     override fun onBindViewHolder(holder: SelectedAppsViewHolder, position: Int) {
 
-
-        val currentItem = data.get(position)
+        val currentItem = data[position]
 
         holder.checkbox.isChecked = currentItem.selected
-
         holder.checkbox.isFocusable = false
         holder.checkbox.isClickable = false
+        holder.textView.text = Utils.getAppNameFromPackageName(currentItem.packageName)
+        holder.imageView.setImageDrawable(Utils.getAppIconFromPackageName(currentItem.packageName))
 
+        /* If the user tabs on a view we need to also change the underlying data because otherwise
+        *  the view gets recycled and start out blank */
         holder.checkbox.setOnCheckedChangeListener{ _: CompoundButton, selected: Boolean ->
             if(selected) {
                 currentItem.selected = true
@@ -45,26 +47,18 @@ class SelectAppsAdapter (var data: List<SelectApplicationsFragment.SelectAppList
                 appSelectListener.onApplicationUnselected(currentItem.packageName)
             }
         }
-
-        holder.textView.text = Utils.getAppNameFromPackageName(currentItem.packageName)
-        holder.imageView.setImageDrawable(Utils.getAppIconFromPackageName(currentItem.packageName))
-
     }
-
-    fun updateData(newData: ArrayList<SelectApplicationsFragment.SelectAppListItem>){
-        data = newData
-        notifyDataSetChanged()
-    }
-
     override fun getItemCount() = data.size
 
-
     class SelectedAppsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+
+        /* If the user tabs on a view the checkbox state swaps */
         init {
             itemView.setOnClickListener(){
                 checkbox.isChecked = !checkbox.isChecked
             }
         }
+
         val textView = itemView.findViewById<TextView>(R.id.selected_apps_textview)
         val checkbox = itemView.findViewById<CheckBox>(R.id.selected_apps_checkBox)
         val imageView = itemView.findViewById<ImageView>(R.id.selected_apps_imageview)
