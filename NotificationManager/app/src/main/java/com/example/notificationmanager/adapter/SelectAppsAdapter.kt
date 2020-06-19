@@ -24,7 +24,7 @@ class SelectAppsAdapter (var data: List<SelectApplicationsFragment.SelectAppList
         holder.checkbox.setOnCheckedChangeListener(null)
         super.onViewRecycled(holder)
     }
-    
+
     override fun onBindViewHolder(holder: SelectedAppsViewHolder, position: Int) {
 
         val currentItem = data[position]

@@ -1,6 +1,7 @@
 package com.example.notificationmanager.ViewModels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -226,10 +227,18 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     private fun updateNavigationFragment(step: Int) {
+        Log.d("KristianDEBUG", "updateNavigationFragment called with step: $step")
         when (step) {
-            0 -> updateNextButtonStep1(selectedApplications.value!!)
-            1 -> updateNextButtonSelectRuleFragment()
+            0 -> {
+                deactivateCreateButton()
+                updateNextButtonStep1(selectedApplications.value!!)
+            }
+            1 -> {
+                deactivateCreateButton()
+                updateNextButtonSelectRuleFragment()
+            }
             2 -> {
+                deactivateCreateButton()
                 if (selectedRuleType.value == RuleType.SHORT_BREAK) updateNextButtonShortBreakFragment()
                 if (selectedRuleType.value == RuleType.SCHEDULE) updateNextButtonScheduleWeekdayFragment()
                 if (selectedRuleType.value == RuleType.LIMIT_NUMBER) updateNextButtonLimitNumberFragment()
@@ -238,7 +247,10 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
             3 -> {
                 if (selectedRuleType.value == RuleType.SHORT_BREAK) activateCreateButton()
                 if (selectedRuleType.value == RuleType.LIMIT_NUMBER) activateCreateButton()
-                if (selectedRuleType.value == RuleType.SCHEDULE) updateNextButtonScheduleTime()
+                if (selectedRuleType.value == RuleType.SCHEDULE) {
+                    deactivateCreateButton()
+                    updateNextButtonScheduleTime()
+                }
             }
             4 -> if (selectedRuleType.value == RuleType.SCHEDULE) activateCreateButton()
         }
@@ -246,6 +258,10 @@ class RuleWizardViewModel(application: Application) : AndroidViewModel(applicati
 
     private fun activateCreateButton() {
         enableCreateButton.postValue(true)
+    }
+
+    private fun deactivateCreateButton(){
+        enableCreateButton.postValue(false)
     }
 
     private fun updateNextButtonLimitNumberFragment() {

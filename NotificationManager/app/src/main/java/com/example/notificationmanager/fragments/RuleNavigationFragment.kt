@@ -50,8 +50,6 @@ class RuleNavigationFragment : Fragment(R.layout.fragment_rule_navigation) {
             }
         })
 
-
-
         ruleWizardViewModel.getEnableCreateButton().observe(viewLifecycleOwner, Observer{enable ->
             if(enable){
                 nextButton.isClickable = true
