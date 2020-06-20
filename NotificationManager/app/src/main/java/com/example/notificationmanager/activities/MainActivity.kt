@@ -1,6 +1,7 @@
 package com.example.notificationmanager.activities
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -9,16 +10,19 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.notificationmanager.R
+import com.example.notificationmanager.ViewModels.MainActivityViewModel
 import com.example.notificationmanager.fragments.NotificationOverview
 import com.example.notificationmanager.fragments.NotificationRules
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var mainToolbar: Toolbar
     lateinit var viewPager: ViewPager2
     lateinit var myTabLayout: TabLayout
+    private val mainActivityViewModel: MainActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +42,13 @@ class MainActivity : AppCompatActivity() {
                 lifecycle
             )
 
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                mainActivityViewModel.setCurrentPage(position)
+            }
+        })
+
+
         myTabLayout = findViewById(R.id.main_tablayout)
         TabLayoutMediator(myTabLayout, viewPager){ tab, position ->
             when(position){
@@ -47,6 +58,8 @@ class MainActivity : AppCompatActivity() {
         }.attach()
 
     }
+
+
 }
 
 class MainViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager, lifecycle){

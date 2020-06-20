@@ -10,7 +10,7 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tablayout_rulecreation"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/white"
         app:tabBackground="@drawable/tab_selector"
@@ -32,7 +32,7 @@
         android:name="com.example.notificationmanager.fragments.RuleNavigationFragment"
         android:id="@+id/bottomnav_fragment"
         android:layout_width="match_parent"
-        android:layout_height="70sp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:tag="RuleNavigationFragment"
         tools:layout="@layout/fragment_rule_navigation" />

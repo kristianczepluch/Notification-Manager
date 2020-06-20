@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="@string/rule_wizard_select_number_title"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -52,6 +52,15 @@ class NotificationRules : Fragment(R.layout.fragment_notification_rules),
             recyclerViewAdapter.notifyDataSetChanged()
         }
 
+        // if the user navigates aways stop the action mode
+        model.getCurrentPage().observe(viewLifecycleOwner, Observer{step ->
+            if(step!=1 && model.actionMode){
+                actionMode?.finish()
+                recyclerViewAdapter.setActionModeActivated(false)
+                model.actionMode = false
+            }
+        })
+
         fab.setOnClickListener {
             startActivity(Intent(context, RuleWizardActivity::class.java))
         }

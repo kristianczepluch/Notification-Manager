@@ -7,17 +7,17 @@
     tools:context=".fragments.ruleCreation.SelectBreakTimeFragment">
 
 
-        <TextView
-            android:id="@+id/select_rule_break_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/rule_wizard_select_breaktime_title"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/select_rule_break_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rule_wizard_select_breaktime_title"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RelativeLayout
         android:layout_width="wrap_content"

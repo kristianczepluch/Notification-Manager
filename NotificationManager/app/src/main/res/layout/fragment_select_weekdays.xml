@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="@string/rule_wizard_weekday_number_title"
         android:textAlignment="center"
-        android:textSize="24sp" />
+        android:textSize="18sp" />
     
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/weekdays_recyclerview"

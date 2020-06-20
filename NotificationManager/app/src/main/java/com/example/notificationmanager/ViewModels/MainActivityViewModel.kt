@@ -5,6 +5,7 @@ import android.util.SparseBooleanArray
 import androidx.core.util.set
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.notificationmanager.data.DetoxRuleEntity
 import com.example.notificationmanager.data.NotificationListItem
 import com.example.notificationmanager.data.Repository
@@ -14,6 +15,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val repository: Repository by lazy { Repository(application) }
 
     private var notificationsOverviewList: LiveData<List<NotificationListItem>> = getNotifications()
+
+    private val currentPage = MutableLiveData(-1)
+
 
     private val selectedItemIdList: ArrayList<Int> = ArrayList()
     val selectedItems: SparseBooleanArray = SparseBooleanArray()
@@ -44,6 +48,15 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     fun getNotificationOverview() : LiveData<List<NotificationListItem>>{
         return notificationsOverviewList
     }
+
+    fun getCurrentPage(): LiveData<Int>{
+        return currentPage
+    }
+
+    fun setCurrentPage(step: Int){
+        currentPage.postValue(step)
+    }
+
 
     fun getRulesOverview() : LiveData<List<DetoxRuleEntity>>{
         return rulesOverviewList
