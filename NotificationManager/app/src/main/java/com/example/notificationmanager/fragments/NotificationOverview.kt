@@ -24,7 +24,7 @@ class NotificationOverview : Fragment(R.layout.fragment_notification_overview) {
 
         // Setup the recyclerview for the notification overview
         recyclerView = view.findViewById(R.id.notifications_overview_recyclerView)
-        recyclerViewAdapter = Notification_overview_adapter(ArrayList())
+        recyclerViewAdapter = Notification_overview_adapter(ArrayList(),requireContext())
         recyclerView.adapter = recyclerViewAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
 

@@ -149,4 +149,11 @@ object Utils {
         3 -> LimitNumberMode.NOT_SELECTED
         else -> LimitNumberMode.NOT_SELECTED
     }
+
+    @JvmStatic
+    fun millisTimeToString(time: Long): String{
+        val minute: Long = time / (1000 * 60) % 60
+        val hour: Long = time / (1000 * 60 * 60) % 24
+        return String.format("%02d:%02d", hour, minute)
+    }
 }

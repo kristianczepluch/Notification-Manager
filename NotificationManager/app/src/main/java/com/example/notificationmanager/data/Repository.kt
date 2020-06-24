@@ -26,6 +26,10 @@ class Repository(application: Application) {
         }
     }
 
+    fun getNotificationsFromApp(packageName: String, timestamp: Long): LiveData<List<NotificationEntity>> {
+        return notificationDao.getNotificationsFromPackageNameFromTimestamp(timestamp, packageName)
+    }
+
     fun deleteDetoxRule(id: Int){
         DetoxRulesDatabase.databaseWriteExecutor.execute{
             detoxRuleDao.deleteDetoxRuleById(id)

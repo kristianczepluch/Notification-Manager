@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Notification Manager</string>
+    <string name="app_name">Notification Detox</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -26,6 +26,7 @@
 
     <!-- Toolbar Titles -->
     <string name="rule_details_toolbar_title">Details of your rule</string>
+    <string name="notifications_detail_title">Notifications</string>
 
     <!-- Image Descriptions -->
     <string name="app_image_notification">Image of app</string>
@@ -45,6 +46,7 @@
 
     <!-- Rule Wizard Section -->
 
+    <string name="date">10.10.20</string>
     <string name="week">week</string>
     <string name="day">day</string>
     <string name="hour">hour</string>

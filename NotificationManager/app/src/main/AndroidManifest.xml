@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.RuleDetailActivity"></activity>
+        <activity android:name=".activities.NotificationListActivity"></activity>
+        <activity android:name=".activities.RuleDetailActivity" />
         <activity android:name=".activities.RuleWizardActivity" />
         <activity android:name=".activities.PermissionActivity">
             <intent-filter>

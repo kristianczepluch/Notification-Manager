@@ -14,7 +14,6 @@ interface NotificationDao {
     @Query("SELECT packageName, COUNT() FROM NOTIFICATIONS_TABLE WHERE received_time > :timestamp GROUP BY packageName")
     fun getAllNotificationsFromTimestamp(timestamp: Long): LiveData<List<NotificationListItem>>
 
-    // Todo: untested operation
     @Query("SELECT * FROM NOTIFICATIONS_TABLE WHERE received_time > :timestamp AND packageName = :packageNameArg")
     fun getNotificationsFromPackageNameFromTimestamp(timestamp: Long, packageNameArg: String): LiveData<List<NotificationEntity>>
 
