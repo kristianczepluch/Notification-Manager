@@ -10,6 +10,7 @@ import com.example.notificationmanager.data.NotificationEntity
 import com.example.notificationmanager.utils.Utils
 import kotlinx.android.synthetic.main.notification_detail_list_item.view.*
 
+
 class NotificationDetailAdapter(val packageName: String) : RecyclerView.Adapter<NotificationDetailAdapter.NotificationListViewHolder>(){
 
     var data: List<NotificationEntity> = ArrayList()
@@ -26,13 +27,10 @@ class NotificationDetailAdapter(val packageName: String) : RecyclerView.Adapter<
     override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: NotificationListViewHolder, position: Int) {
-
         val currentItem = data[position]
-
         holder.title.text = currentItem.title
         holder.description.text = currentItem.content
-        val timestampString = Utils.millisTimeToString(currentItem.timestampNot)
-        holder.time.text = timestampString
+        holder.time.text = Utils.millisTimeToString(currentItem.timestampNot)
     }
 
     fun updateData(newData: List<NotificationEntity>){
@@ -41,11 +39,8 @@ class NotificationDetailAdapter(val packageName: String) : RecyclerView.Adapter<
     }
 
     class NotificationListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         val title = itemView.notification_detail_titile
         val description = itemView.notification_detail_description
-        val image = itemView.notification_detail_image
         val time = itemView.time_textView
-
     }
 }

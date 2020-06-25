@@ -5,6 +5,9 @@ import android.content.pm.PackageManager
 import com.example.notificationmanager.R
 import com.example.notificationmanager.ViewModels.LimitNumberMode
 import com.example.notificationmanager.ViewModels.RuleType
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
@@ -152,8 +155,7 @@ object Utils {
 
     @JvmStatic
     fun millisTimeToString(time: Long): String{
-        val minute: Long = time / (1000 * 60) % 60
-        val hour: Long = time / (1000 * 60 * 60) % 24
-        return String.format("%02d:%02d", hour, minute)
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+        return (Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).toLocalTime()).format(formatter)
     }
 }
