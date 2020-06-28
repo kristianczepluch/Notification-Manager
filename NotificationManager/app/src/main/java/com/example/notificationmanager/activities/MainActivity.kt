@@ -24,11 +24,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var myTabLayout: TabLayout
     private val mainActivityViewModel: MainActivityViewModel by viewModels()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
 
         // Setup the toolbar
         mainToolbar = findViewById(R.id.main_toolbar)
@@ -44,10 +43,10 @@ class MainActivity : AppCompatActivity() {
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
+                //optionsMenu?.findItem(R.id.time_selection_menu1)?.isVisible = mainActivityViewModel.getCurrentPage().value == 1
                 mainActivityViewModel.setCurrentPage(position)
             }
         })
-
 
         myTabLayout = findViewById(R.id.main_tablayout)
         TabLayoutMediator(myTabLayout, viewPager){ tab, position ->
@@ -58,8 +57,6 @@ class MainActivity : AppCompatActivity() {
         }.attach()
 
     }
-
-
 }
 
 class MainViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager, lifecycle){

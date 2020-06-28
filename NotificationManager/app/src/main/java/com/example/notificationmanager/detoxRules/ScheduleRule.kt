@@ -92,7 +92,6 @@ class ScheduleRule : DetoxRule() {
         val hh = Calendar.getInstance()[Calendar.HOUR_OF_DAY]
         val mm = Calendar.getInstance()[Calendar.MINUTE]
         val curr = hh * 60 + mm
-        val dow = Calendar.getInstance()[Calendar.DAY_OF_WEEK]
         return if (start <= end) {
             // normal case when start time and end time are in the same day
             (end - curr) * 60 * 1000
@@ -127,18 +126,18 @@ class ScheduleRule : DetoxRule() {
         if (this === other) return true
         if (!super.equals(other)) return false
         if (javaClass != other.javaClass) return false
-        val other: ScheduleRule = other as ScheduleRule
-        if (fr !== other.fr) return false
-        if (hh1 !== other.hh1) return false
-        if (hh2 !== other.hh2) return false
-        if (mm1 !== other.mm1) return false
-        if (mm2 !== other.mm2) return false
-        if (mo !== other.mo) return false
-        if (sa !== other.sa) return false
-        if (su !== other.su) return false
-        if (th !== other.th) return false
-        if (tu !== other.tu) return false
-        return if (we !== other.we) false else true
+        val others: ScheduleRule = other as ScheduleRule
+        if (fr != others.fr) return false
+        if (hh1 != others.hh1) return false
+        if (hh2 != others.hh2) return false
+        if (mm1 != others.mm1) return false
+        if (mm2 != others.mm2) return false
+        if (mo != others.mo) return false
+        if (sa != others.sa) return false
+        if (su != others.su) return false
+        if (th != others.th) return false
+        if (tu != others.tu) return false
+        return if (we != others.we) false else true
     }
 
     override fun hashCode(): Int {

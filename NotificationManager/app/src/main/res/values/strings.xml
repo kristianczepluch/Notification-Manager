@@ -27,6 +27,11 @@
     <!-- Toolbar Titles -->
     <string name="rule_details_toolbar_title">Details of your rule</string>
     <string name="notifications_detail_title">Notifications</string>
+    <string name="menu_today">today</string>
+    <string name="menu_weeky">this week</string>
+    <string name="menu_month">this month</string>
+    <string name="menu_select_time">Select Time</string>
+
 
     <!-- Image Descriptions -->
     <string name="app_image_notification">Image of app</string>

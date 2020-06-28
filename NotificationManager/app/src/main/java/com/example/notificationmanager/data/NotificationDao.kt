@@ -11,7 +11,7 @@ interface NotificationDao {
     @Insert
     fun insertNotification(notification: NotificationEntity)
 
-    @Query("SELECT packageName, COUNT() FROM NOTIFICATIONS_TABLE WHERE received_time > :timestamp GROUP BY packageName")
+    @Query("SELECT packageName, COUNT() FROM NOTIFICATIONS_TABLE WHERE received_time > :timestamp GROUP BY packageName ORDER BY COUNT() DESC")
     fun getAllNotificationsFromTimestamp(timestamp: Long): LiveData<List<NotificationListItem>>
 
     @Query("SELECT * FROM NOTIFICATIONS_TABLE WHERE received_time > :timestamp AND packageName = :packageNameArg")
@@ -20,7 +20,6 @@ interface NotificationDao {
     @Query("DELETE FROM notifications_table")
     fun deleteAllNotifications()
 
-    // Todo: untested operation
     @Query("SELECT * FROM NOTIFICATIONS_TABLE ")
     fun getAllNotifications(): LiveData<List<NotificationEntity>>
 

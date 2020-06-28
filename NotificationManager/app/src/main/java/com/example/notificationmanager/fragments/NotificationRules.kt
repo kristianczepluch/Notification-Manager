@@ -38,6 +38,8 @@ class NotificationRules : Fragment(R.layout.fragment_notification_rules),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setHasOptionsMenu(false)
+
         fab = view.findViewById(R.id.rules_floating_action_button)
         recyclerView = view.findViewById(R.id.rules_recyclerView)
         recyclerViewAdapter = RulesOverviewAdapter(ArrayList(), this)

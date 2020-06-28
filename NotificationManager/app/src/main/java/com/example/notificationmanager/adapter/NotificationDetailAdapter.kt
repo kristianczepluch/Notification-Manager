@@ -15,7 +15,6 @@ class NotificationDetailAdapter(val packageName: String) : RecyclerView.Adapter<
 
     var data: List<NotificationEntity> = ArrayList()
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationListViewHolder {
 
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.notification_detail_list_item, parent, false)

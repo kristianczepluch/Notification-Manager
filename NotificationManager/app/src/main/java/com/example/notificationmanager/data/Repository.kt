@@ -36,6 +36,10 @@ class Repository(application: Application) {
         }
     }
 
+    fun getNotificationsFromTimeStamp(timestamp: Long): LiveData<List<NotificationListItem>>{
+        return notificationDao.getAllNotificationsFromTimestamp(timestamp)
+    }
+
     fun updateDetoxRule(detoxRule: DetoxRuleEntity){
         DetoxRulesDatabase.databaseWriteExecutor.execute{
             detoxRuleDao.updateDetoxRule(detoxRule)

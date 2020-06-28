@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+        <item
+            android:id="@+id/time_selection_menu1"
+            android:icon="@drawable/ic_access_time_white_24dp"
+            android:orderInCategory="1"
+            android:title=""
+            app:showAsAction="always">
+            <menu>
+                <group android:checkableBehavior="single" >
+                <item
+                    android:id="@+id/time_selection_today"
+                    android:title="@string/menu_today" />
+                <item
+                    android:id="@+id/time_selection_week"
+                    android:title="@string/menu_weeky" />
+                <item
+                    android:id="@+id/time_selection_month"
+                    android:title="@string/menu_month" />
+                </group>
+            </menu>
+        </item>
+</menu>

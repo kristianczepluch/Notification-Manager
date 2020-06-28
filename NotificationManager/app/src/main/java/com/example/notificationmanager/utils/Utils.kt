@@ -1,7 +1,9 @@
 package com.example.notificationmanager.utils
 
 import android.content.Intent
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import com.example.notificationmanager.R
 import com.example.notificationmanager.ViewModels.LimitNumberMode
 import com.example.notificationmanager.ViewModels.RuleType
@@ -16,14 +18,25 @@ import kotlin.collections.ArrayList
 object Utils {
 
     @JvmStatic
-    fun getAppIconFromPackageName(packageName: String) =
-        NotificationManagerApplication.appContext.packageManager.getApplicationIcon(packageName)
+    fun getAppIconFromPackageName(packageName: String): Drawable? {
+        return try{
+            NotificationManagerApplication.appContext.packageManager.getApplicationIcon(packageName)
+        }   catch (e: Exception){
+            null
+        }
+    }
+
 
 
     @JvmStatic
     fun getAppNameFromPackageName(packageName: String): String {
         val pm = NotificationManagerApplication.appContext.packageManager
-        val appInfo = pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
+        val appInfo: ApplicationInfo?
+        try{
+            appInfo = pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
+        } catch(e: Exception){
+            return "not_found"
+        }
         var resolvedAppName: String = appInfo.loadLabel(pm).toString()
         try {
             if (resolvedAppName.equals(packageName)) {
@@ -157,5 +170,22 @@ object Utils {
     fun millisTimeToString(time: Long): String{
         val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
         return (Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).toLocalTime()).format(formatter)
+    }
+    @JvmStatic
+    fun timeFilterToTimestamp(filter: Int): Long {
+        return when (filter) {
+            0 -> getTodayDate().timeInMillis
+            1 -> {
+                val calendar = Calendar.getInstance()
+                calendar.add(Calendar.DAY_OF_YEAR, -7)
+                calendar.timeInMillis
+            }
+            2 -> {
+                val calendar = Calendar.getInstance()
+                calendar.add(Calendar.DAY_OF_YEAR, -30)
+                calendar.timeInMillis
+            }
+            else -> throw Exception("timeFilter to timestamp failed")
+        }
     }
 }
