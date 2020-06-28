@@ -1,6 +1,9 @@
 package com.example.notificationmanager.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -22,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var mainToolbar: Toolbar
     lateinit var viewPager: ViewPager2
     lateinit var myTabLayout: TabLayout
+    private var doubleBackToExitPressedOnce = false
     private val mainActivityViewModel: MainActivityViewModel by viewModels()
 
 
@@ -56,6 +60,19 @@ class MainActivity : AppCompatActivity() {
             }
         }.attach()
 
+    }
+
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            val homeIntent = Intent(Intent.ACTION_MAIN)
+            homeIntent.addCategory(Intent.CATEGORY_HOME)
+            homeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(homeIntent)
+        } else {
+            this.doubleBackToExitPressedOnce = true
+            Toast.makeText(this, getString(R.string.tab_to_exit), Toast.LENGTH_SHORT).show()
+            Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
+        }
     }
 }
 

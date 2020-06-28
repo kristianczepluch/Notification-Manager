@@ -107,6 +107,7 @@
     <string name="tab_for_time">Tab for time</string>
     <string name="menu_most">order by number</string>
     <string name="menu_name">order by app</string>
+    <string name="tab_to_exit">Tab again to exit</string>
 
 
     <!-- Rule Wizard Rule Descriptions-->
