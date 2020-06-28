@@ -105,6 +105,8 @@
     <string name="notSelected">Not Selected</string>
     <string name="rule_wizard_weekday_number_title">Select weekdays</string>
     <string name="tab_for_time">Tab for time</string>
+    <string name="menu_most">order by number</string>
+    <string name="menu_name">order by app</string>
 
 
     <!-- Rule Wizard Rule Descriptions-->

@@ -15,11 +15,13 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     private val repository: Repository by lazy { Repository(application) }
 
-    private var notificationsOverviewList: LiveData<List<NotificationListItem>> = getNotifications()
+    private var notificationsOverviewList: LiveData<List<NotificationListItem>> = getNotifications(0, 0)
 
     private val currentPage = MutableLiveData(-1)
 
     private val currentTimeFilter = MutableLiveData(0)
+
+    private val currentOrder = MutableLiveData(0)
 
 
     private val selectedItemIdList: ArrayList<Int> = ArrayList()
@@ -48,12 +50,9 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         else selectedItemIdList.remove(id)
     }
 
-    fun getNotificationOverview(): LiveData<List<NotificationListItem>> {
-        return notificationsOverviewList
-    }
 
-    fun getNotificationsWithTimefilter(filter: Int): LiveData<List<NotificationListItem>> {
-        return repository.getNotificationsFromTimeStamp(Utils.timeFilterToTimestamp(filter))
+    fun getNotifications(filter: Int, order: Int): LiveData<List<NotificationListItem>> {
+        return repository.getNotificationFromTimeStampWithOrder(Utils.timeFilterToTimestamp(filter), order)
     }
 
     fun getCurrentPage(): LiveData<Int> {
@@ -72,12 +71,18 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         currentTimeFilter.postValue(filter)
     }
 
+    fun setCurrentOrder(order: Int) {
+        currentOrder.postValue(order)
+    }
+
+    fun getCurrentOrder(): LiveData<Int> {
+        return currentOrder
+    }
+
     fun getRulesOverview(): LiveData<List<DetoxRuleEntity>> {
         return rulesOverviewList
     }
 
-
-    private fun getNotifications() = repository.getAllNotificationsFromToday()
     private fun getRules() = repository.getAllRules()
 
 }

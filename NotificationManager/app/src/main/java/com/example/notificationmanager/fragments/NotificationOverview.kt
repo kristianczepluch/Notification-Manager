@@ -25,13 +25,16 @@ class NotificationOverview : Fragment(R.layout.fragment_notification_overview) {
 
     // Instance State Keys
     private val TIME_FILTER_STATE = "time_filter"
+    private val ORDER_FILTER_STATE = "order_filter"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         if(savedInstanceState != null){
             val timeFilterState = savedInstanceState.getInt(TIME_FILTER_STATE)
+            val orderFilterState = savedInstanceState.getInt(ORDER_FILTER_STATE)
             model.setCurrentTimeFilter(timeFilterState)
+            model.setCurrentOrder(orderFilterState)
         }
 
         // Setup the recyclerview for the notification overview
@@ -44,9 +47,21 @@ class NotificationOverview : Fragment(R.layout.fragment_notification_overview) {
 
         model.getCurrentTimeFilter().observe(viewLifecycleOwner, Observer{timefilter ->
             myData?.removeObservers(viewLifecycleOwner)
-            myData = model.getNotificationsWithTimefilter(timefilter)
+            myData = model.getCurrentOrder().value?.let { model.getNotifications(timefilter, it) }
             myData?.observe(viewLifecycleOwner, Observer {
                 recyclerViewAdapter.setData(it, timefilter)
+            })
+        })
+
+        model.getCurrentOrder().observe(viewLifecycleOwner, Observer { order ->
+            myData?.removeObservers(viewLifecycleOwner)
+            myData = model.getCurrentTimeFilter().value?.let { model.getNotifications(it, order) }
+            myData?.observe(viewLifecycleOwner, Observer {
+                model.getCurrentTimeFilter().value?.let { it1 ->
+                    recyclerViewAdapter.setData(it,
+                        it1
+                    )
+                }
             })
         })
     }
@@ -65,7 +80,9 @@ class NotificationOverview : Fragment(R.layout.fragment_notification_overview) {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         val currentTimeFilter = model.getCurrentTimeFilter().value
+        val currentOrder = model.getCurrentOrder().value
         if(currentTimeFilter != null){ outState.putInt(TIME_FILTER_STATE, currentTimeFilter)}
+        if(currentOrder != null){ outState.putInt(ORDER_FILTER_STATE, currentOrder)}
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -83,6 +100,16 @@ class NotificationOverview : Fragment(R.layout.fragment_notification_overview) {
             R.id.time_selection_month -> {
                 item.isChecked = true
                 model.setCurrentTimeFilter(2)
+                true
+            }
+            R.id.filter_selection_most -> {
+                item.isChecked = true
+                model.setCurrentOrder(0)
+                true
+            }
+            R.id.filter_selection_name -> {
+                item.isChecked = true
+                model.setCurrentOrder(1)
                 true
             }
             else -> false
