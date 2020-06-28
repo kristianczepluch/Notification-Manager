@@ -171,6 +171,13 @@ object Utils {
         val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
         return (Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).toLocalTime()).format(formatter)
     }
+
+    @JvmStatic
+    fun millisTimeToDateString(time: Long): String{
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.YYYY")
+        return (Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).toLocalDate()).format(formatter)
+    }
+
     @JvmStatic
     fun timeFilterToTimestamp(filter: Int): Long {
         return when (filter) {

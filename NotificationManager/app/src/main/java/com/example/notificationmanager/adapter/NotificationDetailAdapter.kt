@@ -29,7 +29,8 @@ class NotificationDetailAdapter(val packageName: String) : RecyclerView.Adapter<
         val currentItem = data[position]
         holder.title.text = currentItem.title
         holder.description.text = currentItem.content
-        holder.time.text = Utils.millisTimeToString(currentItem.timestampNot)
+        holder.time.text = Utils.millisTimeToString(currentItem.received_time)
+        holder.date.text = Utils.millisTimeToDateString(currentItem.received_time)
     }
 
     fun updateData(newData: List<NotificationEntity>){
@@ -41,5 +42,6 @@ class NotificationDetailAdapter(val packageName: String) : RecyclerView.Adapter<
         val title = itemView.notification_detail_titile
         val description = itemView.notification_detail_description
         val time = itemView.time_textView
+        val date = itemView.date_textView
     }
 }

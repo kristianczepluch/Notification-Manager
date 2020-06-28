@@ -11,7 +11,7 @@ interface NotificationDao {
     @Insert
     fun insertNotification(notification: NotificationEntity)
 
-    @Query("SELECT * FROM NOTIFICATIONS_TABLE WHERE received_time > :timestamp AND packageName = :packageNameArg")
+    @Query("SELECT * FROM NOTIFICATIONS_TABLE WHERE received_time > :timestamp AND packageName = :packageNameArg ORDER BY received_time DESC")
     fun getNotificationsFromPackageNameFromTimestamp(timestamp: Long, packageNameArg: String): LiveData<List<NotificationEntity>>
 
     @Query("DELETE FROM notifications_table")
